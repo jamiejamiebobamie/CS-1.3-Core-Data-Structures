@@ -110,6 +110,7 @@ def convert(digits, base1, base2):
     lookupToHex = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
     lookupFromHex = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
+    #this function is broken.
     if base1 == 2 and base2 == 16:
         myArray = []
         result = ""
@@ -124,7 +125,7 @@ def convert(digits, base1, base2):
         #encoding a zero in hex isn't working. it's returning an empty string
         result+=encode(decode(digits[last:len(digits)], base1), base2)
         # print(digits[last:len(digits)])
-        return ''.join(str(result))
+        return ''.join(reversed(str(result)))
 
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     if base1 == 2 and base2 == 10:
@@ -160,5 +161,5 @@ if __name__ == '__main__':
 
 
 print(convert('1100100001000000', 2, 16))
-
+#assert convert('101010', 2, 16) == '2a'
 #assert convert('1100 1000 0100 0000', 2, 16) == 'c840'
