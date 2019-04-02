@@ -47,8 +47,6 @@ def decode(digits, base):
                 raise IndexError()
         return result
 
-
-
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
     number: int -- integer representation of number (in base 10)
@@ -59,7 +57,7 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
 
-    result = ""
+    result = 0
 
     # an array for popping the least significant bit.
     # digits_array = list(number)
@@ -76,37 +74,39 @@ def encode(number, base):
         return ''.join(reversed(result))
 
     # TODO: Encode digits to hexadecimal (base 16)
-    elif base == 16:
+    if base == 16:
+        while number:
+            result+=number % base
+            print(result)
+            number = number // base
+        return ''.join(reversed(str(result))
         # hex code lookup table.
-        lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
-
-        array_numbers = list(str(number))
-        i = -1
-        lookup_index = array_numbers.pop(i)
-
-        while array_numbers:
-            while lookup_index in lookup:
-                i -= 1
-                lookup_index += array_numbers.pop(i)
-            else:
-                print(len(array_numbers),i,lookup_index)
-                if len(array_numbers) > 1:
-                    result+=lookup[lookup_index[:-1]]
-                else:
-                    result+=lookup[array_numbers[0]]
-                    # print(result)
-
-        return ''.join(reversed(result))
+        # lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
+        #
+        # array_numbers = list(str(number)) # '100'
+        # lookup_index = array_numbers.pop() # '0'
+        # test = lookup_index
+        # while array_numbers:
+        #     while test in lookup:
+        #         lookup_index = test
+        #         test += array_numbers.pop()
+        #         print(test, lookup_index, array_numbers)
+        #     else:
+        #         result+=lookup[lookup_index]
+        #         test = test[-1]
+        # else:
+        #     result+=lookup[test[-1]]
+        # return result
 
 
     # TODO: Encode number in any base (2 up to 36)
-    else:
-        for i, character in enumerate(reversed(number)):
-            if lookup[number] < base:
-                result += lookup[digits_array.pop()]*base**i
-            else:
-                raise IndexError()
-        return result
+    # else:
+    #     for i, character in enumerate(reversed(number)):
+    #         if lookup[number] < base:
+    #             result += lookup[digits_array.pop()]*base**i
+    #         else:
+    #             raise IndexError()
+    #     return result
 
 print(encode(100,16))
 
