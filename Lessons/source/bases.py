@@ -17,7 +17,7 @@ def decode(digits, base):
     # an array for popping the least significant bit.
     digits_array = list(digits)
 
-    # hex code lookup table.
+    # hex code lookup table. note: need to have it go to 35...
     lookup = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
 
     for i, number in enumerate(reversed(digits)):
@@ -36,6 +36,8 @@ def encode(number, base):
 
     result = ''
 
+    # in case the input is from the decode function
+    # which outputs a string:
     number = int(number)
 
     lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f', '16':'g', '17':'h', '18':'i', '19':'j', '20':'k', '21':'l', '22':'m', '23':'n', '24':'o', '25':'p', '26':'q', '27':'r', '28':'s', '29':'t', '30':'u', '31':'v', '32':'w', '33':'x', '34':'y', '35':'z'}
