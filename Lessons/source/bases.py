@@ -61,7 +61,7 @@ def encode(number, base):
 
     number = int(number)
 
-    lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
+    lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f', '16':'g', '17':'h', '18':'i', '19':'j', '20':'k', '21':'l', '22':'m', '23':'n', '24':'o', '25':'p', '26':'q', '27':'r', '28':'s', '29':'t', '30':'u', '31':'v', '32':'w', '33':'x', '34':'y', '35':'z'}
 
     # TODO: Encode digits to binary (base 2)
     if base == 2:
@@ -88,11 +88,12 @@ def encode(number, base):
     #Functio
     else:
         while number:
-            remainder=number % base
+            remainder = number % base
+            print(remainder, number)
             if remainder < 9:
-                result+=str(str(remainder))
+                result+=str(remainder)
             else:
-                result+=str(lookup[str(remainder)]).upper()
+                result+=str(lookup[str(remainder)])
             number = number // base
         return ''.join(reversed(str(result)))
 
@@ -112,20 +113,25 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
     #this function is broken.
     if base1 == 2 and base2 == 16:
-        myArray = []
-        result = ""
-        last = 0
-        for _ in range(0, len(digits)-1, 4):
-            # print(digits[last:_])
-            result+=encode(decode(digits[last:_], base1), base2)
-            last = _
-        heya = decode(digits[last:len(digits)], base1)
-        goodbye = encode(heya, base2)
-        print(heya,goodbye)
-        #encoding a zero in hex isn't working. it's returning an empty string
-        result+=encode(decode(digits[last:len(digits)], base1), base2)
-        # print(digits[last:len(digits)])
-        return ''.join(reversed(str(result)))
+        return str(encode(decode(digits, base1), base2))
+
+        #DON'T DELETE
+    #this function is broken.
+    # if base1 == 2 and base2 == 16:
+        # myArray = []
+        # result = ""
+        # last = 0
+        # for _ in range(0, len(digits)-1, 4):
+        #     # print(digits[last:_])
+        #     result+=encode(decode(digits[last:_], base1), base2)
+        #     last = _
+        # heya = decode(digits[last:len(digits)], base1)
+        # goodbye = encode(heya, base2)
+        # print(heya,goodbye)
+        # #encoding a zero in hex isn't working. it's returning an empty string
+        # result+=encode(decode(digits[last:len(digits)], base1), base2)
+        # # print(digits[last:len(digits)])
+        # return ''.join(reversed(str(result)))
 
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     if base1 == 2 and base2 == 10:
@@ -159,7 +165,8 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-print(convert('1100100001000000', 2, 16))
+print(encode(248975, 25))
+# print(convert('1100100001000000', 2, 16))
+# assert encode(248975, 25) == 'fn90'
 #assert convert('101010', 2, 16) == '2a'
 #assert convert('1100 1000 0100 0000', 2, 16) == 'c840'
