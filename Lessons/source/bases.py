@@ -64,26 +64,40 @@ def encode(number, base):
     # an array for popping the least significant bit.
     # digits_array = list(number)
 
-    # hex code lookup table.
-    lookup = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
-
-    i = 0
 
     # TODO: Encode digits to binary (base 2)
     if base == 2:
         while number:
-            if number % 2:
+            if number % base:
                 result +='1'
             else:
                 result+="0"
-            number = number // 2
+            number = number // base
         return ''.join(reversed(result))
 
     # TODO: Encode digits to hexadecimal (base 16)
     elif base == 16:
-        for i, character in enumerate(reversed(number)):
-            result += lookup[digits_array.pop()]*base**i
-        return result
+        # hex code lookup table.
+        lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
+
+        array_numbers = list(str(number))
+        i = -1
+        lookup_index = array_numbers.pop(i)
+
+        while array_numbers:
+            while lookup_index in lookup:
+                i -= 1
+                lookup_index += array_numbers.pop(i)
+            else:
+                print(len(array_numbers),i,lookup_index)
+                if len(array_numbers) > 1:
+                    result+=lookup[lookup_index[:-1]]
+                else:
+                    result+=lookup[array_numbers[0]]
+                    # print(result)
+
+        return ''.join(reversed(result))
+
 
     # TODO: Encode number in any base (2 up to 36)
     else:
@@ -94,7 +108,7 @@ def encode(number, base):
                 raise IndexError()
         return result
 
-
+print(encode(100,16))
 
 
 def convert(digits, base1, base2):
