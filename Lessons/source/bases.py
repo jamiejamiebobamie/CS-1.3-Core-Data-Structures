@@ -1,13 +1,7 @@
 #!python
 
 import string
-# Hint: Use these string constants to encode/decode hexadecimal digits and more
-# string.digits is '0123456789'
-# string.hexdigits is '0123456789abcdefABCDEF'
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
-# string.printable is digits + ascii_letters + punctuation + whitespace
+
 
 
 def decode(digits, base):
@@ -26,26 +20,9 @@ def decode(digits, base):
     # hex code lookup table.
     lookup = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
 
-    # TODO: Decode digits from binary (base 2)
-    if base == 2:
-        for i, number in enumerate(reversed(digits)):
-            result += int(digits_array.pop()) * base**i
-        return result
-
-    # TODO: Decode digits from hexadecimal (base 16)
-    elif base == 16:
-        for i, number in enumerate(reversed(digits)):
-            result += lookup[digits_array.pop()]*base**i
-        return result
-
-    # TODO: Encode number in any base (2 up to 36)
-    else:
-        for i, number in enumerate(reversed(digits)):
-            if lookup[number] < base:
-                result += lookup[digits_array.pop()]*base**i
-            else:
-                raise IndexError()
-        return result
+    for i, number in enumerate(reversed(digits)):
+        result += lookup[digits_array.pop()]*base**i
+    return result
 
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
@@ -63,38 +40,11 @@ def encode(number, base):
 
     lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f', '16':'g', '17':'h', '18':'i', '19':'j', '20':'k', '21':'l', '22':'m', '23':'n', '24':'o', '25':'p', '26':'q', '27':'r', '28':'s', '29':'t', '30':'u', '31':'v', '32':'w', '33':'x', '34':'y', '35':'z'}
 
-    # TODO: Encode digits to binary (base 2)
-    if base == 2:
-        while number:
-            if number % base:
-                result +='1'
-            else:
-                result+="0"
-            number = number // base
-        return ''.join(reversed(result))
-
-    # TODO: Encode digits to hexadecimal (base 16)
-    elif base == 16:
-        while number:
-            remainder = number % base
-            if remainder < 9:
-                result+=str(str(remainder))
-            else:
-                result+=str(lookup[str(remainder)])
-            number = number // base
-        return ''.join(reversed(str(result)))
-
-    # TODO: Encode digits to any base (2 up to 36)
-    else:
-        while number:
-            remainder = number % base
-            print(remainder, number)
-            if remainder < 9:
-                result+=str(remainder)
-            else:
-                result+=str(lookup[str(remainder)])
-            number = number // base
-        return ''.join(reversed(str(result)))
+    while number:
+        remainder = number % base
+        result+=str(lookup[str(remainder)])
+        number = number // base
+    return ''.join(reversed(str(result)))
 
 
 def convert(digits, base1, base2):
@@ -107,16 +57,12 @@ def convert(digits, base1, base2):
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
 
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    if base1 == 2 and base2 == 16:
-        return str(encode(decode(digits, base1), base2))
-
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     if base1 == 2 and base2 == 10:
         return str(decode(digits, base1))
 
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    if base1 == 10 and base2 == 16:
+    elif base1 == 10 and base2 == 16:
         return str(encode(digits, base2))
 
     # TODO: Convert digits from any base to any base (2 up to 36)
@@ -142,9 +88,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-print(encode(248975, 25))
-# print(convert('1100100001000000', 2, 16))
-# assert encode(248975, 25) == 'fn90'
-#assert convert('101010', 2, 16) == '2a'
-#assert convert('1100 1000 0100 0000', 2, 16) == 'c840'
