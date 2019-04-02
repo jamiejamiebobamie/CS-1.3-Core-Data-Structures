@@ -85,7 +85,6 @@ def encode(number, base):
         return ''.join(reversed(str(result)))
 
     # TODO: Encode digits to any base (2 up to 36)
-    #Functio
     else:
         while number:
             remainder = number % base
@@ -108,30 +107,9 @@ def convert(digits, base1, base2):
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
 
-    lookupToHex = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
-    lookupFromHex = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    #this function is broken.
     if base1 == 2 and base2 == 16:
         return str(encode(decode(digits, base1), base2))
-
-        #DON'T DELETE
-    #this function is broken.
-    # if base1 == 2 and base2 == 16:
-        # myArray = []
-        # result = ""
-        # last = 0
-        # for _ in range(0, len(digits)-1, 4):
-        #     # print(digits[last:_])
-        #     result+=encode(decode(digits[last:_], base1), base2)
-        #     last = _
-        # heya = decode(digits[last:len(digits)], base1)
-        # goodbye = encode(heya, base2)
-        # print(heya,goodbye)
-        # #encoding a zero in hex isn't working. it's returning an empty string
-        # result+=encode(decode(digits[last:len(digits)], base1), base2)
-        # # print(digits[last:len(digits)])
-        # return ''.join(reversed(str(result)))
 
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     if base1 == 2 and base2 == 10:
