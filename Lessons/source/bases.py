@@ -108,23 +108,28 @@ def convert(digits, base1, base2):
     lookupToHex = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f'}
     lookupFromHex = { '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15, 'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15}
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
-
-    # '101'
-    # if base1 == 2 and base2 == 16:
+    if base1 == 2 and base2 == 16:
         myArray = []
-
+        result = ""
         last = 0
         for _ in range(0, len(digits)-1, 4):
-            print(last,_,digits[last:_])
+            if digits[last:_]:
+                result+=encode(decode(digits[last:_], base1), base2)
             last = _
-        print(last,len(digits)-1,digits[last:len(digits)])
+        result+=encode(decode(digits[last:len(digits)], base1), base2)
+        return ''.join(reversed(str(result)))
 
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
+    if base1 == 2 and base2 == 10:
+        return decode(digits, base1)
+
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
+    if base1 == 10 and base2 == 16:
+        return encode(digits, base2)
+
     # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    else:
+        return encode(decode(digits, base1), base2)
 
 
 def main():
@@ -147,4 +152,4 @@ if __name__ == '__main__':
     main()
 
 
-print(convert('ThisFourPark', 2, 16))
+print(convert('1010', 2, 8))
