@@ -36,18 +36,20 @@ def encode(number, base):
 
     result = ''
 
-    # in case the input is from the decode function
-    # which outputs a string:
+    # I get an error from the tests without the below line:
+    # convert() function below takes a string type...
     number = int(number)
+    # ERROR:
+    #     remainder = number % base
+    # TypeError: not all arguments converted during string formatting
 
     lookup = { '0':'0',  '1':'1',  '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'A', '11':'B', '12': 'C', '13':'D', '14':'E', '15':'F', '10':'a', '11':'b', '12':'c', '13':'d', '14':'e', '15':'f', '16':'g', '17':'h', '18':'i', '19':'j', '20':'k', '21':'l', '22':'m', '23':'n', '24':'o', '25':'p', '26':'q', '27':'r', '28':'s', '29':'t', '30':'u', '31':'v', '32':'w', '33':'x', '34':'y', '35':'z'}
 
     while number:
         remainder = number % base
-        result+=str(lookup[str(remainder)])
+        result+=lookup[str(remainder)]
         number = number // base
-    return ''.join(reversed(str(result)))
-
+    return ''.join(reversed(result))
 
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
@@ -65,11 +67,11 @@ def convert(digits, base1, base2):
 
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     elif base1 == 10 and base2 == 16:
-        return str(encode(digits, base2))
+        return encode(digits, base2)
 
     # TODO: Convert digits from any base to any base (2 up to 36)
     else:
-        return str(encode(decode(digits, base1), base2))
+        return encode(decode(digits, base1), base2)
 
 
 def main():
