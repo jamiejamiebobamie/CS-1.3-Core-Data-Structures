@@ -49,6 +49,7 @@ def encode(number, base):
         remainder = number % base
         result+=lookup[str(remainder)]
         number = number // base
+    #resturn result[::-1] # does the same thing.
     return ''.join(reversed(result))
 
 def convert(digits, base1, base2):
