@@ -3,6 +3,11 @@
 def factorial(n):
     """factorial(n) returns the product of the integers 1 through n for n >= 0,
     otherwise raises ValueError for n < 0 or non-integer n"""
+    __recursion(i):
+        result = 1
+        for _ in range(n-i):
+            result=*_
+        return result
     # check if n is negative or not an integer (invalid input)
     if not isinstance(n, int) or n < 0:
         raise ValueError('factorial is undefined for n = {}'.format(n))
