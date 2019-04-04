@@ -35,7 +35,7 @@ class BinaryTreeNode(object):
         elif self.right:
             self.right = self.right
             height +=1
-        return heigth+1
+        return height+1
         # ...
         # TODO: Check if right child has a value and if so calculate its height
         # ...
@@ -75,7 +75,7 @@ class BinarySearchTree(object):
             elif self.root.right:
                 self.root.right = self.root.right
                 height +=1
-        return heigth+1
+        return height+1
 
         # ...
 
@@ -155,21 +155,26 @@ class BinarySearchTree(object):
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
         # Check if starting node exists
+        next = node
         if node is None:
             # Not found (base case)
             return None
         # TODO: Check if the given item matches the node's data
-        elif node.data == item:
+        if node.data == item:
             # Return the found node
             return node
         # TODO: Check if the given item is less than the node's data
         elif item < node.data:
+            print("left " + str(next.data))
             # TODO: Recursively descend to the node's left child, if it exists
-            return self._find_node_recursive(item, node.left)
+            next = node.left
+            self._find_node_recursive(item, next)
         # TODO: Check if the given item is greater than the node's data
         elif item > node.data:
+            print("right " + str(next.data))
             # TODO: Recursively descend to the node's right child, if it exists
-            return self._find_node_recursive(item, node.right)
+            next = node.right
+            self._find_node_recursive(item, next)
 
     def _find_parent_node_iterative(self, item):
         """Return the parent node of the node containing the given item
@@ -198,6 +203,7 @@ class BinarySearchTree(object):
                 parent = node
                 node = node.right
         # Not found
+        print("parent "+parent)
         return parent
 
     def _find_parent_node_recursive(self, item, node, parent=None):
