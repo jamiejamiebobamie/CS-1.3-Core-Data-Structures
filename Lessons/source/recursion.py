@@ -3,28 +3,31 @@
 def factorial(n):
     """factorial(n) returns the product of the integers 1 through n for n >= 0,
     otherwise raises ValueError for n < 0 or non-integer n"""
-    __recursion(i):
-        result = 1
-        for _ in range(n-i):
-            result=*_
-        return result
+
     # check if n is negative or not an integer (invalid input)
     if not isinstance(n, int) or n < 0:
         raise ValueError('factorial is undefined for n = {}'.format(n))
     # implement factorial_iterative and factorial_recursive below, then
     # change this to call your implementation to verify it passes all tests
     # return factorial_iterative(n)
-    return factorial_recursive(n)
+    return factorial_iterative(n)
 
 
 def factorial_iterative(n):
     # TODO: implement the factorial function iteratively here
-    pass
+    result = 1
+    while n:
+        result*=n
+        n-=1
+        # print(n,result)
+    return result
+    # pass
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests
 
 
 def factorial_recursive(n):
+
     # check if n is one of the base cases
     if n == 0 or n == 1:
         return 1
@@ -32,7 +35,6 @@ def factorial_recursive(n):
     elif n > 1:
         # call function recursively
         return n * factorial_recursive(n - 1)
-
 
 def main():
     import sys
