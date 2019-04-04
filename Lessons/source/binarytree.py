@@ -96,7 +96,8 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # TODO: Return the node's data if found, or None
-        return node.data if node.data == item else None
+        if node:
+            return node.data
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
@@ -112,11 +113,11 @@ class BinarySearchTree(object):
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
-        if parent.data < item:
+        if parent and parent.data < item:
             # TODO: Create a new node and set the parent's left child
             parent.left = BinaryTreeNode(item)
         # TODO: Check if the given item should be inserted right of parent node
-        elif parent.data > item:
+        elif parent and parent.data > item:
             # TODO: Create a new node and set the parent's right child
             parent.right = BinaryTreeNode(item)
         # TODO: Increase the tree size
@@ -216,33 +217,46 @@ class BinarySearchTree(object):
         # TODO: Check if the given item is less than the node's data
         elif item < node.data:
             # TODO: Recursively descend to the node's left child, if it exists
-            return _find_parent_node_recursive(self, item, node.left, node) # Hint: Remember to update the parent parameter
+            return self._find_parent_node_recursive(item, node.left, node) # Hint: Remember to update the parent parameter
         # TODO: Check if the given item is greater than the node's data
         elif item > node.data:
             # TODO: Recursively descend to the node's right child, if it exists
-            return _find_parent_node_recursive(self, item, node.right, node)  # Hint: Remember to update the parent parameter
+            return self._find_parent_node_recursive(item, node.right, node)  # Hint: Remember to update the parent parameter
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
-        # __helper(node, item):
-        #     if self.is_empty:
-        #         raise ValueError('Tree is empty.')
-
-
-
-
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
+        def __helper():
+            left = 1
+            if node.data == item and left:
+                parent.left = None
+                return True
+            elif item < node.data:
+                if left:
+                    pass
+                else:
+                    left^=left
+                parent = node
+                node = node.left
+            elif item > node.data:
+                if left:
+                    left^=left
+                else:
+                    pass
+                parent = node
+                node = node.right
+        return __helper()
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
-            self._traverse_in_order_recursive(self.root, items.append)
+            self._traverse_in_order_recursive(self.root, items)#.append)
         # Return in-order list of all items in tree
         return items
 
@@ -252,18 +266,30 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse left subtree, if it exists
-        # ...
+        if node.left:
+            _traverse_in_order_recursive(self, node.left, visit)
         # TODO: Visit this node's data with given function
-        # ...
+        elif node.data:
+            visit.append(node.data)
         # TODO: Traverse right subtree, if it exists
-        # ...
+        else:
+            _traverse_in_order_recursive(self, node.right, visit)
+
 
     def _traverse_in_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
+        parent = node
+        while node.left and parent:
+            parent = node
+            node = node.left
+        else:
+            visit.append(parent.left.data)
+
         # TODO: Traverse in-order without using recursion (stretch challenge)
+
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
