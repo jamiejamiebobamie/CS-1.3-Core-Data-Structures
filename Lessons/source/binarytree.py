@@ -265,7 +265,7 @@ class BinarySearchTree(object):
         if node.left:
             self._traverse_in_order_recursive(node.left, visit)
         # TODO: Visit this node's data with given function
-        elif node.data:
+        elif node.data and node.data not in visit:
             visit.append(node.data)
         # TODO: Traverse right subtree, if it exists
         else:
