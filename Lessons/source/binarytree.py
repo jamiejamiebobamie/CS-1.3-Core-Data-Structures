@@ -21,26 +21,32 @@ class BinaryTreeNode(object):
     def is_branch(self):
         """Return True if this node is a branch (has at least one child)."""
         # TODO: Check if either left child or right child has a value
-        return self.left == None or self.right == None
+        return self.left != None or self.right != None
 
     def height(self):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
         TODO: Best and worst case running time: ??? under what conditions?"""
-        height = 0
+        iter = None
+        L_height = 0
+        R_height = 0
         # TODO: Check if left child has a value and if so calculate its height
-        if self.left:
-            self.left = self.left
-            height +=1
-        elif self.right:
-            self.right = self.right
-            height +=1
-        return height+1
         # ...
         # TODO: Check if right child has a value and if so calculate its height
         # ...
         # Return one more than the greater of the left height and right height
         # ...
+        if self.left:
+            iter = self.left
+            while iter:
+                iter = iter.left
+                L_height +=1
+        elif self.right:
+            iter = self.right
+            while iter:
+                iter = iter.right
+                R_height +=1
+        return max(R_height, L_height)+1
 
 
 class BinarySearchTree(object):
@@ -107,6 +113,7 @@ class BinarySearchTree(object):
         if self.is_empty():
             # TODO: Create a new root node
             self.root = BinaryTreeNode(item)
+            print("root "+ str(self.root.data))
             # TODO: Increase the tree size
             self.size +=1
             return
@@ -222,6 +229,7 @@ class BinarySearchTree(object):
             return parent
         # TODO: Check if the given item is less than the node's data
         elif item < node.data:
+            print(node.data)
             # TODO: Recursively descend to the node's left child, if it exists
             return self._find_parent_node_recursive(item, node.left, node) # Hint: Remember to update the parent parameter
         # TODO: Check if the given item is greater than the node's data
