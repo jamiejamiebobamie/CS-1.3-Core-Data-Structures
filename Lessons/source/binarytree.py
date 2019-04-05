@@ -39,7 +39,7 @@ class BinaryTreeNode(object):
             while iter:
                 iter = iter.right
                 R_height +=1
-        return max(R_height, L_height)+1
+        return max(R_height, L_height)
 
 
 class BinarySearchTree(object):
@@ -152,27 +152,15 @@ class BinarySearchTree(object):
         starting from the given node (give the root node to start recursion).
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
-        # Check if starting node exists
-        next = node
         if node is None:
-            # Not found (base case)
             return None
-        # TODO: Check if the given item matches the node's data
         if node.data == item:
-            # Return the found node
             return node
-        # TODO: Check if the given item is less than the node's data
         elif item < node.data:
-            print("left " + str(next.data))
-            # TODO: Recursively descend to the node's left child, if it exists
-            next = node.left
-            self._find_node_recursive(item, next)
-        # TODO: Check if the given item is greater than the node's data
+            print("left", node)
+            return self._find_node_recursive(item, node.left)
         elif item > node.data:
-            print("right " + str(next.data))
-            # TODO: Recursively descend to the node's right child, if it exists
-            next = node.right
-            self._find_node_recursive(item, next)
+            return self._find_node_recursive(item, node.right)
 
     def _find_parent_node_iterative(self, item):
         """Return the parent node of the node containing the given item
@@ -272,15 +260,16 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
+        print(node.data)
         # TODO: Traverse left subtree, if it exists
         if node.left:
-            _traverse_in_order_recursive(self, node.left, visit)
+            self._traverse_in_order_recursive(node.left, visit)
         # TODO: Visit this node's data with given function
         elif node.data:
             visit.append(node.data)
         # TODO: Traverse right subtree, if it exists
         else:
-            _traverse_in_order_recursive(self, node.right, visit)
+            self._traverse_in_order_recursive(node.right, visit)
 
 
     def _traverse_in_order_iterative(self, node, visit):
