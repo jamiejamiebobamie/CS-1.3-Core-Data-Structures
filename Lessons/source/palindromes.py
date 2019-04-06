@@ -30,23 +30,64 @@ def is_palindrome_iterative(text):
 #        i+=1
 #    else:
 #        return True
-    text = text.lower().translate(string.maketrans(string, string.punctuation))
-    print(text)
+    # text = text.lower().translate(string.maketrans(string, string.punctuation))
+    # print(text)
 
     #works if text is pure characters w/o punctuation, whitespace, or change in case
-    i = (len(text)-1)//2
-    print(i, text[0:i], text[len(text):i:-1], len(text) % 2)
-    if len(text) % 2:
-        return True if text[0:i]==text[len(text):i:-1] else False
-    else:
-        return True if text[0:i]==text[len(text)-1:i:-1] else False
+    # i = (len(text)-1)//2
+    # print(i, text[0:i], text[len(text):i:-1], len(text) % 2)
+    # if len(text) % 2:
+    #     return True if text[0:i]==text[len(text):i:-1] else False
+    # else:
+    #     return True if text[0:i]==text[len(text)-1:i:-1] else False
 
 
 
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
-print(is_palindrome('PoPoP!!'))
+
+
+    i = (len(text)-1)//2
+    j = (len(text)-1)//2
+    print(i,text[i],j,text[j])
+
+    while i > 0 and j < len(text):
+        #if odd amount of numbers:
+        if len(text) % 2:
+            print(i,text[i],j,text[j])
+            if text[i].isalpha():
+                if text[j].isalpha():
+                    if text[i].lower() == text[j].lower():
+                        i, j = i-1, j+1
+                    else:
+                        return False
+                else:
+                    j+=1
+            else:
+                i-=1
+                
+        #if even amount of numbers:
+        else:
+            if text[i].isalpha():
+                print(i,text[i],j,text[j])
+                if text[j].isalpha():
+                    if text[i].lower() == text[j].lower():
+                        i, j = i-1, j+1
+                    else:
+                        return False
+                else:
+                    j+=1
+            else:
+                i-=1
+    else:
+        if text[i].lower() == text[j].lower():
+            print(i,text[i],j,text[j])
+            return True
+        return False
+
+
+print(is_palindrome('h!e !h!'))
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
