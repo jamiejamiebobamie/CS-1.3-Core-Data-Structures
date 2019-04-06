@@ -157,7 +157,6 @@ class BinarySearchTree(object):
         if node.data == item:
             return node
         elif item < node.data:
-            print("left", node)
             return self._find_node_recursive(item, node.left)
         elif item > node.data:
             return self._find_node_recursive(item, node.right)
@@ -206,7 +205,7 @@ class BinarySearchTree(object):
 
         # TODO: Check if the given item matches the node's data
         if item == node.data:
-            print("the true true")
+            # print("the true true")
             # Return the parent of the found node
             return parent
         # TODO: Check if the given item is less than the node's data
@@ -260,16 +259,11 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        print(node.data)
-        # TODO: Traverse left subtree, if it exists
-        if node.left:
+        if node:
             self._traverse_in_order_recursive(node.left, visit)
-        # TODO: Visit this node's data with given function
-        elif node.data and node.data not in visit:
             visit.append(node.data)
-        # TODO: Traverse right subtree, if it exists
-        else:
             self._traverse_in_order_recursive(node.right, visit)
+        return
 
 
     def _traverse_in_order_iterative(self, node, visit):
@@ -292,7 +286,7 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree pre-order from root, appending each node's item
-            self._traverse_pre_order_recursive(self.root, items.append)
+            self._traverse_pre_order_recursive(self.root, items)
         # Return pre-order list of all items in tree
         return items
 
@@ -301,12 +295,11 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Visit this node's data with given function
-        # ...
-        # TODO: Traverse left subtree, if it exists
-        # ...
-        # TODO: Traverse right subtree, if it exists
-        # ...
+        if node:
+            visit.append(node.data)
+            self._traverse_in_order_recursive(node.left, visit)
+            self._traverse_in_order_recursive(node.right, visit)
+        return
 
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
@@ -320,7 +313,7 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree post-order from root, appending each node's item
-            self._traverse_post_order_recursive(self.root, items.append)
+            self._traverse_post_order_recursive(self.root, items)
         # Return post-order list of all items in tree
         return items
 
@@ -329,12 +322,11 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
-        # ...
-        # TODO: Traverse right subtree, if it exists
-        # ...
-        # TODO: Visit this node's data with given function
-        # ...
+        if node:
+            self._traverse_in_order_recursive(node.left, visit)
+            self._traverse_in_order_recursive(node.right, visit)
+            visit.append(node.data)
+        return
 
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
@@ -357,6 +349,8 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
+        # queue = collections.Dequeue()
+
         # TODO: Create queue to store nodes not yet traversed in level-order
         # queue = ...
         # TODO: Enqueue given starting node
@@ -376,8 +370,8 @@ class BinarySearchTree(object):
 def test_binary_search_tree():
     # Create a complete binary search tree of 3, 7, or 15 items in level-order
     # items = [2, 1, 3]
-    items = [4, 2, 6, 1, 3, 5, 7]
-    # items = [8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15]
+    # items = [4, 2, 6, 1, 3, 5, 7]
+    items = [8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15]
     print('items: {}'.format(items))
 
     tree = BinarySearchTree()
