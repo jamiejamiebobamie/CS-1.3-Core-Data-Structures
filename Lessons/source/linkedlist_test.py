@@ -90,6 +90,7 @@ class LinkedListTest(unittest.TestCase):
         assert ll.tail.data == 'B'  # new tail (at index 0)
         assert ll.size == 1
         ll.insert_at_index(0, 'A')  # prepend('A')
+        print(ll.head.data, ll.tail, ll.head.next,ll.head.next.next)
         assert ll.head.data == 'A'  # new head (at index 0)
         assert ll.tail.data == 'B'  # unchanged (now at index 1)
         assert ll.size == 2
