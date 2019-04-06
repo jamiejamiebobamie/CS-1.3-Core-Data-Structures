@@ -16,13 +16,37 @@ def is_palindrome(text):
     return is_palindrome_iterative(text)
     # return is_palindrome_recursive(text)
 
-
+import string
 def is_palindrome_iterative(text):
     # TODO: implement the is_palindrome function iteratively here
-    pass
+
+    #WORKS, but kind of wonky...
+#    i = (len(text)-1)//2
+#    print(i)
+#    while i < len(text):
+#        print(i,-i, text[0::i], text[len(text)-1::-i], text[0::i]==text[len(text)-1::-i])
+#        if text[0::i]!=text[len(text)-1::-i]:
+#            return False
+#        i+=1
+#    else:
+#        return True
+    text = text.lower().translate(string.maketrans(string, string.punctuation))
+    print(text)
+
+    #works if text is pure characters w/o punctuation, whitespace, or change in case
+    i = (len(text)-1)//2
+    print(i, text[0:i], text[len(text):i:-1], len(text) % 2)
+    if len(text) % 2:
+        return True if text[0:i]==text[len(text):i:-1] else False
+    else:
+        return True if text[0:i]==text[len(text)-1:i:-1] else False
+
+
+
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
+print(is_palindrome('PoPoP!!'))
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here

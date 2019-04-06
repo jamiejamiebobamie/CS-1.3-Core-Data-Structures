@@ -133,7 +133,6 @@ class LinkedList(object):
                 previous = node
                 node = node.next
         else:
-            print(count, index, self.size)
             if index == self.size:
                 self.append(item)
                 return
