@@ -47,9 +47,13 @@ def is_palindrome_iterative(text):
     # to verify that your iterative implementation passes all tests
 
 
+    if len(text) % 2:
+        i = (len(text)-1)//2
+        j = (len(text)-1)//2
+    else:
+        i = (len(text)-1)//2
+        j = (len(text)-1)//2+1
 
-    i = (len(text)-1)//2
-    j = (len(text)-1)//2
     print(i,text[i],j,text[j])
 
     while i > 0 and j < len(text):
@@ -66,7 +70,7 @@ def is_palindrome_iterative(text):
                     j+=1
             else:
                 i-=1
-                
+
         #if even amount of numbers:
         else:
             if text[i].isalpha():
@@ -86,8 +90,8 @@ def is_palindrome_iterative(text):
             return True
         return False
 
-
-print(is_palindrome('h!e !h!'))
+# can't work from the middle. after work from the ends: i = 0 and i = len(text)-1...
+print(is_palindrome('!h!!!   o!oh!'))
 
 def is_palindrome_recursive(text, left=None, right=None):
     # TODO: implement the is_palindrome function recursively here
