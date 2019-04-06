@@ -10,17 +10,17 @@ def contains(text, pattern):
     i = len(pattern)
     if i < 1:
         return True
-    words = collections.deque(list(pattern))
+    target = collections.deque(list(pattern))
     deck = collections.deque(text[:i])
 
     while i < len(text):
-        if deck == words:
+        if deck == target:
             return True
         deck.popleft()
         deck.append(text[i])
         i+=1
     else:
-        if deck == words:
+        if deck == target:
             return True
         return False
 
@@ -37,18 +37,18 @@ def find_index(text, pattern):
     i = len(pattern)
     if i < 1:
         return 0
-    words = collections.deque(list(pattern))
+    target = collections.deque(list(pattern))
     deck = collections.deque(text[:i])
 
     while i < len(text):
-        if deck == words:
-            return i-len(words)
+        if deck == target:
+            return i-len(target)
         deck.popleft()
         deck.append(text[i])
         i+=1
     else:
-        if deck == words:
-            return i-len(words)
+        if deck == target:
+            return i-len(target)
         return None
 
 def find_all_indexes(text, pattern):
@@ -61,20 +61,20 @@ def find_all_indexes(text, pattern):
     i = len(pattern)
     if i < 1:
         return list(range(len(list(text))))
-    words = collections.deque(list(pattern))
+    target = collections.deque(list(pattern))
     deck = collections.deque(text[:i])
     indices = []
 
     while i < len(text):
-        if deck == words:
-            indices.append(i-len(words))
+        if deck == target:
+            indices.append(i-len(target))
         deck.popleft()
         deck.append(text[i])
         i+=1
     else:
         #in case the last letters in the deck match the pattern:
-        if deck == words:
-            indices.append(i-len(words))
+        if deck == target:
+            indices.append(i-len(target))
         #return the indices
         return indices
 
