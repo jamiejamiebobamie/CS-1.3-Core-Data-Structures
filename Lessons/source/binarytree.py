@@ -30,19 +30,23 @@ class BinaryTreeNode(object):
         iter = None
         L_height = 0
         R_height = 0
+        height = 0
 
         if self.left:
             iter = self.left
             while iter:
                 iter = iter.left
                 L_height +=1
+                height+=1
         elif self.right:
             iter = self.right
             while iter:
                 iter = iter.right
                 R_height +=1
-        return max(R_height, L_height)
-        
+                height+=1
+        print(height)
+        return max(max(R_height, L_height),height)
+
         # doesn't work:
         # def __helper(node, count):
         #     if node:
