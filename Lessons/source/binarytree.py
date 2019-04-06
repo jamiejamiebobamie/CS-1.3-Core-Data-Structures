@@ -27,25 +27,37 @@ class BinaryTreeNode(object):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
         TODO: Best and worst case running time: ??? under what conditions?"""
-        iter = None
-        L_height = 0
-        R_height = 0
-        height = 0
 
-        if self.left:
-            iter = self.left
-            while iter:
-                iter = iter.left
-                L_height +=1
+        height = -1
+
+        def __helper(node, height):
+            if node:
                 height+=1
-        elif self.right:
-            iter = self.right
-            while iter:
-                iter = iter.right
-                R_height +=1
-                height+=1
-        print(height)
-        return max(max(R_height, L_height),height)
+                return max(__helper(node.left, height), __helper(node.right, height))
+            return height
+            
+        return __helper(self, height)
+
+
+        # iter = None
+        # L_height = 0
+        # R_height = 0
+        # height = 0
+        #
+        # if self.left:
+        #     iter = self.left
+        #     while iter:
+        #         iter = iter.left
+        #         L_height +=1
+        #         height+=1
+        # elif self.right:
+        #     iter = self.right
+        #     while iter:
+        #         iter = iter.right
+        #         R_height +=1
+        #         height+=1
+        # print(height)
+        # return max(max(R_height, L_height),height)
 
         # doesn't work:
         # def __helper(node, count):
