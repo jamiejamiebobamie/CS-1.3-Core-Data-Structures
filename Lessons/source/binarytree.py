@@ -305,7 +305,7 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         if node:
-            print(node.data)
+            # print(node.data)
             visit.append(node.data)
             self._traverse_pre_order_recursive(node.left, visit)
             self._traverse_pre_order_recursive(node.right, visit)
