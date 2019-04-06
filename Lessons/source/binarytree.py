@@ -128,7 +128,7 @@ class BinarySearchTree(object):
         elif parent and parent.data < item:
             parent.right = BinaryTreeNode(item)
         self.size +=1
-        print(item, "PARENT:",parent.data,  "LEFT:",parent.left, "RIGHT:",parent.right)
+        # print(item, "PARENT:",parent.data,  "LEFT:",parent.left, "RIGHT:",parent.right)
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -305,9 +305,10 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         if node:
+            print(node.data)
             visit.append(node.data)
-            self._traverse_in_order_recursive(node.left, visit)
-            self._traverse_in_order_recursive(node.right, visit)
+            self._traverse_pre_order_recursive(node.left, visit)
+            self._traverse_pre_order_recursive(node.right, visit)
         return
 
     def _traverse_pre_order_iterative(self, node, visit):
@@ -332,8 +333,8 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         if node:
-            self._traverse_in_order_recursive(node.left, visit)
-            self._traverse_in_order_recursive(node.right, visit)
+            self._traverse_post_order_recursive(node.left, visit)
+            self._traverse_post_order_recursive(node.right, visit)
             visit.append(node.data)
         return
 
