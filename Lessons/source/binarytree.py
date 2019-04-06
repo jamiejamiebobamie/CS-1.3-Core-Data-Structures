@@ -35,38 +35,8 @@ class BinaryTreeNode(object):
                 height+=1
                 return max(__helper(node.left, height), __helper(node.right, height))
             return height
-            
+
         return __helper(self, height)
-
-
-        # iter = None
-        # L_height = 0
-        # R_height = 0
-        # height = 0
-        #
-        # if self.left:
-        #     iter = self.left
-        #     while iter:
-        #         iter = iter.left
-        #         L_height +=1
-        #         height+=1
-        # elif self.right:
-        #     iter = self.right
-        #     while iter:
-        #         iter = iter.right
-        #         R_height +=1
-        #         height+=1
-        # print(height)
-        # return max(max(R_height, L_height),height)
-
-        # doesn't work:
-        # def __helper(node, count):
-        #     if node:
-        #         count+=1
-        #         count+=__helper(node.left, count)
-        #         count+=__helper(node.right, count)
-        #     return count
-        # return __helper(self,-1)
 
 
 class BinarySearchTree(object):
@@ -92,23 +62,35 @@ class BinarySearchTree(object):
         downward path from this tree's root node to a descendant leaf node).
         TODO: Best and worst case running time: ??? under what conditions?"""
 
-        iter = None
-        L_height = 0
-        R_height = 0
+        height = -1
 
-        if self.root:
-            height = 0
-            if self.root.left:
-                iter = self.root.left
-                while iter:
-                    iter = iter.left
-                    L_height +=1
-            elif self.root.right:
-                iter = self.root.right
-                while iter:
-                    iter = iter.right
-                    R_height +=1
-            return max(R_height, L_height) # should it be plus one here? (No.)
+        def __helper(node, height):
+            if node:
+                height+=1
+                return max(__helper(node.left, height), __helper(node.right, height))
+            return height
+
+        return __helper(self.root, height)
+
+        # old code:
+
+        # iter = None
+        # L_height = 0
+        # R_height = 0
+        #
+        # if self.root:
+        #     height = 0
+        #     if self.root.left:
+        #         iter = self.root.left
+        #         while iter:
+        #             iter = iter.left
+        #             L_height +=1
+        #     elif self.root.right:
+        #         iter = self.root.right
+        #         while iter:
+        #             iter = iter.right
+        #             R_height +=1
+        #     return max(R_height, L_height) # should it be plus one here? (No.)
 
 
     def contains(self, item):
@@ -146,7 +128,7 @@ class BinarySearchTree(object):
         elif parent and parent.data < item:
             parent.right = BinaryTreeNode(item)
         self.size +=1
-        # print(item, "PARENT:",parent.data,  "LEFT:",parent.left, "RIGHT:",parent.right)
+        print(item, "PARENT:",parent.data,  "LEFT:",parent.left, "RIGHT:",parent.right)
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -396,6 +378,44 @@ def test_binary_search_tree():
     # Create a complete binary search tree of 3, 7, or 15 items in level-order
     # items = [2, 1, 3]
     items = [4, 2, 6, 1, 3, 5, 7]
+
+
+
+# insert(4), size: 0
+# insert(2), size: 1
+# (2, 'PARENT:', 4, 'LEFT:', BinaryTreeNode(2), 'RIGHT:', None)
+# insert(6), size: 2
+# (6, 'PARENT:', 4, 'LEFT:', BinaryTreeNode(2), 'RIGHT:', BinaryTreeNode(6))
+# insert(1), size: 3
+# (1, 'PARENT:', 2, 'LEFT:', BinaryTreeNode(1), 'RIGHT:', None)
+# insert(3), size: 4
+# (3, 'PARENT:', 2, 'LEFT:', BinaryTreeNode(1), 'RIGHT:', BinaryTreeNode(3))
+# insert(5), size: 5
+# (5, 'PARENT:', 6, 'LEFT:', BinaryTreeNode(5), 'RIGHT:', None)
+# insert(7), size: 6
+# (7, 'PARENT:', 6, 'LEFT:', BinaryTreeNode(5), 'RIGHT:', BinaryTreeNode(7))
+
+#                            4
+#                2                       6
+#            1       3               5       7
+
+
+#________________________________________________________________
+
+    #                4
+    #        2               6
+    #    1       3       5       7
+
+    # if node:
+    #     visit.append(node.data)
+    #     self._traverse_in_order_recursive(node.left, visit)
+    #     self._traverse_in_order_recursive(node.right, visit)
+    # return
+
+    # my code: items pre-order:   [4, 1, 2, 3, 5, 6, 7]
+    # assert tree.items_pre_order() == [4, 2, 1, 3, 6, 5, 7]
+
+    # items pre-order:   [4, 1, 2, 3, 5, 6, 7]
 
     # items = [8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15]
     print('items: {}'.format(items))
