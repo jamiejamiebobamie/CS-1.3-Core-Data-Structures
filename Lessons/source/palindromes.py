@@ -46,7 +46,8 @@ def is_palindrome_iterative(text):
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
-
+    #does not work due to the hiddly-fiddly nature of where the middle is when you have
+    # added characters that don't count in the pallindrome
     if len(text) % 2:
         i = (len(text)-1)//2
         j = (len(text)-1)//2
