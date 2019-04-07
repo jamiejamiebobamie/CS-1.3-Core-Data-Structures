@@ -27,7 +27,9 @@ class HashTable(object):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Calculate load factor
-        return self.size / len(self.buckets)
+        if self.size:
+            print(self.size, len(self.buckets), float(self.size)/float(len(self.buckets)))
+        return float(self.size)/float(len(self.buckets)) if self.size else 0
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -106,13 +108,17 @@ class HashTable(object):
         bucket = self.buckets[index]
         # Find the entry with the given key in that bucket, if one exists
         # Check if an entry with the given key exists in that bucket
-        entry = bucket.find(lambda key_value: key_value[0] == key)
+        entry = bucket.find(lambda key_value: key_value[0] == key) #NOTE TO SELF: LOOK UP LAMBDA FUNCTIONS AND FIND LL METHOD
         if entry is not None:  # Found
             # In this case, the given key's value is being updated
             # Remove the old key-value entry from the bucket first
             bucket.delete(entry)
+            self.size-=1
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
+        self.size+=1
+        if self.load_factor > 0.75:
+            self._resize()
         # TODO: Check if the load factor exceeds a threshold such as 0.75
         # ...
         # TODO: If so, automatically resize to reduce the load factor
@@ -130,6 +136,7 @@ class HashTable(object):
         if entry is not None:  # Found
             # Remove the key-value entry from the bucket
             bucket.delete(entry)
+            self.size-=1
         else:  # Not found
             raise KeyError('Key not found: {}'.format(key))
 
