@@ -14,7 +14,7 @@ class LinkedStack(object):
         self.next_tail = None
         if iterable is not None:
             for item in iterable:
-                print(item,)
+                # print(item,)
                 self.push(item)
 
     def __repr__(self):
@@ -41,7 +41,8 @@ class LinkedStack(object):
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        return self.list.head.data
+
+        return self.list.tail.data if not self.is_empty() else None
         # TODO: Return top item, if any
 
     def pop(self):
@@ -49,8 +50,21 @@ class LinkedStack(object):
         or raise ValueError if this stack is empty.
         pass
         Running time: O(???) – Why? [TODO]"""
-        if not self.is_empty:
-            return self.list.tail.data
+        # print(self.list.is_empty(), self.list.size)
+        if not self.is_empty():
+
+            node = self.list.tail
+            # print('node', node)
+            if self.list.tail.last:
+                self.list.tail = self.list.tail.last
+            # else:
+            #     self.list.tail = None
+            if self.list.tail.next:
+                self.list.tail.next = None
+            self.list.size -= 1
+            return node.data
+        else:
+            raise ValueError("Stack is empty.")
         # TODO: Remove and return top item, if any
 
 
@@ -103,11 +117,12 @@ class LinkedStack(object):
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
 
-A = [1,2,3,4,5,6,7,8,9]
-Stack = LinkedStack(A)
+# A = [1,2,3,4,5,6,7,8,9]
+# Stack = LinkedStack(A)
+#
+# print(Stack.is_empty())
+# print(Stack.peek())
+# print(Stack.length())
 
-print(Stack.is_empty())
-print(Stack.peek())
-print(Stack.length())
-
+# Stack = LinkedStack()
 # Stack = ArrayStack

@@ -6,7 +6,7 @@ class Node(object):
         """Initialize this node with the given data."""
         self.data = data
         self.next = None
-        self.last = None
+        self.last = None # implement last pointer for LinkedStack class
 
     def __repr__(self):
         """Return a string representation of this node."""
@@ -147,10 +147,11 @@ class LinkedList(object):
         # Check if this linked list is empty
         if self.is_empty():
             # Assign head to new node
-            self.head = new_node
+            self.head = self.tail = new_node
         else:
             # Otherwise insert new node after tail
             self.tail.next = new_node
+            new_node.last = self.tail
         # Update tail to new node regardless
         self.tail = new_node
         self.size+=1
@@ -167,6 +168,7 @@ class LinkedList(object):
         else:
             # Otherwise insert new node before head
             new_node.next = self.head
+            self.head.last = new_node
         # Update head to new node regardless
         self.head = new_node
         self.size+=1
@@ -233,6 +235,7 @@ class LinkedList(object):
             if node is not self.head and node is not self.tail:
                 # Update the previous node to skip around the found node
                 previous.next = node.next
+                node.next.last = previous
                 # Unlink the found node from its next node
                 node.next = None
             # Check if we found a node at the head
