@@ -1,6 +1,7 @@
 #!python
 
-from stack import Stack
+# from stack import Stack
+from stack import LinkedStack as Stack
 import unittest
 
 

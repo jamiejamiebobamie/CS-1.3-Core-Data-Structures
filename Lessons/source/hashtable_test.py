@@ -14,7 +14,7 @@ class HashTableTest(unittest.TestCase):
         assert len(ht.buckets) == 4
         assert ht.length() == 0
         assert ht.size == 0
-
+ 
     def test_keys(self):
         ht = HashTable()
         assert ht.keys() == []
