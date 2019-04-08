@@ -1,27 +1,27 @@
 #!python
 
-A = [1,2,3,4,5,6,7,8,9,10]
-
+A = [1,1,2,5,6,7,8,9,10]
+B = [10,9,8,7,6,5,4,3,2,1]
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    TODO: Running time: O(n) time complexity unless it breaks early due to being unsorted.
+    TODO: Memory usage: O(1) space complexity"""
     # TODO: Check that all adjacent items are in order, return early if not
+
     if not items:
         return True
-    else:
-        i = 0
-        while i < len(items)-1:
-            while i < len(items)-1 and items[i]==min(items[i], items[i+1]):
-                i+=1
-            else:
-                return False
+
+    i = 0
+    while i < len(items)-1:
+        if items[i]==min(items[i], items[i+1]):
+            i+=1
         else:
-            return True
+            return False
+    else:
+        return True
 
 print(is_sorted(A))
-
 
 
 def bubble_sort(items):
@@ -29,9 +29,23 @@ def bubble_sort(items):
     repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Swap adjacent items that are out of order
 
+    i = 0
+    loop = 0
+
+    while not is_sorted(items):
+        loop+=1
+        print(loop)
+        if i < len(items)-1:
+            if items[i] != min(items[i], items[i+1]):
+                print(items[i], items[i+1])
+                items[i], items[i+1] = items[i+1], items[i]
+            i += 1
+        else:
+            i = 0
+    return items
+
+print(bubble_sort(B))
 
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
