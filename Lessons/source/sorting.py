@@ -139,9 +139,9 @@ def merge(items1, items2):
             item2 = items2.pop()
         mergedList_index -= 1
     else: #this is a mistake...
-        mergedList[mergedList_index] = item1
+        mergedList[mergedList_index] = item1 # reconsider intializing a variable (item1, item2) at all to store the pop.
         mergedList_index -= 1
-        mergedList[mergedList_index] = item2
+        mergedList[mergedList_index] = item2 # things are getting lost in translation.
 
     return mergedList
 
