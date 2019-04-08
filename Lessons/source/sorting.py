@@ -1,11 +1,11 @@
 #!python
 
-A = [1,1,2,5,6,7,8,9,10]
-B = [10,9,8,7,6,5,4,3,2,1]
+
+C = [8,2,9,1,4,7,3,5,6,10]
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
-    
+
     Running time: O(n) time complexity unless it breaks early due to being unsorted.
     Memory usage: O(1) space complexity"""
     # TODO: Check that all adjacent items are in order, return early if not
@@ -22,7 +22,7 @@ def is_sorted(items):
     else:
         return True
 
-print(is_sorted(A))
+# print(is_sorted(A))
 
 
 def bubble_sort(items):
@@ -39,17 +39,17 @@ def bubble_sort(items):
 
     while not is_sorted(items):
         loop+=1
-        print(loop)
+        # print(loop)
         if i < len(items)-1:
             if items[i] != min(items[i], items[i+1]):
-                print(items[i], items[i+1])
+                # print(items[i], items[i+1])
                 items[i], items[i+1] = items[i+1], items[i]
             i += 1
         else:
             i = 0
     return items
 
-print(bubble_sort(B))
+# print(bubble_sort(B))
 
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
@@ -96,13 +96,15 @@ def merge(items1, items2):
             mergedList.append(items2[j])
             j+=1
     if i < len(items1):
-        mergedList.append(*items1[i:])
+        mergedList+=items1[i:]
     else:
-        mergedList.append(*items2[j:])
+        mergedList+=items2[j:]
     return mergedList
 
-print(merge(A, B))
+A = [1,1,2,5,6,7,8,9,10]
+B = [1,1,2,3,3]
 
+print(merge(A, B))
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
@@ -110,9 +112,14 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
+    partition = len(items)//2 +1
+    # print(partition)
+    return merge(bubble_sort(items[:partition]),bubble_sort(items[partition:]))
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
+
+# print(split_sort_merge(C))
 
 
 def merge_sort(items):
