@@ -139,8 +139,11 @@ def partition(items, low, high):
     `[low...high]` by choosing a pivot (TODO: document your method here) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: O(n) under all conditions
+    Memory usage: O(n) under all conditions
+
+    Pivot chosen by finding the median between the low and high bounds.
+    """
     # TODO: Choose a pivot any way and document your method in docstring above
     # TODO: Loop through all items in range [low...high]
     # TODO: Move items less than pivot into front of range [low...p-1]
@@ -149,48 +152,26 @@ def partition(items, low, high):
 
     #"the dutch national flag problem"
 
-    original_pivot_index = pivot_index = len(items) // 2
+    if high > len(items)-1:
+        raise ValueError("You're array only goes to {}.".format(len(items)-1))
+    pivot_index = (high - low) // 2
 
     value = items[pivot_index]
 
-    print(items, original_pivot_index, pivot_index, value)
+    smaller = []
+    equal = []
+    larger = []
 
-    for i, item in enumerate(items):
-        if item < value:
-            if i > pivot_index:
-                pivot_index += 1
-                items[i], items[pivot_index] = items[pivot_index], items[i]
-        else: #item is greater than value
-            if i < pivot_index:
-                pivot_index -= 1
-                items[i], items[pivot_index] = items[pivot_index], items[i]
+    for _ in range(len(items[low:high+1])):
+        if items[_] < value:
+            smaller.append(items[_])
+        elif items[_] == value:
+            equal.append(items[_])
+        else:
+            larger.append(items[_])
+    return smaller + equal + larger
 
-    items[original_pivot_index], items[pivot_index] = items[pivot_index], items[original_pivot_index]
-
-    print(items, original_pivot_index, pivot_index, value)
-
-#   I THINK THE CODING BOOK USED THREE ARRAYS AS IT ITERATED THROGUH THE INPUT ARRAYS
-#   ONE ARRAY FOR SMALLER ITEMS THAN THE PIVOT VALUE, ONE FOR EQUAL VALUED ITEMS, AND ONE FOR LARGER items
-#   AND THEN RETURNED A CONCATENATED ARRAY OF ALL THREE ARRAYS AT THE END.
-
-#   O(n) time complexity and O(2n) space complexity, because your copying over the original array into a new one.
-
-## we need to look at the value of the item in relation to the pivot's ValueError
-## we need to iterate through the array ONCE O(n) time complexity
-
-##swap items in a manner that makes sense...
-
-##                          ...makes sense to go low and then high.
-
-## NOTE: need to ensure that we're not swapping larger items to below the pivot_index value.
-
-## the pivot_index can shift... ie once we pick the index at the beginning that is the pivot
-## the value at the pivot is the value that we picked for ever after.
-## we're stuck with that value but the index within the array that we put that value will shift
-## depending on the other values in the array and whether those values are lower/higher
-
-
-print(partition(D,0, len(C)-1))
+print(partition(D, 2, 9))
 
 
 def quick_sort(items, low=None, high=None):
