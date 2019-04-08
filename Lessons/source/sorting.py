@@ -128,23 +128,25 @@ def merge(items1, items2):
             # print(items1,items2,mergedList_index,mergedList, item1, item2)
             mergedList_index -= 1
             item2 = items2.pop()
-        print(items1,items2,mergedList_index,mergedList, item1, item2)
+        # print(items1,items2,mergedList_index,mergedList, item1, item2)
 
-    while mergedList_index > 0:
+    while mergedList_index > 1:
         if items1:
             mergedList[mergedList_index] = item1
             item1 = items1.pop()
-        else:
-            item1 = None
         if items2:
             mergedList[mergedList_index] = item2
             item2 = items2.pop()
         mergedList_index -= 1
-        print(items1,items2,mergedList_index,mergedList, item1, item2)
+    else: #this is a mistake...
+        mergedList[mergedList_index] = item1
+        mergedList_index -= 1
+        mergedList[mergedList_index] = item2
+
     return mergedList
 
-A = [1,1,2,5,6,7,8,9,10]
-B = [1,2,3,4,5,6]
+A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
+B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
 
 print('merged',merge(A, B))
 
