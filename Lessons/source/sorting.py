@@ -74,8 +74,7 @@ def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
 
-    Running time: O(m+n), where m is the max index of items1 and n is the max
-        index of items2.
+    Running time: O(m+n), where m is the size of items1 and n is the size of items2.
 
     Memory usage: O(m+n): the combined size of the two lists"""
 
@@ -102,6 +101,7 @@ def merge(items1, items2):
 A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
 B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
 C = [8,2,9,1,4,7,3,5,6,10,11,12]
+D = [10,9,3,4,8,9,345,2,12,1]
 
 # print('merged',merge(A, B))
 
@@ -123,11 +123,16 @@ def merge_sort(items):
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
+
+    partition = len(items)//2
+    # return merge(items[:partition],items[partition:])
+
     # TODO: Check if list is so small it's already sorted (base case)
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half by recursively calling merge sort
     # TODO: Merge sorted halves into one list in sorted order
 
+# print(merge_sort(C))
 
 def partition(items, low, high):
     """Return index `p` after in-place partitioning given items in range
@@ -141,6 +146,51 @@ def partition(items, low, high):
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
     # TODO: Move pivot item into final position [p] and return index p
+
+    #"the dutch national flag problem"
+
+    original_pivot_index = pivot_index = len(items) // 2
+
+    value = items[pivot_index]
+
+    print(items, original_pivot_index, pivot_index, value)
+
+    for i, item in enumerate(items):
+        if item < value:
+            if i > pivot_index:
+                pivot_index += 1
+                items[i], items[pivot_index] = items[pivot_index], items[i]
+        else: #item is greater than value
+            if i < pivot_index:
+                pivot_index -= 1
+                items[i], items[pivot_index] = items[pivot_index], items[i]
+
+    items[original_pivot_index], items[pivot_index] = items[pivot_index], items[original_pivot_index]
+
+    print(items, original_pivot_index, pivot_index, value)
+
+#   I THINK THE CODING BOOK USED THREE ARRAYS AS IT ITERATED THROGUH THE INPUT ARRAYS
+#   ONE ARRAY FOR SMALLER ITEMS THAN THE PIVOT VALUE, ONE FOR EQUAL VALUED ITEMS, AND ONE FOR LARGER items
+#   AND THEN RETURNED A CONCATENATED ARRAY OF ALL THREE ARRAYS AT THE END.
+
+#   O(n) time complexity and O(2n) space complexity, because your copying over the original array into a new one.
+
+## we need to look at the value of the item in relation to the pivot's ValueError
+## we need to iterate through the array ONCE O(n) time complexity
+
+##swap items in a manner that makes sense...
+
+##                          ...makes sense to go low and then high.
+
+## NOTE: need to ensure that we're not swapping larger items to below the pivot_index value.
+
+## the pivot_index can shift... ie once we pick the index at the beginning that is the pivot
+## the value at the pivot is the value that we picked for ever after.
+## we're stuck with that value but the index within the array that we put that value will shift
+## depending on the other values in the array and whether those values are lower/higher
+
+
+print(partition(D,0, len(C)-1))
 
 
 def quick_sort(items, low=None, high=None):
