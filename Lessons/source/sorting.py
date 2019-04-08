@@ -70,6 +70,32 @@ def insertion_sort(items):
     # TODO: Insert it in sorted order in front of items
 
 
+    #NOTE READ ABOUT THIS ONE... "insertion_sort"
+    sorted_index = i = 0
+
+    while not is_sorted(items):
+        while i < len(items)-1:
+            print(items)
+            if items[i] > items[i+1]:
+                items[sorted_index], items[i] = items[i], items[sorted_index]
+                sorted_index += 1
+            i += 1
+        else:
+            i = 0
+    return items
+
+
+A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
+B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
+C = [8,2,9,1,4,7,3,5,6,10,11,12]
+D = [10,9,3,4,8,9,345,2,12,1]
+
+print(insertion_sort(C))
+
+
+
+
+
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
@@ -98,10 +124,7 @@ def merge(items1, items2):
 
     return mergedList, items1, items2
 
-A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
-B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
-C = [8,2,9,1,4,7,3,5,6,10,11,12]
-D = [10,9,3,4,8,9,345,2,12,1]
+
 
 # print('merged',merge(A, B))
 
