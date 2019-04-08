@@ -59,6 +59,9 @@ def selection_sort(items):
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
 
+    # for item in items:
+
+
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -70,7 +73,7 @@ def insertion_sort(items):
     # TODO: Insert it in sorted order in front of items
 
 
-    #NOTE READ ABOUT THIS ONE... "insertion_sort"
+    #NOTE: READ ABOUT THIS ONE... "insertion_sort"
     sorted_index = i = 0
 
     while not is_sorted(items):
@@ -91,9 +94,6 @@ C = [8,2,9,1,4,7,3,5,6,10,11,12]
 D = [10,9,3,4,8,9,345,2,12,1]
 
 print(insertion_sort(C))
-
-
-
 
 
 def merge(items1, items2):
@@ -167,16 +167,14 @@ def partition(items, low, high):
 
     Pivot chosen by finding the median between the low and high bounds.
     """
-    # TODO: Choose a pivot any way and document your method in docstring above
-    # TODO: Loop through all items in range [low...high]
-    # TODO: Move items less than pivot into front of range [low...p-1]
-    # TODO: Move items greater than pivot into back of range [p+1...high]
-    # TODO: Move pivot item into final position [p] and return index p
 
     #"the dutch national flag problem"
 
     if high > len(items)-1:
         raise ValueError("You're array only goes to {}.".format(len(items)-1))
+    if low < 0:
+        raise ValueError("An array starts at index 0.")
+
     pivot_index = (high - low) // 2
 
     value = items[pivot_index]
@@ -194,7 +192,7 @@ def partition(items, low, high):
             larger.append(items[_])
     return smaller + equal + larger
 
-print(partition(D, 2, 9))
+# print(partition(D, 2, 9))
 
 
 def quick_sort(items, low=None, high=None):
