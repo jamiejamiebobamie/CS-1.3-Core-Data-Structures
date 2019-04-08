@@ -5,8 +5,9 @@ B = [10,9,8,7,6,5,4,3,2,1]
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
-    TODO: Running time: O(n) time complexity unless it breaks early due to being unsorted.
-    TODO: Memory usage: O(1) space complexity"""
+    
+    Running time: O(n) time complexity unless it breaks early due to being unsorted.
+    Memory usage: O(1) space complexity"""
     # TODO: Check that all adjacent items are in order, return early if not
 
     if not items:
@@ -27,8 +28,11 @@ print(is_sorted(A))
 def bubble_sort(items):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: very high, at least O(n). Seeing how many cycles (or loops) of n,
+        the runtime was O(81n) (or 81 loops) when the array was in reverse sorted order.
+
+    Memory usage: constant storage or O(1) space complexity."""
 
     i = 0
     loop = 0
@@ -70,11 +74,15 @@ def insertion_sort(items):
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+
+    Running time: O(mn), where m is the max index of items1 and n is the max
+    index of items2 and that's only if the two arrays are of equal size and the
+    values of the elements are very similar or close together in each array.
+
+    Best-case time complexity: one array is very short or the values of each array are
+    very different.
+
+    Memory usage: O(mn): the combined size of the two lists"""
 
     i = j = 0
 
@@ -94,9 +102,6 @@ def merge(items1, items2):
     return mergedList
 
 print(merge(A, B))
-
-
-
 
 
 def split_sort_merge(items):
