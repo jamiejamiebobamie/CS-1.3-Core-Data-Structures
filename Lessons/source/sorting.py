@@ -1,11 +1,27 @@
 #!python
 
+A = [1,2,3,4,5,6,7,8,9,10]
+
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check that all adjacent items are in order, return early if not
+    if not items:
+        return True
+    else:
+        i = 0
+        while i < len(items)-1:
+            while i < len(items)-1 and items[i]==min(items[i], items[i+1]):
+                i+=1
+            else:
+                return False
+        else:
+            return True
+
+print(is_sorted(A))
+
 
 
 def bubble_sort(items):
