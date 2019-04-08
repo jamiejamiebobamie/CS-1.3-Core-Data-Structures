@@ -22,7 +22,7 @@ def linear_search_recursive(array, item, index=0):
     #if the last item of the array hasn't been iterated over, recurse.
     elif index < len(array)-1:
         return linear_search_recursive(array, item, index+1)
-        
+
     #if we have reached the end of the array and we haven't found the item, return None.
     else:
         return None
@@ -61,15 +61,15 @@ def binary_search_iterative(array, item):
     # if the item is not in the array
     else:
     # return the index that cannot exist in the array
+    # python returns None if a while loop breaks in a function and there is no return line...
         return -1
 
 
-def binary_search_recursive(array, item, left=0, right=0,first=True):
+def binary_search_recursive(array, item, left=0, right=None):
 
         # used to set the 'right' variable
-        if first:
+        if right == None:
             right = len(array)-1
-            first = False
 
         #break if left index grows larger than the right
         #item not found
@@ -92,4 +92,4 @@ def binary_search_recursive(array, item, left=0, right=0,first=True):
         #the item is to the left, to the left
             right = index -1
         #recurse!
-        return binary_search_recursive(array, item, left, right,first)
+        return binary_search_recursive(array, item, left, right, first)
