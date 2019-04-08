@@ -76,6 +76,28 @@ def merge(items1, items2):
     # TODO: Find minimum item in both lists and append it to new list
     # TODO: Append remaining items in non-empty list to new list
 
+    i = j = 0
+
+    mergedList = []
+
+    while i < len(items1) and j < len(items2):
+        while items1[i] < items2[j]:
+            mergedList.append(items1[i])
+            i+=1
+        else:
+            mergedList.append(items2[j])
+            j+=1
+    if i < len(items1):
+        mergedList.append(*items1[i:])
+    else:
+        mergedList.append(*items2[j:])
+    return mergedList
+
+print(merge(A, B))
+
+
+
+
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
