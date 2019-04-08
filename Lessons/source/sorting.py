@@ -78,12 +78,14 @@ def insertion_sort(items):
 
     while not is_sorted(items):
         while i < len(items)-1:
-            print(items)
+            print(items, sorted_index)
             if items[i] > items[i+1]:
-                items[sorted_index], items[i] = items[i], items[sorted_index]
-                sorted_index += 1
+                j = i
+                while items[i]
+                items[i], items[sorted_index] = items[sorted_index], items[i]
             i += 1
         else:
+            sorted_index = 0
             i = 0
     return items
 
@@ -102,7 +104,7 @@ def merge(items1, items2):
 
     Running time: O(m+n), where m is the size of items1 and n is the size of items2.
 
-    Memory usage: O(m+n): the combined size of the two lists"""
+    Memory usage: O(m+n): the combined size of the two lists."""
 
     mergedList = [None]*len(items1)+[None]*len(items2)
 
@@ -122,7 +124,7 @@ def merge(items1, items2):
             mergedList[mergedList_index] = items2.pop()
             mergedList_index -= 1
 
-    return mergedList, items1, items2
+    return mergedList
 
 
 
