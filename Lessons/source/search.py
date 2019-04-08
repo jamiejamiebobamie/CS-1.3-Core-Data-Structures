@@ -14,14 +14,19 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
+
+    #check if the value is found
     if item == array[index]:
         return index
+
+    #if the last item of the array hasn't been iterated over, recurse.
     elif index < len(array)-1:
         return linear_search_recursive(array, item, index+1)
+        
+    #if we have reached the end of the array and we haven't found the item, return None.
     else:
         return None
-    # once implemented, change linear_search to call linear_search_recursive
-    # to verify that your recursive implementation passes all tests
+
 
 
 

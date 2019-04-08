@@ -78,10 +78,11 @@ def insertion_sort(items):
 
     while not is_sorted(items):
         while i < len(items)-1:
-            print(items, sorted_index)
             if items[i] > items[i+1]:
+                while not is_sorted(items[i])
                 j = i
-                while items[i]
+                while items[i] < items[j]:
+
                 items[i], items[sorted_index] = items[sorted_index], items[i]
             i += 1
         else:
