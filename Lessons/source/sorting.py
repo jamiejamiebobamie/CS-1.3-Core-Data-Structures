@@ -1,7 +1,6 @@
 #!python
 
 
-C = [8,2,9,1,4,7,3,5,6,10]
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
@@ -49,6 +48,8 @@ def bubble_sort(items):
             i = 0
     return items
 
+
+
 # print(bubble_sort(B))
 
 def selection_sort(items):
@@ -84,27 +85,68 @@ def merge(items1, items2):
 
     Memory usage: O(mn): the combined size of the two lists"""
 
-    i = j = 0
+    # i = j = 0
 
-    mergedList = []
+    # mergedList = []
 
-    while i < len(items1) and j < len(items2):
-        while items1[i] < items2[j]:
-            mergedList.append(items1[i])
-            i+=1
+    # while i < len(items1) and j < len(items2):
+    #     # print(i,len(items1),j,len(items2))
+    #     print(items1, items2,mergedList)
+    #     while items1[i] < items2[j]:
+    #         mergedList.append(items1[i])
+    #         i+=1
+    #     else:
+    #         mergedList.append(items2[j])
+    #         j+=1
+    # if i < len(items1):
+    #     mergedList+=items1[i:]
+    # else:
+    #     mergedList+=items2[j:]
+    # return mergedList
+
+
+    #REWRITE / REFACTOR:
+
+    mergedList = [None]*len(items1)+[None]*len(items2)
+
+    mergedList_index = len(mergedList)-1
+    # print(items1,items2,mergedList_index)
+
+    item1 = items1.pop()
+    item2 = items2.pop()
+
+    while items1 and items2:
+        while item1 >= item2:
+            mergedList[mergedList_index] = item1
+            # print(items1,items2,mergedList_index,mergedList, item1, item2)
+            mergedList_index -= 1
+            item1 = items1.pop()
+            # print(items1,items2,mergedList_index,mergedList, item1, item2)
+
+        while item2 >= item1:
+            mergedList[mergedList_index] = item2
+            # print(items1,items2,mergedList_index,mergedList, item1, item2)
+            mergedList_index -= 1
+            item2 = items2.pop()
+        print(items1,items2,mergedList_index,mergedList, item1, item2)
+
+    while mergedList_index > 0:
+        if items1:
+            mergedList[mergedList_index] = item1
+            item1 = items1.pop()
         else:
-            mergedList.append(items2[j])
-            j+=1
-    if i < len(items1):
-        mergedList+=items1[i:]
-    else:
-        mergedList+=items2[j:]
+            item1 = None
+        if items2:
+            mergedList[mergedList_index] = item2
+            item2 = items2.pop()
+        mergedList_index -= 1
+        print(items1,items2,mergedList_index,mergedList, item1, item2)
     return mergedList
 
 A = [1,1,2,5,6,7,8,9,10]
-B = [1,1,2,3,3]
+B = [1,2,3,4,5,6]
 
-print(merge(A, B))
+print('merged',merge(A, B))
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
@@ -112,13 +154,15 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    partition = len(items)//2 +1
+    partition = len(items)//2
     # print(partition)
+    print(partition, items[:partition],items[partition:])
     return merge(bubble_sort(items[:partition]),bubble_sort(items[partition:]))
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
 
+C = [8,2,9,1,4,7,3,5,6,10,11,12]
 # print(split_sort_merge(C))
 
 
