@@ -27,8 +27,8 @@ class HashTable(object):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Calculate load factor
-        if self.size:
-            print(self.size, len(self.buckets), float(self.size)/float(len(self.buckets)))
+        # if self.size:
+            # print(self.size, len(self.buckets), float(self.size)/float(len(self.buckets)))
         return float(self.size)/float(len(self.buckets)) if self.size else 0
 
     def keys(self):
@@ -152,59 +152,64 @@ class HashTable(object):
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
+
         # TODO: Get a list to temporarily hold all current key-value entries
-        # ...
+        items = self.items()
         # TODO: Create a new list of new_size total empty linked list buckets
-        # ...
+        self.buckets = [LinkedList() for i in range(new_size)]
         # TODO: Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
         # ...
+        print(len(items), items)
+        # for i, item in enumerate(items):
+        #     self.set(item[0], item[1])
 
 
-def test_hash_table():
-    ht = HashTable(4)
-    print('HashTable: ' + str(ht))
 
-    print('Setting entries:')
-    ht.set('I', 1)
-    print('set(I, 1): ' + str(ht))
-    ht.set('V', 5)
-    print('set(V, 5): ' + str(ht))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
-    ht.set('X', 10)
-    print('set(X, 10): ' + str(ht))
-    ht.set('L', 50)  # Should trigger resize
-    print('set(L, 50): ' + str(ht))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
-
-    print('Getting entries:')
-    print('get(I): ' + str(ht.get('I')))
-    print('get(V): ' + str(ht.get('V')))
-    print('get(X): ' + str(ht.get('X')))
-    print('get(L): ' + str(ht.get('L')))
-    print('contains(X): ' + str(ht.contains('X')))
-    print('contains(Z): ' + str(ht.contains('Z')))
-
-    print('Deleting entries:')
-    ht.delete('I')
-    print('delete(I): ' + str(ht))
-    ht.delete('V')
-    print('delete(V): ' + str(ht))
-    ht.delete('X')
-    print('delete(X): ' + str(ht))
-    ht.delete('L')
-    print('delete(L): ' + str(ht))
-    print('contains(X): ' + str(ht.contains('X')))
-    print('size: ' + str(ht.size))
-    print('length: ' + str(ht.length()))
-    print('buckets: ' + str(len(ht.buckets)))
-    print('load_factor: ' + str(ht.load_factor()))
+# def test_hash_table():
+#     ht = HashTable(4)
+#     print('HashTable: ' + str(ht))
+#
+#     print('Setting entries:')
+#     ht.set('I', 1)
+#     print('set(I, 1): ' + str(ht))
+#     ht.set('V', 5)
+#     print('set(V, 5): ' + str(ht))
+#     print('size: ' + str(ht.size))
+#     print('length: ' + str(ht.length()))
+#     print('buckets: ' + str(len(ht.buckets)))
+#     print('load_factor: ' + str(ht.load_factor()))
+#     ht.set('X', 10)
+#     print('set(X, 10): ' + str(ht))
+#     ht.set('L', 50)  # Should trigger resize
+#     print('set(L, 50): ' + str(ht))
+#     print('size: ' + str(ht.size))
+#     print('length: ' + str(ht.length()))
+#     print('buckets: ' + str(len(ht.buckets)))
+#     print('load_factor: ' + str(ht.load_factor()))
+#
+#     print('Getting entries:')
+#     print('get(I): ' + str(ht.get('I')))
+#     print('get(V): ' + str(ht.get('V')))
+#     print('get(X): ' + str(ht.get('X')))
+#     print('get(L): ' + str(ht.get('L')))
+#     print('contains(X): ' + str(ht.contains('X')))
+#     print('contains(Z): ' + str(ht.contains('Z')))
+#
+#     print('Deleting entries:')
+#     ht.delete('I')
+#     print('delete(I): ' + str(ht))
+#     ht.delete('V')
+#     print('delete(V): ' + str(ht))
+#     ht.delete('X')
+#     print('delete(X): ' + str(ht))
+#     ht.delete('L')
+#     print('delete(L): ' + str(ht))
+#     print('contains(X): ' + str(ht.contains('X')))
+#     print('size: ' + str(ht.size))
+#     print('length: ' + str(ht.length()))
+#     print('buckets: ' + str(len(ht.buckets)))
+#     print('load_factor: ' + str(ht.load_factor()))
 
 
 if __name__ == '__main__':
