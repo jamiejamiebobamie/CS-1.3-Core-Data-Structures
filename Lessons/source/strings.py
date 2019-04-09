@@ -29,7 +29,16 @@ def contains(text, pattern):
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found.
+    Time Complexity:
+        O(n) at worst if the pattern is not in the text
+        or if the pattern is at the very end
+        At best O(m), if the pattern is the first characters of the text.
+
+    Space Complexity:
+        O(2m), the deque which is the size of the pattern, doubled.
+
+    """
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
