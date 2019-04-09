@@ -50,6 +50,8 @@ def bubble_sort(items):
 
 # print(bubble_sort(B))
 
+import collections
+
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
@@ -58,10 +60,30 @@ def selection_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
+    minimum = collections.namedtuple("minimum",('index', 'value'))
 
-    # for item in items:
+    first_unsorted_index = 0
 
+    minimum.value = min(items[0], items[1])
+    minimum.index = 0
+    while not is_sorted(items[:-1]):
+        i = 0
+        while i < len(items):
+            temp_min_value = minimum.value
+            minimum.value = min(minimum.value,items[i])
+            if temp_min_value != minimum.value:
+                minimum.index = i
+                # print(minimum.index,minimum.value)
+            if i > 0:
+                if items[i] < items[i-1]:
+                    first_unsorted_index = i-1
+            items[minimum.index], items[first_unsorted_index] = items[first_unsorted_index], items[minimum.index]
+            print(items)
+            i+=1
+    return items
 
+C = [10,2,9,1,12,7,3,5,6,8,11,4]
+print(selection_sort(C))
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
