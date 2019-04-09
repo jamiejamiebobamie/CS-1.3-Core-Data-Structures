@@ -95,55 +95,51 @@ def insertion_sort(items):
     # TODO: Insert it in sorted order in front of items
 
 
-# ____________________________
-#while items are not sorted
-    # while not is_sorted(items):
-    #
-    #     #initialize the index
-    #     i = 0
-    #
-    #     # while i is less than the length of the array minus one (for the items[i+1])
-    #     while i < len(items)-1:
-    #         print(items)
-    #
-    #         # if we hit an item that's unsorted: items[i]:
-    #         if items[i+1] < items[i]:
-    #
-    #             j = 0
-    #             #iterate from the beginning of the array
-    #
-    #             #stopping when the value of the unsorted item is smaller
-    #             #than the value of items[j]
-    #             while items[i] > items[j] and j < i:
-    #                 j+=1
-    #             else:
-    #                 print(items[i],items[j])
-    #                 items[i], items[j] = items[j], items[i]
-    #         i+=1
-    # return items
 
-    while not is_sorted(items):
+    # iterate through the array with i.
+    # find the first unsorted item.
+    #
+    # put that item at the beginning of the array.
+    # that first element is the start of a subarray from 0 to j.
+    #
+    # increase j by one.
+    # find the next unsorted item and put it in the subarray by comparing all the items
+    # in the subarray.
+    #
+    # once the subarray item being compared to the unsorted item is bigger than the unsorted item,
+    # insert the item with at that index k , .insert(k,item).
+
+    j = 0
+
+    while j <= len(items):
+
         i = 0
-        while i < len(items) -1:
-            print(items)
+        while i < len(items)-1:
+
             if items[i] > items[i+1]:
-                j = 0
-                while j < i and items[j] < items[i]:
-                    j+=1
+                j+=1
+                temp = items[i]
+                del items[i]
+
+                k = 0
+                while k < j:
+                    print(temp,k,items)
+                    if items[k] > temp:
+                        items.insert(k, temp)
+                    k+=1
                 else:
-                    items[i], items[j] = items[j], items[i]
-                    i+=1
+                    items.insert(k, temp)
             i+=1
 
+    temp = items.pop()
+    i = 0
+    while items[i] < temp:
+        i+=1
+    else:
+        items.insert(i, temp)
 
-            #
-        # else:
-        #     while items[j] < items[i]:
-        #         print(j)
-        #         j+=1
-        #     else:
-        #         items[i], items[j] = items[j], items[i]
 
+    return items
 
 
 A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
@@ -153,7 +149,7 @@ C = [10,2,9,1,12,7,3,5,6,8,11,4]
 
 D = [10,9,3,4,8,9,345,2,12,1]
 
-# print(insertion_sort(C))
+print(insertion_sort(C))
 
 
 def merge(items1, items2):
@@ -275,11 +271,6 @@ def counting_sort(numbers):
         and m-l being the range between the maximum and the minimum numbers.
 
     Memory usage: O(1)"""
-    # TODO: Find range of given numbers (minimum and maximum integer values)
-    # TODO: Create list of counts with a slot for each number in input range
-    # TODO: Loop over given numbers and increment each number's count
-    # TODO: Loop over counts and append that many numbers into output list
-    # FIXME: Improve this to mutate input instead of creating new output list
 
     result = []
 
@@ -312,7 +303,7 @@ def counting_sort(numbers):
 
 
 E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
-print(counting_sort(E))
+# print(counting_sort(E))
 
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,

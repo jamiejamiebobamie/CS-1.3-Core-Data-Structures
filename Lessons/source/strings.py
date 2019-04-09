@@ -210,8 +210,8 @@ def anagram(input_word):
 #     return result
 
 
-print(permutation("silence"))
-print(anagram("silence"))
+# print(permutation("silence"))
+# print(anagram("silence"))
 # print(anagramRefactor("silence"))
 
 if __name__ == '__main__':

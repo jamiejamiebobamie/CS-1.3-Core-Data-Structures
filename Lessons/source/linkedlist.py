@@ -122,9 +122,9 @@ class LinkedList(object):
 
                 if previous != self.head:
                     previous.next = new_node
+                    new_node.last = previous
                 else:
                     self.head = new_node
-
                 if count == self.size-1:
                     self.tail = new_node
                 return True
