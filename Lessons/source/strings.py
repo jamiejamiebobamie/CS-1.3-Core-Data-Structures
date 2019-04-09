@@ -30,6 +30,7 @@ def contains(text, pattern):
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found.
+
     Time Complexity:
         O(n) at worst if the pattern is not in the text
         or if the pattern is at the very end
@@ -116,6 +117,77 @@ def main():
         print("find_index('abra cadabra', 'abra') => 0")
         print("find_all_indexes('abra cadabra', 'abra') => [0, 8]")
 
+
+
+# STRETCH CHALLENGE:
+# Implement permutation generating functions (try both iterative and recursive versions)
+# Implement anagram generating functions (try both iterative and recursive versions)
+# Hint: Use the Unix dictionary words list located at: /usr/share/dict/words
+
+
+string = 'string'
+
+# all permutations of a string
+#
+# s rtnig
+#
+# s ntrig
+#
+# s nirtg
+#
+# s girtn
+#
+# s igrtn
+
+
+def permutation(string):
+    def __helper(S, i, result):
+        if i < len(S):
+            S[0], S[i] = S[i], S[0]
+            print(S)
+            result.append(S)
+            S[0], S[i] = S[i], S[0]
+            return __helper(S, i+1,result)
+        else:
+            return result
+
+    result = []
+    string_array = list(string)
+
+    __helper(string_array,0,result)
+    return result
+
+string = 'hey'
+print(permutation(string))
+
+
+# wet
+# wte
+
+# twe
+# tew
+
+# etw
+# ewt
+
+def anagram(input_word):
+    def makeDictionary():
+        f = open("/usr/share/dict/words", "r")
+        words = f.read().split()
+        f.close()
+        return words
+
+    result = []
+    words = makeDictionary()
+    sorted_input_word = "".join(sorted(input_word))
+
+    for i, word in enumerate(words):
+        if "".join(sorted(word)) == sorted_input_word:
+            result.append(words[i])
+    return result
+
+
+print(anagram("silence"))
 
 if __name__ == '__main__':
     main()
