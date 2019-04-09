@@ -90,54 +90,47 @@ def insertion_sort(items):
     order in front of items, and repeating until all items are in order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Take first unsorted item
-    # TODO: Insert it in sorted order in front of items
 
+# CODE FROM https://www.geeksforgeeks.org/insertion-sort/ BELOW:
+# Function to do insertion sort
+# def insertionSort(arr):
+#
+#     # Traverse through 1 to len(arr)
+#     for i in range(1, len(arr)):
+#
+#         key = arr[i]
+#
+#         # Move elements of arr[0..i-1], that are
+#         # greater than key, to one position ahead
+#         # of their current position
+#         j = i-1
+#         while j >= 0 and key < arr[j] :
+#                 arr[j + 1] = arr[j]
+#                 j -= 1
+#         arr[j + 1] = key
+#
+#
+#     return arr
 
+# rewriting it and commenting it below
+# (maybe optimizing it? look at my github, alan. i really tried, omg...)
 
-    # iterate through the array with i.
-    # find the first unsorted item.
+    # generate indices from 1 to the length of the input array:
+    for i in range(1, len(items)):
+
+    # store the value at index i in items
+            value = items[i]
+
+    # generate an index 1 less than index i
+            j = i - 1
+
+    # while index j is greater than or equal to 0 (the lower bound of the range of indices of items array)
+    #       and the current stored value is less than the items[i], increase 
+            while j >= 0 and value < items[i]:
     #
-    # put that item at the beginning of the array.
-    # that first element is the start of a subarray from 0 to j.
-    #
-    # increase j by one.
-    # find the next unsorted item and put it in the subarray by comparing all the items
-    # in the subarray.
-    #
-    # once the subarray item being compared to the unsorted item is bigger than the unsorted item,
-    # insert the item with at that index k , .insert(k,item).
-
-    j = 0
-
-    while j <= len(items):
-
-        i = 0
-        while i < len(items)-1:
-
-            if items[i] > items[i+1]:
-                j+=1
-                temp = items[i]
-                del items[i]
-
-                k = 0
-                while k < j:
-                    print(temp,k,items)
-                    if items[k] > temp:
-                        items.insert(k, temp)
-                    k+=1
-                else:
-                    items.insert(k, temp)
-            i+=1
-
-    temp = items.pop()
-    i = 0
-    while items[i] < temp:
-        i+=1
-    else:
-        items.insert(i, temp)
-
+                items[j+1] = items[j]
+                j -= 1
+            items[j + 1] = value
 
     return items
 
