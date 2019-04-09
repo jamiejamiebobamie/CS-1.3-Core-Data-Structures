@@ -274,7 +274,7 @@ def counting_sort(numbers):
     Running time: O(n+(m-l)) with n being the size of the array,
         and m-l being the range between the maximum and the minimum numbers.
 
-    Memory usage: O(n)"""
+    Memory usage: O(1)"""
     # TODO: Find range of given numbers (minimum and maximum integer values)
     # TODO: Create list of counts with a slot for each number in input range
     # TODO: Loop over given numbers and increment each number's count
@@ -295,11 +295,20 @@ def counting_sort(numbers):
         else:
             dict[num] = 1
 
+    # for _ in range(minimum, maximum+1):
+    #     if dict[_]:
+    #         result+=[_]*dict[_]
+
+    # FIXME FIX:
+    i = 0
     for _ in range(minimum, maximum+1):
         if dict[_]:
-            result+=[_]*dict[_]
+            for j in range(dict[_]):
+                numbers[i] = _
+                i+=1
 
-    return result
+    # return result
+    return numbers
 
 
 E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
