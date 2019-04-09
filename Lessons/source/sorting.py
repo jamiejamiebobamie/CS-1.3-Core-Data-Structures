@@ -83,7 +83,7 @@ def selection_sort(items):
     return items
 
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
-print(selection_sort(C))
+# print(selection_sort(C))
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -153,7 +153,7 @@ C = [10,2,9,1,12,7,3,5,6,8,11,4]
 
 D = [10,9,3,4,8,9,345,2,12,1]
 
-print(insertion_sort(C))
+# print(insertion_sort(C))
 
 
 def merge(items1, items2):
@@ -270,14 +270,40 @@ def quick_sort(items, low=None, high=None):
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
     then looping over counts and copying that many numbers into output list.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: O(n+(m-l)) with n being the size of the array,
+        and m-l being the range between the maximum and the minimum numbers.
+
+    Memory usage: O(n)"""
     # TODO: Find range of given numbers (minimum and maximum integer values)
     # TODO: Create list of counts with a slot for each number in input range
     # TODO: Loop over given numbers and increment each number's count
     # TODO: Loop over counts and append that many numbers into output list
     # FIXME: Improve this to mutate input instead of creating new output list
 
+    result = []
+
+    maximum = float('-inf')
+    minimum = float('inf')
+
+    dict = {}
+    for num in numbers:
+        maximum = max(maximum, num)
+        minimum = min(minimum, num)
+        if num in dict:
+            dict[num] += 1
+        else:
+            dict[num] = 1
+
+    for _ in range(minimum, maximum+1):
+        if dict[_]:
+            result+=[_]*dict[_]
+
+    return result
+
+
+E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
+print(counting_sort(E))
 
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
