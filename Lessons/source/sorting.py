@@ -72,28 +72,56 @@ def insertion_sort(items):
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
 
+
+# ____________________________
 #while items are not sorted
+    # while not is_sorted(items):
+    #
+    #     #initialize the index
+    #     i = 0
+    #
+    #     # while i is less than the length of the array minus one (for the items[i+1])
+    #     while i < len(items)-1:
+    #         print(items)
+    #
+    #         # if we hit an item that's unsorted: items[i]:
+    #         if items[i+1] < items[i]:
+    #
+    #             j = 0
+    #             #iterate from the beginning of the array
+    #
+    #             #stopping when the value of the unsorted item is smaller
+    #             #than the value of items[j]
+    #             while items[i] > items[j] and j < i:
+    #                 j+=1
+    #             else:
+    #                 print(items[i],items[j])
+    #                 items[i], items[j] = items[j], items[i]
+    #         i+=1
+    # return items
+
     while not is_sorted(items):
-        #initialize the index
-        i=0
-        # while i is less than the length of the array minus one (for the items[i+1])
-        while i < len(items)-1:
+        i = 0
+        while i < len(items) -1:
             print(items)
-
-            # if we hit an item that's unsorted: items[i]:
             if items[i] > items[i+1]:
-
                 j = 0
-                #iterate from the beginning stopping when the value of the hit item is smaller than the value of items[j]
-                while j < i:
-                    # print(items[i], items[j])
-                    if items[i] < items[j]:
-                        items[i], items[j-1] = items[j-1], items[i]
-                        break
-
+                while j < i and items[j] < items[i]:
                     j+=1
+                else:
+                    items[i], items[j] = items[j], items[i]
+                    i+=1
             i+=1
-    return items
+
+
+            #
+        # else:
+        #     while items[j] < items[i]:
+        #         print(j)
+        #         j+=1
+        #     else:
+        #         items[i], items[j] = items[j], items[i]
+
 
 
 A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
