@@ -125,40 +125,39 @@ def main():
 # Hint: Use the Unix dictionary words list located at: /usr/share/dict/words
 
 
-string = 'string'
-
-# all permutations of a string
-#
-# s rtnig
-#
-# s ntrig
-#
-# s nirtg
-#
-# s girtn
-#
-# s igrtn
-
-
 def permutation(string):
-    def __helper(S, i, result):
-        if i < len(S):
-            S[0], S[i] = S[i], S[0]
-            print(S)
-            result.append(S)
-            S[0], S[i] = S[i], S[0]
-            return __helper(S, i+1,result)
-        else:
-            return result
+    def __helper(S, i):
+        if i+1 < len(S):
+            result.append("".join(S))
+            S[i], S[i+1] = S[i+1], S[i]
+            __helper(S, i+1)
 
     result = []
-    string_array = list(string)
 
-    __helper(string_array,0,result)
+    string_array = list(string)
+    j = 0
+    while j < len(string_array):
+        string_array[0],string_array[j] = string_array[j], string_array[0]
+        __helper(string_array, 0)
+        string_array[0],string_array[j] = string_array[j], string_array[0]
+        j+=1
+    else:
+        __helper(string_array, 0)
+
     return result
 
-string = 'hey'
-print(permutation(string))
+
+
+# there's extra computation being done here, but all possible iterations are generated:
+
+# hey'hey'
+# hye'hye'
+# yhe'yhe'
+# yeh'yeh''yeh'
+# ehy'ehy'
+# eyh'eyh''eyh'
+
+
 
 
 # wet
@@ -186,8 +185,31 @@ def anagram(input_word):
             result.append(words[i])
     return result
 
+# To make the dictionary, you iterate through the file with .split().
+#       Is there a way to iterate through the file just once?
 
+# The .split() method iterates through it once
+#       and then the function iterates through
+#        it again to compare it to the sorted word.
+
+# def anagramRefactor(input_word):
+#     result = []
+#     sorted_input_word = "".join(sorted(input_word))
+#
+#     f = open("/usr/share/dict/words", "r")
+#
+#     for word in f.read().split():
+#         if "".join(sorted(word)) == sorted_input_word:
+#             result.append(word)
+#
+#     f.close()
+#
+#     return result
+
+
+print(permutation("silence"))
 print(anagram("silence"))
+# print(anagramRefactor("silence"))
 
 if __name__ == '__main__':
     main()
