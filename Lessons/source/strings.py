@@ -126,6 +126,9 @@ def main():
 
 
 def permutation(string):
+    """
+    DOES NOT generate all permutations.
+    """
     def __helper(S, i):
         if i+1 < len(S):
             result.append("".join(S))
@@ -144,7 +147,7 @@ def permutation(string):
     else:
         __helper(string_array, 0)
 
-    return result
+    return len(result), result
 
 
 
