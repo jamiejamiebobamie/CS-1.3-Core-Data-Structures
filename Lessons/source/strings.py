@@ -130,7 +130,7 @@ def permutation(string):
     DOES NOT generate all permutations.
     """
     def __helper(S, i):
-        if i+1 < len(S):
+        if i + 1 < len(S):
             result.append("".join(S))
             S[i], S[i+1] = S[i+1], S[i]
             __helper(S, i+1)
