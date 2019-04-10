@@ -13,18 +13,18 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    # return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text,0,len(text)-1)
+    return is_palindrome_iterative(text)
+    # return is_palindrome_recursive(text,0,len(text)-1)
 
 def is_palindrome_iterative(text):
-
+    alpha = set(string.ascii_letters)
     left = 0
     right = len(text)-1
 
     while left < right:
         #check if the left and right items are alpha characters:
-        if text[left].isalpha():
-            if text[right].isalpha():
+        if text[left] in alpha:
+            if text[right] in alpha:
 
                 #if they both are alpha characters check to see if they are the same character,
                     #and increment the indices by one to go towards the center:
@@ -46,10 +46,11 @@ def is_palindrome_iterative(text):
         return True
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
+    alpha = set(string.ascii_letters)
+
     if left < right:
-        if text[left].isalpha():
-            if text[right].isalpha():
+        if text[left] in alpha:
+            if text[right] in alpha:
                 if text[left].lower() == text[right].lower():
                     return is_palindrome_recursive(text, left+1, right-1)
                 else:
