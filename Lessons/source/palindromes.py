@@ -22,16 +22,26 @@ def is_palindrome_iterative(text):
     right = len(text)-1
 
     while left < right:
+        #check if the left and right items are alpha characters:
         if text[left].isalpha():
             if text[right].isalpha():
+
+                #if they both are alpha characters check to see if they are the same character,
+                    #and increment the indices by one to go towards the center:
                 if text[left].lower() == text[right].lower():
                     left, right = left+1, right-1
+
+                #not a pallindrome:
                 else:
                     return False
+            #right item is not alpha:
             else:
                 right-=1
+        #left item is not alpha:
         else:
             left+=1
+    #the left index is greater than the right, and all characters iterated through are equal,
+    #return True, it's a pallindrome
     else:
         return True
 
@@ -50,8 +60,7 @@ def is_palindrome_recursive(text, left=None, right=None):
             return is_palindrome_recursive(text, left+1, right)
     else:
         return True
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+
 
 
 def main():
