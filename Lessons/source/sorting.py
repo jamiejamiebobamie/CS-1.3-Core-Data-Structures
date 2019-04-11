@@ -1,5 +1,14 @@
 #!python
 
+"""
+TO DO:
+
+selection_sort
+merge_sort
+quick_sort
+bucket_sort
+
+"""
 
 
 def is_sorted(items):
