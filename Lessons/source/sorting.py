@@ -63,8 +63,11 @@ import collections
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: O(n - n!) (Maybe?) Each item has to be iterated through each loop,
+        but the list of items shrinks each loop, so... ??
+
+    Memory usage: O(1)"""
 
     minimum_value = float('inf')
     minimum_index = 0
@@ -87,7 +90,7 @@ def selection_sort(items):
     return items
 
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
-print(selection_sort(C))
+# print(selection_sort(C))
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -215,7 +218,9 @@ def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
     a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
+
+    Running time: Really bad.
+
     TODO: Memory usage: ??? Why and under what conditions?"""
 
     partition = len(items)//2
@@ -230,7 +235,31 @@ def merge_sort(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
 
-    partition = len(items)//2
+    def __helper(list,index):
+        if len(list)-2 > index:
+            if list[index]>list[index+1]:
+                list[index], list[index+1] = list[index+1], list[index]
+            return __helper(list,index+1)
+        elif not is_sorted(list):
+            index = 0
+
+    __helper(items,0)
+    return items
+
+
+F = [10,9,8,7,6,5,4,3,2,1]
+
+print(merge_sort(F))
+    #     if item1> item2:
+    #
+    #
+    # if len(items) < 2:
+    #
+    # partition = len(items)//2
+
+
+
+
     # return merge(items[:partition],items[partition:])
 
     # TODO: Check if list is so small it's already sorted (base case)
