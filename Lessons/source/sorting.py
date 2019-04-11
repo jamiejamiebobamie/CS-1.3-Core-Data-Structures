@@ -88,51 +88,79 @@ C = [10,2,9,1,12,7,3,5,6,8,11,4]
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: Time complexity can be best illustrated by
+        running the function on a descendingly-sorted array:
+            A = [10,9,8,7,6,5,4,3,2,1], as that is the worst case input
+                (I believe.).
+
+    Memory usage: O(1)
+
+    TODO: attempt to rewrite this later in the term w/o looking at the code below.
+    """
+
+
 
 # CODE FROM https://www.geeksforgeeks.org/insertion-sort/ BELOW:
 # Function to do insertion sort
 # def insertionSort(arr):
 #
-#     # Traverse through 1 to len(arr)
-#     for i in range(1, len(arr)):
-#
-#         key = arr[i]
-#
-#         # Move elements of arr[0..i-1], that are
-#         # greater than key, to one position ahead
-#         # of their current position
-#         j = i-1
-#         while j >= 0 and key < arr[j] :
-#                 arr[j + 1] = arr[j]
-#                 j -= 1
-#         arr[j + 1] = key
-#
-#
-#     return arr
+    # # Traverse through 1 to len(arr)
+    # for i in range(1, len(arr)):
+    #
+    #     key = arr[i]
+    #
+    #     # Move elements of arr[0..i-1], that are
+    #     # greater than key, to one position ahead
+    #     # of their current position
+    #     j = i-1
+    #     while j >= 0 and key < arr[j] :
+    #             arr[j + 1] = arr[j]
+    #             j -= 1
+    #     arr[j + 1] = key
+    #
+    #
+    # return arr
 
-# rewriting it and commenting it below
-# (maybe optimizing it? look at my github, alan. i really tried, omg...)
-
-    # generate indices from 1 to the length of the input array:
+    #for time complexity
+    LOOP = 0
+    # generate indices from 1 to the length of the input array minus one
+    #('range()' upperboud is exclusive):
     for i in range(1, len(items)):
 
-    # store the value at index i in items
-            value = items[i]
+            LOOP+=1
 
-    # generate an index 1 less than index i
+            # store the value at index i in items (first i == 1)
+            key = items[i]
+
+            # generate an index 1 less than index i (first j == 0)
             j = i - 1
 
-    # while index j is greater than or equal to 0 (the lower bound of the range of indices of items array)
-    #       and the current stored value is less than the items[i], increase 
-            while j >= 0 and value < items[i]:
-    #
+            print(key,items)
+
+            # while index j is greater than or equal to 0
+            # and the current stored value is less than items[j]
+            while j >= 0 and key < items[j]:
+
+                print(i,j,'inside, change ', items[j+1]," to ",items[j])
+
+                #iterate backwards from index j to 0
+                #shifting the items in the subarray of sorted items
+                #forward one
                 items[j+1] = items[j]
                 j -= 1
-            items[j + 1] = value
+                print("inside",key,items)
 
-    return items
+
+            print(i,j,"outside, change ", items[j+1]," to ",key)
+            #change the lowest element of the sorted subarray to the stored key
+            #this value has been overwritten by the interior values.
+            #the while loop has finally exited because key < items[j]
+            #still kind of confusing, but I get it.
+
+            items[j + 1] = key
+
+    return items, LOOP
 
 
 A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
@@ -142,7 +170,9 @@ C = [10,2,9,1,12,7,3,5,6,8,11,4]
 
 D = [10,9,3,4,8,9,345,2,12,1]
 
-print(insertion_sort(C))
+F = [10,9,8,7,6,5,4,3,2,1]
+
+print(insertion_sort(F))
 
 
 def merge(items1, items2):
