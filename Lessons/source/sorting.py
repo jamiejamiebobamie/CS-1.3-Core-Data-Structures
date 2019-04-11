@@ -3,19 +3,17 @@
 """
 TO DO:
 
-merge_sort
 quick_sort
 bucket_sort
 
 """
-
+import collections
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
 
     Running time: O(n) time complexity unless it breaks early due to being unsorted.
     Memory usage: O(1) space complexity"""
-    # TODO: Check that all adjacent items are in order, return early if not
 
     if not items:
         return True
@@ -29,9 +27,6 @@ def is_sorted(items):
     else:
         return True
 
-# print(is_sorted(A))
-
-
 def bubble_sort(items):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
@@ -42,23 +37,15 @@ def bubble_sort(items):
     Memory usage: constant storage or O(1) space complexity."""
 
     i = 0
-    loop = 0
 
     while not is_sorted(items):
-        loop+=1
-        # print(loop)
         if i < len(items)-1:
             if items[i] != min(items[i], items[i+1]):
-                # print(items[i], items[i+1])
                 items[i], items[i+1] = items[i+1], items[i]
             i += 1
         else:
             i = 0
     return items
-
-# print(bubble_sort(B))
-
-import collections
 
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
@@ -89,9 +76,6 @@ def selection_sort(items):
 
     return items
 
-C = [10,2,9,1,12,7,3,5,6,8,11,4]
-# print(selection_sort(C))
-
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
@@ -105,8 +89,6 @@ def insertion_sort(items):
 
     TODO: attempt to rewrite this later in the term w/o looking at the code below.
     """
-
-
 
 # CODE FROM https://www.geeksforgeeks.org/insertion-sort/ BELOW:
 # Function to do insertion sort
@@ -129,13 +111,11 @@ def insertion_sort(items):
     #
     # return arr
 
-    #for time complexity
-    LOOP = 0
+# My Code:
+#
     # generate indices from 1 to the length of the input array minus one
     #('range()' upperboud is exclusive):
     for i in range(1, len(items)):
-
-            LOOP+=1
 
             # store the value at index i in items (first i == 1)
             key = items[i]
@@ -143,44 +123,31 @@ def insertion_sort(items):
             # generate an index 1 less than index i (first j == 0)
             j = i - 1
 
-            print(key,items)
-
             # while index j is greater than or equal to 0
             # and the current stored value is less than items[j]
             while j >= 0 and key < items[j]:
-
-                print(i,j,'inside, change ', items[j+1]," to ",items[j])
 
                 #iterate backwards from index j to 0
                 #shifting the items in the subarray of sorted items
                 #forward one
                 items[j+1] = items[j]
                 j -= 1
-                print("inside",key,items)
 
-
-            print(i,j,"outside, change ", items[j+1]," to ",key)
             #change the lowest element of the sorted subarray to the stored key
             #this value has been overwritten by the interior values.
             #the while loop has finally exited because key < items[j]
             #still kind of confusing, but I get it.
-
             items[j + 1] = key
 
-    return items, LOOP
+    return items
 
 
 A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
 B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
-
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
-
 D = [10,9,3,4,8,9,345,2,12,1]
-
+E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
-
-# print(insertion_sort(F))
-
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
@@ -211,9 +178,6 @@ def merge(items1, items2):
     return mergedList
 
 
-
-# print('merged',merge(A, B))
-
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
@@ -226,48 +190,24 @@ def split_sort_merge(items):
     partition = len(items)//2
     return merge(bubble_sort(items[:partition]),bubble_sort(items[partition:]))
 
-# print(split_sort_merge(C))
-
-
 def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time: I'm not sure.
+    Memory usage: O(1)"""
 
-    def __helper(list,index):
-        if len(list)-2 > index:
-            if list[index]>list[index+1]:
-                list[index], list[index+1] = list[index+1], list[index]
-            return __helper(list,index+1)
-        elif not is_sorted(list):
-            index = 0
+    partition = len(items)//2
+    def __recursive_bubbleSort(list, i=0):
+        while not is_sorted(list):
+            if i < len(list)-1:
+                if list[i] != min(list[i], list[i+1]):
+                    list[i], list[i+1] = list[i+1], list[i]
+                return __recursive_bubbleSort(list, i+1)
+            else:
+                return __recursive_bubbleSort(list, 0)
+        return list
 
-    __helper(items,0)
-    return items
-
-
-F = [10,9,8,7,6,5,4,3,2,1]
-
-print(merge_sort(F))
-    #     if item1> item2:
-    #
-    #
-    # if len(items) < 2:
-    #
-    # partition = len(items)//2
-
-
-
-
-    # return merge(items[:partition],items[partition:])
-
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
-
-# print(merge_sort(C))
+    return merge(__recursive_bubbleSort(items[partition:]), __recursive_bubbleSort(items[:partition]))
 
 def partition(items, low, high):
     """Return index `p` after in-place partitioning given items in range
@@ -303,8 +243,6 @@ def partition(items, low, high):
         else:
             larger.append(items[_])
     return smaller + equal + larger
-
-# print(partition(D, 2, 9))
 
 
 def quick_sort(items, low=None, high=None):
@@ -356,10 +294,6 @@ def counting_sort(numbers):
 
     # return result
     return numbers
-
-
-E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
-# print(counting_sort(E))
 
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
