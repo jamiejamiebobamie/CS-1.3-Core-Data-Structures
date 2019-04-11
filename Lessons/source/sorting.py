@@ -3,7 +3,6 @@
 """
 TO DO:
 
-selection_sort
 merge_sort
 quick_sort
 bucket_sort
@@ -66,33 +65,29 @@ def selection_sort(items):
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Find minimum item in unsorted items
-    # TODO: Swap it with first unsorted item
-    minimum = collections.namedtuple("minimum",('index', 'value'))
 
-    first_unsorted_index = 0
+    minimum_value = float('inf')
+    minimum_index = 0
 
-    minimum.value = min(items[0], items[1])
-    minimum.index = 0
-    while not is_sorted(items[:-1]):
-        i = 0
-        while i < len(items):
-            temp_min_value = minimum.value
-            minimum.value = min(minimum.value,items[i])
-            if temp_min_value != minimum.value:
-                minimum.index = i
-                # print(minimum.index,minimum.value)
-            if i > 0:
-                if items[i] < items[i-1]:
-                    first_unsorted_index = i-1
-            items[minimum.index], items[first_unsorted_index] = items[first_unsorted_index], items[minimum.index]
-            print(items)
-            i+=1
+    first_unsorted_index = items_left_to_sort = 0
+
+    length_of_items = len(items)
+
+    while length_of_items - items_left_to_sort:
+        for _ in range(items_left_to_sort, length_of_items):
+            temp = minimum_value
+            minimum_value = min(minimum_value, items[_])
+            if temp != minimum_value:
+                minimum_index = _
+        print(items[items_left_to_sort], minimum_value,items)
+        items[items_left_to_sort], items[minimum_index] = items[minimum_index], items[items_left_to_sort]
+        minimum_value = float('inf')
+        items_left_to_sort += 1
+
     return items
 
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
-# print(selection_sort(C))
+print(selection_sort(C))
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
@@ -181,7 +176,7 @@ D = [10,9,3,4,8,9,345,2,12,1]
 
 F = [10,9,8,7,6,5,4,3,2,1]
 
-print(insertion_sort(F))
+# print(insertion_sort(F))
 
 
 def merge(items1, items2):
