@@ -234,6 +234,7 @@ def partition(items, low, high):
             equal.append(items[_])
         else:
             larger.append(items[_])
+    # SUPPOSED TO RETURN THE INDEX OF PIVOT 'p', NOT SORTED ARRAY
     return smaller + equal + larger
 
 
@@ -270,29 +271,27 @@ def quick_sort(items, low=None, high=None):
         return items[low]
 
     pivot = range // 2 + low
+    print(pivot,items[pivot])
 
-    shift_pivot = 0
-    
-    def recursive_pivot(index):
-        if index < high:
-
-            # if the value of the item is greater than the value at the pivot index
-            # and the value of the index is greater than the value of the pivot's index,
-            # the item needs to be moved to the right of the pivot.
-
-            if items[index] > items[pivot] and index < pivot:
-
-
-
+    def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
+        while equal < high and index < high:
+            print(items)
+            if items[index] > items[pivot]:
+                items[index], items[greater-1] = items[greater-1], items[index]
+                return recursive_pivot(index+1, lesser, equal, greater-1, unclass+1)
+            elif items[index] == items[pivot]:
+                items[index], items[equal+1] = items[equal+1], items[index]
+                return recursive_pivot(index+1, lesser, equal+1, greater, unclass+1)
             else:
+                return recursive_pivot(index+1, lesser+1, equal, greater, unclass+1)
+        else:
+            index = low
 
-            if items[index] <
+    recursive_pivot()
+    return items
 
 
-
-
-
-A = [0,1,1,2,5]
+A = [3,2,1,1,5]
 B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
 D = [10,9,3,4,8,9,345,2,12,1]
@@ -300,7 +299,7 @@ E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(quick_sort(B,0,8))
+print(quick_sort(D))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
