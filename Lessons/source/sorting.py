@@ -141,14 +141,6 @@ def insertion_sort(items):
 
     return items
 
-
-A = [0,1,1,2,5,6,7,8,9,10,11,15,20]
-B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
-C = [10,2,9,1,12,7,3,5,6,8,11,4]
-D = [10,9,3,4,8,9,345,2,12,1]
-E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
-F = [10,9,8,7,6,5,4,3,2,1]
-
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
@@ -255,6 +247,37 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+    if low==None:
+        low = 0
+    if high==None:
+        high = len(items) - 1
+
+    assert 0 <= low <= len(items)-2, 'your low index: {} is out of range. make it {} or less.'.format(low, len(items)-2)
+    assert 1 <= high <= len(items)-1, 'your high index: {} is out of range. make it {} or less.'.format(high, len(items)-1)
+
+    if len(items) < 1:
+        raise ValueError("List is empty.")
+    elif len(items) == 1:#make it so the len check and items check checks the inputted range from low to high.
+        return items
+    elif len(items) == 2:#make it so the len check and items check checks the inputted range from low to high.
+        return items if items[0] < items[1] else [items[1]] + [items[0]]
+
+    high-low
+
+
+A = [0,1,1,2,5]
+B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
+C = [10,2,9,1,12,7,3,5,6,8,11,4]
+D = [10,9,3,4,8,9,345,2,12,1]
+E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
+F = [10,9,8,7,6,5,4,3,2,1]
+G = [2,1]
+
+print(quick_sort(A))
+
+
+
 
 
 def counting_sort(numbers):
