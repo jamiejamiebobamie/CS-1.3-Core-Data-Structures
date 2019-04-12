@@ -245,7 +245,9 @@ def quick_sort(items, low=None, high=None):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check if high and low range bounds have default values (not given)
     # TODO: Check if list or range is so small it's already sorted (base case)
+        # What's 'so small' 1? 2?
     # TODO: Partition items in-place around a pivot and get index of pivot
+
     # TODO: Sort each sublist range by recursively calling quick sort
 
     if low==None:
@@ -256,14 +258,19 @@ def quick_sort(items, low=None, high=None):
     assert 0 <= low <= len(items)-2, 'your low index: {} is out of range. make it {} or less.'.format(low, len(items)-2)
     assert 1 <= high <= len(items)-1, 'your high index: {} is out of range. make it {} or less.'.format(high, len(items)-1)
 
-    if len(items) < 1:
-        raise ValueError("List is empty.")
-    elif len(items) == 1:#make it so the len check and items check checks the inputted range from low to high.
-        return items
-    elif len(items) == 2:#make it so the len check and items check checks the inputted range from low to high.
-        return items if items[0] < items[1] else [items[1]] + [items[0]]
+    range = high-low
 
-    high-low
+
+    if range < 1:
+        raise ValueError("List is empty.")
+
+    #this program assumes an exclusive high range like the range method: 'range()'
+    elif range == 1:
+        return items[low]
+
+    pivot = range // 2 + low
+
+
 
 
 A = [0,1,1,2,5]
@@ -274,11 +281,7 @@ E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(quick_sort(A))
-
-
-
-
+print(quick_sort(B,0,8))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
