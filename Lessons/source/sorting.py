@@ -249,6 +249,7 @@ def quick_sort(items, low=None, high=None):
     # TODO: Partition items in-place around a pivot and get index of pivot
 
     # TODO: Sort each sublist range by recursively calling quick sort
+        # Confused by 'sublist range'.
 
     if low==None:
         low = 0
@@ -269,6 +270,24 @@ def quick_sort(items, low=None, high=None):
         return items[low]
 
     pivot = range // 2 + low
+
+    shift_pivot = 0
+    
+    def recursive_pivot(index):
+        if index < high:
+
+            # if the value of the item is greater than the value at the pivot index
+            # and the value of the index is greater than the value of the pivot's index,
+            # the item needs to be moved to the right of the pivot.
+
+            if items[index] > items[pivot] and index < pivot:
+
+
+
+            else:
+
+            if items[index] <
+
 
 
 
