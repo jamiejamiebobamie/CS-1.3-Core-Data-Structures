@@ -285,9 +285,9 @@ def partition(items, low=None, high=None):
 def quick_sort(items, low=None, high=None):
     """Sort given items in place by partitioning items in range `[low...high]`
     around a pivot item and recursively sorting each remaining sublist range.
-    TODO: Best case running time: ??? Why and under what conditions?
-    TODO: Worst case running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: O(n.)
+    Memory usage: O(1)"""
     # TODO: Check if high and low range bounds have default values (not given)
     # TODO: Check if list or range is so small it's already sorted (base case)
         # What's 'so small' 1? 2?
@@ -299,13 +299,12 @@ def quick_sort(items, low=None, high=None):
     if low==None:
         low = 0
     if high==None:
-        high = len(items) - 1
+        high = len(items)
 
     assert 0 <= low <= len(items)-2, 'your low index: {} is out of range. make it {} or less.'.format(low, len(items)-2)
-    assert 1 <= high <= len(items)-1, 'your high index: {} is out of range. make it {} or less.'.format(high, len(items)-1)
+    assert 1 <= high <= len(items), 'your high index: {} is out of range. make it {} or less.'.format(high, len(items)-1)
 
     range = high-low
-
 
     if range < 1:
         raise ValueError("List is empty.")
@@ -314,40 +313,26 @@ def quick_sort(items, low=None, high=None):
     elif range == 1:
         return items[low]
 
-    pivot = range // 2 + low
+    pivot_index = range // 2 + low
+    pivot = items[pivot_index]
 
-    print(pivot,items[pivot])
-
-    def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
-        while unclass < range-1:
-            print("resetting index")
-            index = low
-            while index < high:
-                print(items)
-                if items[index] > items[pivot]:
-                    items[index], items[greater] = items[greater], items[index]
-                    if items[greater] > items[pivot]:
-                        print(items[greater],"is greater than",items[pivot])
-                        greater-=1
-                        unclass+=1
-                elif items[index] == items[pivot]:
-                    items[index], items[equal] = items[equal], items[index]
-                    if items[equal] >= items[pivot]:
-                        print(items[equal],"is equal to",items[pivot])
-                        equal+=1
-                        unclass+=1
-                else:
-                    items[index], items[lesser] = items[lesser], items[index]
-                    if items[lesser] < items[pivot]:
-                        print(items[lesser],"is lesser than",items[pivot])
-                        lesser+=1
-                        unclass+=1
-                index+=1
-                recursive_pivot(index, lesser, equal, greater, unclass)
-
+# page 42 of Elements of the Programmign Interview in Python:
+# 'the dutch national flag problem':
+# (turned the function recursive):
+    def recursive_pivot(smaller=low, equal=low, larger=high):
+        while equal < larger:
+            if items[equal] < pivot:
+                items[smaller], items[equal] = items[equal], items[smaller]
+                smaller, equal = smaller+1, equal+1
+            elif items[equal] == pivot:
+                equal+=1
+            else:
+                larger-=1
+                items[larger], items[equal] = items[equal], items[larger]
+            return recursive_pivot(smaller, equal, larger)
 
     recursive_pivot()
-    return items
+    return items, len(items), pivot, items[pivot_index]
 
 
 A = [3,2,1,1,5]
@@ -360,8 +345,8 @@ E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(partition(D))
-# print(quick_sort(D))
+# print(partition(D))
+print(quick_sort(F))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
