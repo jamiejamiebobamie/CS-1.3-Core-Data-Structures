@@ -1,12 +1,5 @@
 #!python
 
-"""
-TO DO:
-
-quick_sort
-bucket_sort
-
-"""
 import collections
 from linkedlist import LinkedList, Node
 
@@ -257,7 +250,6 @@ def partition(items, low=None, high=None):
 
     high_low_range = high-low
 
-
     if high_low_range < 1:
         raise ValueError("List is empty.")
 
@@ -269,7 +261,6 @@ def partition(items, low=None, high=None):
     pivot = float('inf')
 
     for _ in range(low,high):
-        # print(_)
         temp = pivot
         pivot = min(items[_], pivot)
         if pivot != temp:
@@ -279,8 +270,6 @@ def partition(items, low=None, high=None):
     print(pivot_index, items[0])
 
     return 0, items
-
-
 
 
 def quick_sort(items, low=None, high=None):
@@ -329,20 +318,6 @@ def quick_sort(items, low=None, high=None):
     return items, len(items), pivot, items[pivot_index]
 
 
-A = [3,2,1,1,5]
-B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
-C = [10,2,9,1,12,7,3,5,6,8,11,4]
-
-D = [10,9,3,4,8,9,345,2,12,1]
-
-
-
-F = [10,9,8,7,6,5,4,3,2,1]
-G = [2,1]
-
-# print(partition(D))
-# print(quick_sort(F))
-
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
     then looping over counts and copying that many numbers into output list.
@@ -384,28 +359,24 @@ def counting_sort(numbers):
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
     sorting each bucket, and combining contents of all buckets in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+
+    Running time: Bubble_sort = O(n**2) and the line: 'result+=bubble_sort(dict[i])'
+        entails making a new array and also iterating through the existing one(s),
+        which is O(n) time, so overall O(2n**2) time complexity.
+
+    Memory usage: O(2n) Dictionary for buckets and the result array.
+    """
 
     dict = {}
 
     minimum = float('inf')
     maximum = float('-inf')
 
-    # sample1 = numbers[len(numbers) // 2]
-    # sample2 = numbers[len(numbers) // 4]
-    #
-    # i = 0
-
     for number in numbers:
         minimum = min(minimum, number)
         maximum = max(maximum, number)
 
     interval = (maximum-minimum)/num_buckets
-    #
-    # for i in range(num_buckets):
-    #     print(i)
-    #     print(i*interval)
 
     for number in numbers:
         hash = number//interval
@@ -423,19 +394,8 @@ def bucket_sort(numbers, num_buckets=10):
 
     return result
 
-
-
-    # TODO: Find range of given numbers (minimum and maximum integer values)
-    # TODO: Create a list of buckets to store numbers in subranges of input range
-    # TODO: Loop over given numbers and place each item in appropriate bucket
-
-    # TODO: Sort each bucket using any sorting algorithm (recursive or another)
-    # TODO: Loop over buckets and append each bucket's numbers into output list
     # FIXME: Improve this to mutate input instead of creating new output list
 
-
-# E = [1,2,345,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10,345,77,23,5,7,11,13,15]
-# print(bucket_sort(E))
 
 def random_ints(count=20, min=1, max=50):
     """Return a list of `count` integers sampled uniformly at random from
