@@ -276,6 +276,7 @@ def quick_sort(items, low=None, high=None):
 
     def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
         while unclass < range:
+            print("resetting index")
             index = low
             while index < high:
                 print(items)
@@ -286,10 +287,10 @@ def quick_sort(items, low=None, high=None):
                         greater-=1
                         unclass+=1
                 elif items[index] == items[pivot]:
-                    # items[index], items[equal] = items[equal], items[index]
+                    items[index], items[equal] = items[equal], items[index]
                     if items[equal] >= items[pivot]:
                         print(items[equal],"is equal to",items[pivot])
-                        # equal+=1
+                        equal+=1
                         unclass+=1
                 else:
                     items[index], items[lesser] = items[lesser], items[index]
@@ -298,7 +299,7 @@ def quick_sort(items, low=None, high=None):
                         lesser+=1
                         unclass+=1
                 index+=1
-                return recursive_pivot(index, lesser, equal, greater, unclass)
+                recursive_pivot(index, lesser, equal, greater, unclass)
 
 
     recursive_pivot()
