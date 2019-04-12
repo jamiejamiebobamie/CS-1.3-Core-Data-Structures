@@ -274,18 +274,18 @@ def quick_sort(items, low=None, high=None):
     print(pivot,items[pivot])
 
     def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
-        while equal < high and index < high:
-            print(items)
-            if items[index] > items[pivot]:
-                items[index], items[greater-1] = items[greater-1], items[index]
-                return recursive_pivot(index+1, lesser, equal, greater-1, unclass+1)
-            elif items[index] == items[pivot]:
-                items[index], items[equal+1] = items[equal+1], items[index]
-                return recursive_pivot(index+1, lesser, equal+1, greater, unclass+1)
+        while equal < high:
+            while index < high:
+                if items[index] > items[pivot]:
+                    items[index], items[greater-1] = items[greater-1], items[index]
+                    return recursive_pivot(index+1, lesser, equal, greater-1, unclass+1)
+                elif items[index] == items[pivot]:
+                    items[index], items[equal+1] = items[equal+1], items[index]
+                    return recursive_pivot(index+1, lesser, equal+1, greater, unclass+1)
+                else:
+                    return recursive_pivot(index+1, lesser+1, equal+1, greater, unclass+1)
             else:
-                return recursive_pivot(index+1, lesser+1, equal, greater, unclass+1)
-        else:
-            index = low
+                index = low
 
     recursive_pivot()
     return items
@@ -299,7 +299,7 @@ E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(quick_sort(D))
+print(quick_sort(C))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
