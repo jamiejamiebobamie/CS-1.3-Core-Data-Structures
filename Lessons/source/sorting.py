@@ -271,21 +271,35 @@ def quick_sort(items, low=None, high=None):
         return items[low]
 
     pivot = range // 2 + low
+
     print(pivot,items[pivot])
 
     def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
-        while equal < high:
+        while unclass < range:
+            index = low
             while index < high:
+                print(items)
                 if items[index] > items[pivot]:
-                    items[index], items[greater-1] = items[greater-1], items[index]
-                    return recursive_pivot(index+1, lesser, equal, greater-1, unclass+1)
+                    items[index], items[greater] = items[greater], items[index]
+                    if items[greater] > items[pivot]:
+                        print(items[greater],"is greater than",items[pivot])
+                        greater-=1
+                        unclass+=1
                 elif items[index] == items[pivot]:
-                    items[index], items[equal+1] = items[equal+1], items[index]
-                    return recursive_pivot(index+1, lesser, equal+1, greater, unclass+1)
+                    # items[index], items[equal] = items[equal], items[index]
+                    if items[equal] >= items[pivot]:
+                        print(items[equal],"is equal to",items[pivot])
+                        # equal+=1
+                        unclass+=1
                 else:
-                    return recursive_pivot(index+1, lesser+1, equal+1, greater, unclass+1)
-            else:
-                index = low
+                    items[index], items[lesser] = items[lesser], items[index]
+                    if items[lesser] < items[pivot]:
+                        print(items[lesser],"is lesser than",items[pivot])
+                        lesser+=1
+                        unclass+=1
+                index+=1
+                return recursive_pivot(index, lesser, equal, greater, unclass)
+
 
     recursive_pivot()
     return items
@@ -294,12 +308,14 @@ def quick_sort(items, low=None, high=None):
 A = [3,2,1,1,5]
 B = [-1,-1,0,0,1,2,3,4,5,6,10,11,11,11,11,11,11]
 C = [10,2,9,1,12,7,3,5,6,8,11,4]
+
 D = [10,9,3,4,8,9,345,2,12,1]
+
 E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(quick_sort(C))
+print(quick_sort(D))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
