@@ -201,41 +201,85 @@ def merge_sort(items):
 
     return merge(__recursive_bubbleSort(items[partition:]), __recursive_bubbleSort(items[:partition]))
 
-def partition(items, low, high):
+def partition(items, low=None, high=None):
     """Return index `p` after in-place partitioning given items in range
     `[low...high]` by choosing a pivot (TODO: document your method here) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
-    Running time: O(n) under all conditions
-    Memory usage: O(n) under all conditions
 
-    Pivot chosen by finding the median between the low and high bounds.
+    Running time: O(n) under all conditions
+    Memory usage: O(1) under all conditions
+
+    Pivot chosen by finding the lowest value in the given high_low_range
+        and then swapping that value at the very beginning of the high_low_range.
+
+    It's probably lazy / cheating / missing the point, but it satisfies the above condition,
+        by removing the left-side of the partition.
     """
 
     #"the dutch national flag problem"
+    #
+    # if high > len(items)-1:
+    #     raise ValueError("You're array only goes to {}.".format(len(items)-1))
+    # if low < 0:
+    #     raise ValueError("An array starts at index 0.")
+    #
+    # pivot_index = (high - low) // 2
+    #
+    # value = items[pivot_index]
+    #
+    # smaller = []
+    # equal = []
+    # larger = []
+    #
+    # for _ in range(len(items[low:high+1])):
+    #     if items[_] < value:
+    #         smaller.append(items[_])
+    #     elif items[_] == value:
+    #         equal.append(items[_])
+    #     else:
+    #         larger.append(items[_])
+    #
+    #
+    # return smaller + equal + larger
+    #
+    # ^^^NOT IN PLACE.
+    # ALSO FUNCTION IS SUPPOSED TO RETURN THE INDEX OF PIVOT 'p', NOT A SORTED ARRAY AROUND PIVOT.
 
-    if high > len(items)-1:
-        raise ValueError("You're array only goes to {}.".format(len(items)-1))
-    if low < 0:
-        raise ValueError("An array starts at index 0.")
+    if low==None:
+        low = 0
+    if high==None:
+        high = len(items) - 1
 
-    pivot_index = (high - low) // 2
+    assert 0 <= low <= len(items)-2, 'your low index: {} is out of range. make it {} or less.'.format(low, len(items)-2)
+    assert 1 <= high <= len(items)-1, 'your high index: {} is out of range. make it {} or less.'.format(high, len(items)-1)
 
-    value = items[pivot_index]
+    high_low_range = high-low
 
-    smaller = []
-    equal = []
-    larger = []
 
-    for _ in range(len(items[low:high+1])):
-        if items[_] < value:
-            smaller.append(items[_])
-        elif items[_] == value:
-            equal.append(items[_])
-        else:
-            larger.append(items[_])
-    # SUPPOSED TO RETURN THE INDEX OF PIVOT 'p', NOT SORTED ARRAY
-    return smaller + equal + larger
+    if high_low_range < 1:
+        raise ValueError("List is empty.")
+
+    #this program assumes an exclusive high range like the range method: 'range()'
+    elif high_low_range == 1:
+        return items[low]
+
+    print(low,high)
+    pivot = float('inf')
+
+    for _ in range(low,high):
+        # print(_)
+        temp = pivot
+        pivot = min(items[_], pivot)
+        if pivot != temp:
+            pivot_index = _
+
+    items[pivot_index], items[0], = items[0], items[pivot_index]
+    print(pivot_index, items[0])
+
+    return 0, items
+
+
 
 
 def quick_sort(items, low=None, high=None):
@@ -275,7 +319,7 @@ def quick_sort(items, low=None, high=None):
     print(pivot,items[pivot])
 
     def recursive_pivot(index=low, lesser=low, equal=pivot, greater=high, unclass=low):
-        while unclass < range:
+        while unclass < range-1:
             print("resetting index")
             index = low
             while index < high:
@@ -316,7 +360,8 @@ E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10]
 F = [10,9,8,7,6,5,4,3,2,1]
 G = [2,1]
 
-print(quick_sort(D))
+print(partition(D))
+# print(quick_sort(D))
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
