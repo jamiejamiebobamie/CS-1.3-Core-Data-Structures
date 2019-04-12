@@ -8,6 +8,7 @@ bucket_sort
 
 """
 import collections
+from linkedlist import LinkedList, Node
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
@@ -391,37 +392,50 @@ def bucket_sort(numbers, num_buckets=10):
     minimum = float('inf')
     maximum = float('-inf')
 
-    sample1 = numbers[len(numbers) // 2]
-    sample2 = numbers[len(numbers) // 4]
-
-    i = 0
+    # sample1 = numbers[len(numbers) // 2]
+    # sample2 = numbers[len(numbers) // 4]
+    #
+    # i = 0
 
     for number in numbers:
         minimum = min(minimum, number)
         maximum = max(maximum, number)
 
+    interval = (maximum-minimum)/num_buckets
+    #
+    # for i in range(num_buckets):
+    #     print(i)
+    #     print(i*interval)
+
     for number in numbers:
-        # minimum = min(minimum, number)
-        # maximum = max(maximum, number)
-        hash = number%(maximum-minimum)
-        # hash = number%(abs(sample2-sample1)+i)
+        hash = number//interval
         if hash in dict:
+            # new_node = Node(number) # TO-DO: implement this as a linkedlist
             dict[hash].append(number)
-            i+=1
         else:
             dict[hash]=[number]
+    print(dict)
 
-    return dict, maximum, minimum
+    result = []
+    for i in range(num_buckets+1):
+        if i in dict:
+            result+=bubble_sort(dict[i])
+
+    return result
+
+
 
     # TODO: Find range of given numbers (minimum and maximum integer values)
-
-    # TODO: Create list of buckets to store numbers in subranges of input range
+    # TODO: Create a list of buckets to store numbers in subranges of input range
     # TODO: Loop over given numbers and place each item in appropriate bucket
+
     # TODO: Sort each bucket using any sorting algorithm (recursive or another)
     # TODO: Loop over buckets and append each bucket's numbers into output list
     # FIXME: Improve this to mutate input instead of creating new output list
-E = [1,2,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10,345,77,23,5,7,11,13,15]
-print(bucket_sort(E))
+
+
+# E = [1,2,345,3,4,5,6,6,1,7,3,8,9,9,9,9,9,10,345,77,23,5,7,11,13,15]
+# print(bucket_sort(E))
 
 def random_ints(count=20, min=1, max=50):
     """Return a list of `count` integers sampled uniformly at random from
