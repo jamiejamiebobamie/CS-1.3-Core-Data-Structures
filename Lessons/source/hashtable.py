@@ -101,7 +101,7 @@ class HashTable(object):
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         Best case running time: Omega(1) if item is near the head of the list.
-        Worst case running time: O(3n + self.__resize()) if item is near the tail of the list or
+        Worst case running time: O(4n) if item is near the tail of the list or
         not present and we need to loop through all n nodes in the list."""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
@@ -117,13 +117,13 @@ class HashTable(object):
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
         self.size+=1
-        if self.load_factor > 0.75:
+        if self.load_factor() > 0.75:
             self._resize()
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1)
+        Worst case running time: O(n)"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
@@ -140,8 +140,8 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: ??? under what conditions? [TODO]
-        Best and worst case space usage: ??? what uses this memory? [TODO]"""
+        Best and worst case running time: Best/Worst: O(n)
+        Best and worst case space usage: Best/Worst: O(n)"""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
@@ -149,16 +149,13 @@ class HashTable(object):
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
 
-        # TODO: Get a list to temporarily hold all current key-value entries
-        items = self.items()
-        # TODO: Create a new list of new_size total empty linked list buckets
+
+        temp_items = self.items()
+
         self.buckets = [LinkedList() for i in range(new_size)]
-        # TODO: Insert each key-value entry into the new list of buckets,
-        # which will rehash them into a new bucket index based on the new size
-        # ...
-        print(len(items), items)
-        # for i, item in enumerate(items):
-        #     self.set(item[0], item[1])
+        for key, value in temp_items:
+            print(key, value)
+            self.buckets[self._bucket_index(key)].append((key,value))
 
 
 

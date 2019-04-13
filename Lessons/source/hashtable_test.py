@@ -14,7 +14,7 @@ class HashTableTest(unittest.TestCase):
         assert len(ht.buckets) == 4
         assert ht.length() == 0
         assert ht.size == 0
- 
+
     def test_keys(self):
         ht = HashTable()
         assert ht.keys() == []
@@ -72,7 +72,9 @@ class HashTableTest(unittest.TestCase):
         assert ht.load_factor() == 0
         ht.set('I', 1)
         assert ht.size == 1
+        print("# of buckets",len(ht.buckets))
         assert len(ht.buckets) == 2
+        print("# of buckets",len(ht.buckets))
         assert ht.load_factor() == 0.5
         ht.set('V', 5)  # Should trigger resize
         assert ht.size == 2
