@@ -183,6 +183,9 @@ class LinkedList(object):
         # Loop until the node is None, which is one node too far past the tail
         while node is not None:  # Up to n iterations if we don't exit early
             # Check if this node's data satisfies the given quality function
+
+            # EXAMPLE: quality()==lambda key_value: key_value[0] == key
+
             if quality(node.data):  # Constant time to call quality function
                 # We found data satisfying the quality function, so exit early
                 return node.data  # Constant time to return data
