@@ -1,7 +1,4 @@
-# Write unit tests to ensure the Set class is robust
-# Include test cases for each class instance method
-# Annotate all instance methods with complexity analysis of running time and space (memory)
-# Compare the behaviors of your Set class to those of the Python set type and Swift Set type
+
 class Set(object):
 
     def __init___(elements=None):
@@ -11,17 +8,23 @@ class Set(object):
             self.add(element)
 
     def contains(element):
+        """Time complexity: O(1)
+            Space complexity: O(2)"""
         if element in self.container:
             return True
 
     def add(element):
+        """Time complexity: O(1)
+            Space complexity: O(2)"""
         if not self.contains(element):
             self.container[element] = 1
             self.size += 1
 
     def remove(element):
+        """Time complexity: O(1)
+            Space complexity: O(2)"""
         if self.contains(element):
-            self.container.pop('element', None)
+            del myDict['key']
             self.size -= 1
         else:
             raise KeyError("Element not in set.")
@@ -34,7 +37,10 @@ class Set(object):
 
         TO-DO: Perhaps write an if-statement that begins the function that causes the program
         to follow a different set of instructions if the size of the other_set exceeds a given
-        amount."""
+        amount.
+
+        Time complexity: O(n+m-n), n: size of set, m: size of other set
+        Space complexity: O(l+m), l: size of new set, m: size of other set"""
 
         new_set = Set()
 
@@ -53,7 +59,10 @@ class Set(object):
 
     def intersection(other_set):
     """Iterate through the smaller set and look for items contained
-            in both sets and add them to a new set."""
+        in both sets and add them to a new set.
+
+        Time complexity: O(n) or O(m), n: size of set, m: size of other set, whichever is smaller
+        Space complexity: O(l), l: size of new set"""
 
         new_set = Set()
 
@@ -73,7 +82,9 @@ class Set(object):
         """Iterate over the two sets and find the elements
         that are not shared and add them to a new set.
         Again trying to decrease overall time complexity by copying the set,
-        but the trade off might not be worth it."""
+        but the trade off might not be worth it.
+        Time complexity: O(n+m-n), n: size of set, m: size of other set
+        Space complexity: O(l+m), l: size of new set, m: size of other set"""
 
         new_set = Set()
 
@@ -93,7 +104,9 @@ class Set(object):
         """Iterate over the other set and check to see if each element is contained
         in this set. Return False if an element is not found.
         Return True if the entire set has been iterated over.
-        Don't iterate over anything if the size of the other_set is larger than this set."""
+        Don't iterate over anything if the size of the other_set is larger than this set.
+        Time complexity: O(m), m: size of other set
+        Space complexity: O(1)"""
 
         if self.size > other_set.size:
             for element in other_set.container:
@@ -103,8 +116,14 @@ class Set(object):
         else:
             return False
 
+
+
+# Write unit tests to ensure the Set class is robust
+# Include test cases for each class instance method
+# Annotate all instance methods with complexity analysis of running time and space (memory)
+# Compare the behaviors of your Set class to those of the Python set type and Swift Set type
+
 # Stretch Challenges
-#
 # Implement CircularBuffer class (backed by dynamic array) with the following instance methods and properties:
 # __init__(max_size) - initialize a new circular buffer that can store at most max_size items
 # size - property that tracks the number of items in the buffer
