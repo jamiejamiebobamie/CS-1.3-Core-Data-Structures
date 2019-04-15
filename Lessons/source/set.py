@@ -121,19 +121,58 @@ class Set(object):
 
 
 
-# Write unit tests to ensure the Set class is robust
-# Include test cases for each class instance method
+
 # Compare the behaviors of your Set class to those of the Python set type and Swift Set type
 
 # Stretch Challenges
 # Implement CircularBuffer class (backed by dynamic array) with the following instance methods and properties:
-# __init__(max_size) - initialize a new circular buffer that can store at most max_size items
-# size - property that tracks the number of items in the buffer
-# is_empty - check if the buffer is empty
-# is_full - check if the buffer is full
-# enqueue(item) - insert item at the back of the buffer
-# front - return the item at the front of the buffer
-# dequeue - remove and return the item at the front of the buffer
+
+class CircularBuffer(object):
+
+    def __init__(self,max_size=10):
+        self.max_size = max_size
+        self.size = 0
+        self.front = 0
+        self.last = 0
+        self.container = [None]* max_size
+
+    def is_empty(self):
+        return self.size == 0
+
+    def is_full(self):
+        return self.size == self.max_size
+
+    def enqueue(self,item):
+        if not self.is_full():
+            self.container[self.last] = item
+            self.size += 1
+            self.last += 1
+            if self.last > self.max_size:
+                self.last = abs(self.max_size - self.last+1)
+
+    def front(self):
+        """Peek method."""
+        return self.container[self.front]
+
+    def dequeue(self):
+        item = self.container[self.front]
+        self.container[self.front] = None
+        self.size -= 1
+        self.front += 1
+        if self.front > self.max_size:
+            self.front = abs(self.max_size - self.front+1)
+        return item
+
+    def pop(self):
+        """Might need to draw a picture...."""
+        item = self.container[self.last]
+        self.container[self.last] = None
+        self.size -= 1
+        self.last -= 1
+        if self.last < 0:
+            self.last = abs(self.max_size - self.last+1)
+        return item
+
 # Annotate enqueue and dequeue methods with running time complexity analysis
 # Write unit tests to ensure the CircularBuffer class is robust
 # Include test cases for each class instance method and property
