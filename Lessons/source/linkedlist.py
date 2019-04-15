@@ -6,7 +6,7 @@ class Node(object):
         """Initialize this node with the given data."""
         self.data = data
         self.next = None
-        self.last = None # implement last pointer for LinkedStack class
+        self.last = None # points to the last node in the sequence
 
     def __repr__(self):
         """Return a string representation of this node."""
@@ -17,8 +17,8 @@ class LinkedList(object):
 
     def __init__(self, iterable=None):
         """Initialize this linked list and append the given items, if any."""
-        self.head = None  # First node
-        self.tail = None  # Last node
+        self.head = None  # First node of the sequence
+        self.tail = None  # Last node of the sequence
         self.size = 0  # Number of nodes
         # Append the given items
         if iterable is not None:
@@ -74,74 +74,90 @@ class LinkedList(object):
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) Index is the head or tail of the LL.
+        Worst case running time: O(n)"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+
+        if index == self.size - 1:
+            return self.tail.data
+
         node = self.head
         count = 0
         while node:
-            gate = True
-            if count == index and gate:
+            if count == index:
                 return node.data
             else:
-                gate = False
                 count+=1
                 node = node.next
         else:
-#not sure if this last call is necessary:
-            if count == index:
-                return node
             raise ValueError("List index is out of range: {}".format(index))
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
-        # Check if the given index is out of range and if so raise an error
+        Best case running time: O(1)
+        Worst case running time: O(n)
+
+        '# TODO: Find the node before the given index and insert item after it.'
+        
+        I found the item at the given index and and pushed that item forward while
+        inserting the new node.
+        """
+
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
 
-        # NOTE TO SELF: refactor code to use class methods like prepend....
+        #check to see if the list is empty, if so self.append() will take over...
         if self.is_empty():
             self.append(item)
             return True
+
+        #check to see if the index is one greater than the index at the tail,
+        #if so, self.append() will take over...
+        if index == self.size:
+            self.append(item)
+            return
+
+        #otherwise iterate through list.
         count = 0
         node = previous = self.head
         while node:
-            gate = True
-            if index == count and gate:
-
+        #if we've counted to the correct index.
+        #create a new node, ipdate the size, set the next node of the new node
+        #to the current item at the index and set the current item at the index's
+        #last pointer to the new node just created, effectively bumping the node
+        #that was at the index down the list by one. next we have to take into
+        #account the special cases...
+            if index == count:
                 new_node = Node(item)
                 self.size +=1
                 new_node.next = node
-
-                if previous != self.head:
-                    previous.next = new_node
+                node.last = new_node
+        #if the node at the correct index is not the head, set the new_node's last
+        #attribute to the node set to 'previous'.
+                if node != self.head:
+                    #previous.next = new_node
                     new_node.last = previous
+        #else the node at the given index is the head and has been supplanted,
+        #pushed forward/downstream. the new node is now the head.
                 else:
                     self.head = new_node
-                if count == self.size-1:
-                    self.tail = new_node
                 return True
+        #we haven't found the correct index, so keep moving down the list, by updating
+        #the count the previous node and the current node being iterated over.
             else:
-                gate = False
-                count+=1
+                count += 1
                 previous = node
                 node = node.next
-        else:
-            if index == self.size:
-                self.append(item)
-                return
-            raise ValueError("The given index is out of range: {}".format(index))
+        #No need for an 'else' statement to close the while loop as the above assert
+        #statement precludes the user from inputting an index that would cause the function
+        #to iterate beyond the bounds of the linkedlist.
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: BEST:O(1) WORST:O(1)"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -158,7 +174,7 @@ class LinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: BEST:O(1) WORST:O(1)"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -197,11 +213,21 @@ class LinkedList(object):
     def replace(self, old_item, new_item):
         """Replace the given old_item in this linked list with given new_item
         using the same node, or raise ValueError if old_item is not found.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1),
+        old_item == self.head.data or the old_item == self.tail.data
+        Worst case running time: O(n-1) old_item == node at index (n-1)"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
         if self.head:
+
+            if self.head.data == old_item:
+                self.head.data = new_item
+                return True
+            #if there's a head there's a tail:
+            if self.tail.data == old_item:
+                self.tail.data = new_item
+                return True
+
             node = self.head
             while node:
                 if node.data == old_item:
@@ -214,8 +240,8 @@ class LinkedList(object):
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1), item is at the head.
+        Worst case running time: O(n), item is at the tail"""
         # Start at the head node
         node = self.head
         # Keep track of the node before the one containing the given item
