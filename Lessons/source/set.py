@@ -84,7 +84,7 @@ class Set(object):
         that are not shared and add them to a new set.
         Again trying to decrease overall time complexity by copying the set,
         but the trade off might not be worth it.
-        Time complexity: O(n+m-n), n: size of set, m: size of other set
+        Time complexity: O(n+(m-m&n), n: size of set, m: size of other set
         Space complexity: O(l+m), l: size of new set, m: size of other set"""
 
         new_set = Set()
@@ -132,6 +132,7 @@ class CircularBuffer(object):
     def __init__(self,max_size=10):
         self.max_size = max_size
         self.size = 0
+
         self.front = 0
         self.last = 0
         self.container = [None]* max_size
