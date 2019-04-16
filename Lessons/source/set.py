@@ -129,7 +129,7 @@ class Set(object):
 
 class CircularBuffer(object):
 
-    def __init__(self,max_size=10):
+    def __init__(self, items=None, max_size=10):
         self.max_size = max_size
         self.size = 0
 
@@ -143,36 +143,44 @@ class CircularBuffer(object):
     def is_full(self):
         return self.size == self.max_size
 
-    def enqueue(self,item):
+    def enqueue(self, item):
         if not self.is_full():
             self.container[self.last] = item
             self.size += 1
             self.last += 1
-            if self.last > self.max_size:
-                self.last = abs(self.max_size - self.last+1)
+            if self.last + 1 > self.max_size:
+                self.last = abs(self.max_size - self.last + 1)
+        else:
+            raise AttributeError("Queue is full.")
 
     def front(self):
         """Peek method."""
         return self.container[self.front]
 
     def dequeue(self):
-        item = self.container[self.front]
-        self.container[self.front] = None
-        self.size -= 1
-        self.front += 1
-        if self.front > self.max_size:
-            self.front = abs(self.max_size - self.front+1)
-        return item
+        if not self.is_empty():
+            item = self.container[self.front]
+            self.container[self.front] = None
+            self.size -= 1
+            self.front += 1
+            if self.front + 1 > self.max_size:
+                self.front = abs(self.max_size - self.front + 1)
+            return item
+        else:
+            raise AttributeError("Queue is empty.")
+
 
     def pop(self):
         """Might need to draw a picture...."""
-        item = self.container[self.last]
-        self.container[self.last] = None
-        self.size -= 1
-        self.last -= 1
-        if self.last < 0:
-            self.last = abs(self.max_size - self.last+1)
-        return item
+        if not self.is_empty():
+            item = self.container[self.last]
+            self.container[self.last] = None
+            self.size -= 1
+            self.last -= 1
+            return item
+        else:
+            raise AttributeError("Queue is empty.")
+
 
 # Annotate enqueue and dequeue methods with running time complexity analysis
 # Write unit tests to ensure the CircularBuffer class is robust
