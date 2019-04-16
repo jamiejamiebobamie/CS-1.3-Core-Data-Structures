@@ -1,4 +1,12 @@
 
+#SCENARIO #2
+
+"""
+
+Similar solution to solution #1, but the functions find the lowest costs for all
+phone numbers in the file.
+
+"""
 
 routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
 numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
