@@ -16,8 +16,26 @@ def createRouteCostDictionary(filePath):
     return dictionary
 
 def readPhoneNumbers(filePath):
-        f = open(str(filePath))
-        numbersArray = f.read().split()
-        f.close()
+    f = open(str(filePath))
+    numbersArray = f.read().split()
+    f.close()
 
-        return numbersArray
+    return numbersArray
+
+def findLowestCost(routes, phoneNumbers):
+    file = ""
+    for phoneNumber in phoneNumbers:
+        test = ""
+        minimum = float('inf')
+        for digit in phoneNumber:
+            test += digit
+            if test in routes:
+                minimum = min(minimum,float(routes[test]))
+        if minimum != float('inf'):
+            file += str(phoneNumber)+','+ str(minimum)+'\n'
+        else:
+            file += str(phoneNumber)+','+ str(0)+'\n'
+
+    return file
+
+print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
