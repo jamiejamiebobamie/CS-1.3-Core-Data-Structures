@@ -14,8 +14,6 @@ If there was some way to iterate through the file and check
 line by line for subsets of the phone number in the routes,
 the time complexity would still be O(n**2), but the check would require
 one function and be more succinct.
-
-Overall time complexity below: O(2n+m + n + n**2)
 """
 
 routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
