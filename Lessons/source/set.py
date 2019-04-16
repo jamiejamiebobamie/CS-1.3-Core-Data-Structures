@@ -145,8 +145,10 @@ class CircularBuffer(object):
             self.container[self.last] = item
             self.size += 1
             self.last += 1
-            if self.last + 1 > self.max_size:
-                self.last = abs(self.max_size - self.last + 1)
+
+            if self.last >= self.max_size:
+                self.last = 0
+
         else:
             raise AttributeError("Queue is full.")
 
@@ -161,12 +163,13 @@ class CircularBuffer(object):
             self.container[self.first] = None
             self.size -= 1
             self.first += 1
-            if self.first + 1 > self.max_size:
-                self.first = abs(self.max_size - self.first + 1)
-            if self.size + 1 == self.max_size:
-                self.last += 1
-                if self.last + 1 > self.max_size:
-                    self.last = abs(self.max_size - self.last + 1)
+
+            if self.first > self.max_size:
+                self.first = 0
+
+            if self.is_empty():
+                self.first = self.last = 0
+
             return item
         else:
             raise AttributeError("Queue is empty.")
@@ -175,12 +178,19 @@ class CircularBuffer(object):
         """Time complexity: O(1).
         Space complexity: O(1)"""
         if not self.is_empty():
-            item = self.container[self.last]
-            self.container[self.last] = None
+            if self.last - 1 >= 0:
+                index = self.last-1
+            else:
+                index = self.max_size - 1
+
+            item = self.container[index]
+            self.container[index] = None
             self.size -= 1
             self.last -= 1
+
             if self.last < 0:
                 self.last = self.max_size - 1
+
             return item
         else:
             raise AttributeError("Queue is empty.")
