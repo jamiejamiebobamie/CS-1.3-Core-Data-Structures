@@ -149,5 +149,28 @@ class CircularBufferTest(unittest.TestCase):
         cb.last == 3
         cb.size == 1
 
+    def test_circular(self):
+        # circular aspect is broken:
+        cb = CircularBuffer(4)
+        cb.enqueue("A")
+        cb.enqueue("B")
+        cb.enqueue("C")
+        cb.enqueue("D")
+        print(cb.container, cb.first, cb.last)
+        cb.first == 0
+        cb.dequeue()
+        print(cb.container, cb.first, cb.last)
+        cb.dequeue()
+        cb.first == 2
+        cb.last == 3
+        cb.size == 2
+        cb.enqueue("E")
+        cb.first == 1
+        cb.enqueue("F")
+        cb.first == 2
+        print(cb.container, cb.first, cb.last)
+
+
+
 if __name__ == '__main__':
     unittest.main()

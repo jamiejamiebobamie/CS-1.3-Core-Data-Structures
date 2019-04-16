@@ -133,8 +133,8 @@ class CircularBuffer(object):
         self.max_size = max_size
         self.size = 0
 
-        self.first = 0
-        self.last = 0
+        self.first = 0 #pointer of the first index in the queue
+        self.last = 0 #pointer of the last index in the queue
         self.container = [None]* max_size
 
     def is_empty(self):
@@ -144,6 +144,8 @@ class CircularBuffer(object):
         return self.size == self.max_size
 
     def enqueue(self, item):
+        """Time complexity: O(1).
+        Space complexity: O(1)"""
         if not self.is_full():
             self.container[self.last] = item
             self.size += 1
@@ -154,10 +156,11 @@ class CircularBuffer(object):
             raise AttributeError("Queue is full.")
 
     def front(self):
-        """Peek method."""
         return self.container[self.first]
 
     def dequeue(self):
+        """Time complexity: O(1).
+        Space complexity: O(1)"""
         if not self.is_empty():
             item = self.container[self.first]
             self.container[self.first] = None
@@ -165,18 +168,25 @@ class CircularBuffer(object):
             self.first += 1
             if self.first + 1 > self.max_size:
                 self.first = abs(self.max_size - self.first + 1)
+            if self.size + 1 == self.max_size:
+                self.last += 1
+                if self.last + 1 > self.max_size:
+                    self.last = abs(self.max_size - self.last + 1)
             return item
         else:
             raise AttributeError("Queue is empty.")
 
 
     def pop(self):
-        """Might need to draw a picture...."""
+        """Time complexity: O(1).
+        Space complexity: O(1)"""
         if not self.is_empty():
             item = self.container[self.last]
             self.container[self.last] = None
             self.size -= 1
             self.last -= 1
+            if self.last < 0:
+                self.last = self.max_size - 1
             return item
         else:
             raise AttributeError("Queue is empty.")
