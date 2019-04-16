@@ -62,8 +62,6 @@ def is_palindrome_recursive(text, left=None, right=None):
     else:
         return True
 
-
-
 def main():
     import sys
     args = sys.argv[1:]  # Ignore script file name
