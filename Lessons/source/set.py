@@ -129,11 +129,11 @@ class Set(object):
 
 class CircularBuffer(object):
 
-    def __init__(self, items=None, max_size=10):
+    def __init__(self, max_size=10):
         self.max_size = max_size
         self.size = 0
 
-        self.front = 0
+        self.first = 0
         self.last = 0
         self.container = [None]* max_size
 
@@ -155,16 +155,16 @@ class CircularBuffer(object):
 
     def front(self):
         """Peek method."""
-        return self.container[self.front]
+        return self.container[self.first]
 
     def dequeue(self):
         if not self.is_empty():
-            item = self.container[self.front]
-            self.container[self.front] = None
+            item = self.container[self.first]
+            self.container[self.first] = None
             self.size -= 1
-            self.front += 1
-            if self.front + 1 > self.max_size:
-                self.front = abs(self.max_size - self.front + 1)
+            self.first += 1
+            if self.first + 1 > self.max_size:
+                self.first = abs(self.max_size - self.first + 1)
             return item
         else:
             raise AttributeError("Queue is empty.")

@@ -1,4 +1,5 @@
 from set import Set
+from set import CircularBuffer
 import unittest
 
 
@@ -92,6 +93,61 @@ class SetTest(unittest.TestCase):
         assert new_set.is_subset(other_set) == False
 
 
+class CircularBufferTest(unittest.TestCase):
+
+    def test__init__(self):
+        cb = CircularBuffer(30)
+        assert cb.max_size == 30
+        assert cb.size == 0
+        assert cb.container[0] == None
+
+
+    def test_is_empty(self):
+        cb = CircularBuffer(30)
+        assert cb.is_empty() == True
+
+    def test_is_full(self):
+        cb = CircularBuffer(0)
+        assert cb.is_full() == True
+
+    def test_enqueue(self):
+        cb = CircularBuffer(2)
+        cb.enqueue(2)
+        assert cb.is_full() == False
+        cb.enqueue(3)
+        assert cb.is_full() == True
+        assert cb.size == 2
+        assert cb.front() == 2
+
+
+    def test_front(self):
+        cb = CircularBuffer(1)
+        cb.enqueue("hey")
+        assert cb.front() == "hey"
+
+
+    def test_dequeue(self):
+        cb = CircularBuffer(2)
+        cb.enqueue(2)
+        cb.enqueue(3)
+        cb.dequeue()
+        assert cb.size == 1
+        cb.dequeue()
+        assert cb.is_empty() == True
+
+
+    def test_pop(self):
+        cb = CircularBuffer(4)
+        cb.enqueue(2)
+        cb.enqueue(3)
+        cb.enqueue("A")
+        cb.enqueue("B")
+        cb.dequeue()
+        cb.dequeue()
+        cb.pop()
+        cb.first == 2
+        cb.last == 3
+        cb.size == 1
 
 if __name__ == '__main__':
     unittest.main()
