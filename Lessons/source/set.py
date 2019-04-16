@@ -30,7 +30,7 @@ class Set(object):
             raise KeyError("Element not in set.")
 
     def union(self, other_set):
-        """Iterate over two sets and create a new set from the elemets contained in both.
+        """Iterate over two sets and create a new set from the two sets.
         This method is meant to decrease overall time complexity by iterating
         over an element once. The space complexity is high as the other_set is duplicated
         in order to pop elements from it.
@@ -39,7 +39,7 @@ class Set(object):
         to follow a different set of instructions if the size of the other_set exceeds a given
         amount.
 
-        Time complexity: O(n+m-n), n: size of set, m: size of other set
+        Time complexity: O(n+(m-m&n), n: size of set, m: size of other set
         Space complexity: O(l+m), l: size of new set, m: size of other set"""
 
         new_set = Set()
@@ -62,7 +62,8 @@ class Set(object):
     def intersection(self, other_set):
         """Iterate through the smaller set and look for items contained
         in both sets and add them to a new set.
-        Time complexity: O(n) or O(m), n: size of set, m: size of other set, whichever is smaller
+        Time complexity: O(n) or O(m), n: size of set, m: size of other set,
+            whichever is smaller.
         Space complexity: O(l), l: size of new set."""
 
         new_set = Set()
@@ -119,13 +120,7 @@ class Set(object):
         else:
             return False
 
-
-
-
 # Compare the behaviors of your Set class to those of the Python set type and Swift Set type
-
-# Stretch Challenges
-# Implement CircularBuffer class (backed by dynamic array) with the following instance methods and properties:
 
 class CircularBuffer(object):
 
@@ -133,8 +128,8 @@ class CircularBuffer(object):
         self.max_size = max_size
         self.size = 0
 
-        self.first = 0 #pointer of the first index in the queue
-        self.last = 0 #pointer of the last index in the queue
+        self.first = 0 #pointer to the first index in the queue
+        self.last = 0 #pointer to the last index in the queue
         self.container = [None]* max_size
 
     def is_empty(self):
@@ -176,7 +171,6 @@ class CircularBuffer(object):
         else:
             raise AttributeError("Queue is empty.")
 
-
     def pop(self):
         """Time complexity: O(1).
         Space complexity: O(1)"""
@@ -190,9 +184,3 @@ class CircularBuffer(object):
             return item
         else:
             raise AttributeError("Queue is empty.")
-
-
-# Annotate enqueue and dequeue methods with running time complexity analysis
-# Write unit tests to ensure the CircularBuffer class is robust
-# Include test cases for each class instance method and property
-# Annotate enqueue and dequeue methods with running time complexity analysis

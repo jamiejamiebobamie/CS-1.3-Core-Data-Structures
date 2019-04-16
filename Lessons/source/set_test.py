@@ -101,7 +101,6 @@ class CircularBufferTest(unittest.TestCase):
         assert cb.size == 0
         assert cb.container[0] == None
 
-
     def test_is_empty(self):
         cb = CircularBuffer(30)
         assert cb.is_empty() == True
@@ -119,12 +118,10 @@ class CircularBufferTest(unittest.TestCase):
         assert cb.size == 2
         assert cb.front() == 2
 
-
     def test_front(self):
         cb = CircularBuffer(1)
         cb.enqueue("hey")
         assert cb.front() == "hey"
-
 
     def test_dequeue(self):
         cb = CircularBuffer(2)
@@ -134,7 +131,6 @@ class CircularBufferTest(unittest.TestCase):
         assert cb.size == 1
         cb.dequeue()
         assert cb.is_empty() == True
-
 
     def test_pop(self):
         cb = CircularBuffer(4)
