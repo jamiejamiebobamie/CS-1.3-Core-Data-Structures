@@ -3,8 +3,8 @@
 
 """
 
-Similar solution to solution #1, but the functions find the lowest costs for all
-phone numbers in the file.
+Similar solution to solution #1 and #2, but the functions find the lowest costs for all
+phone numbers in the routeLists foldr by using the python package glob.
 
 """
 

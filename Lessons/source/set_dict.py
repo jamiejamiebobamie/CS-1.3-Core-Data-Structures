@@ -1,33 +1,34 @@
-from hashtable import HashTable
+#NOTE: sets must be implemented for this class with a linkedlist, an array, a hash table.
+#REFACTOR!!!
+
 
 
 class Set(object):
 
     def __init__(self, elements=None):
-        self.container = HashTable()
+        self.container = {}
         self.size = 0
-        if elements:
+        if elements!=None:
             for element in elements:
-                self.container.set(element,1)
-                self.size+=1
+                self.add(element)
 
     def contains(self, element):
         """Time complexity: O(1)
             Space complexity: O(2)"""
-        return self.container.contains(element)
+        return True if element in self.container else False
 
     def add(self, element):
         """Time complexity: O(1)
             Space complexity: O(2)"""
         if not self.contains(element):
-            self.container.set(element,1)
+            self.container[element] = 1
             self.size += 1
 
     def remove(self, element):
         """Time complexity: O(1)
             Space complexity: O(2)"""
         if self.contains(element):
-            self.container.delete(element)
+            del self.container[element]
             self.size -= 1
         else:
             raise KeyError("Element not in set.")
@@ -49,14 +50,14 @@ class Set(object):
 
         other_set_copy = other_set
 
-        for element in self.container.keys():
+        for element in self.container:
 
             if other_set_copy.contains(element):
-                other_set_copy.container.delete(element)
+                other_set_copy.remove(element)
 
             new_set.add(element)
 
-        for element in other_set_copy.container.keys():
+        for element in other_set_copy.container:
             new_set.add(element)
 
         return new_set
@@ -72,11 +73,11 @@ class Set(object):
         new_set = Set()
 
         if self.size > other_set.size:
-            for element in other_set.container.keys():
+            for element in other_set.container:
                 if self.contains(element):
                     new_set.add(element)
         else:
-            for element in self.container.keys():
+            for element in self.container:
                 if other_set.contains(element):
                     new_set.add(element)
 
@@ -95,13 +96,13 @@ class Set(object):
 
         other_set_copy = other_set
 
-        for element in self.container.keys():
+        for element in self.container:
             if not other_set_copy.contains(element):
                 new_set.add(element)
             else:
                 other_set_copy.remove(element)
 
-        for element in other_set_copy.container.keys():
+        for element in other_set_copy.container:
             if not self.contains(element):
                 new_set.add(element)
 
@@ -116,7 +117,7 @@ class Set(object):
         Space complexity: O(1)"""
 
         if self.size > other_set.size:
-            for element in other_set.container.keys():
+            for element in other_set.container:
                 if not self.contains(element):
                     return False
             return True

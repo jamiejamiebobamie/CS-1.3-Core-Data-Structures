@@ -154,7 +154,8 @@ class HashTable(object):
 
         self.buckets = [LinkedList() for i in range(new_size)]
         for key, value in temp_items:
-            print(key, value)
+            # print(key, value)
+            # self.set(key,value) #use the method.
             self.buckets[self._bucket_index(key)].append((key,value))
 
 
