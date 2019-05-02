@@ -1,5 +1,7 @@
 #!python
 
+#go to 15 nodes in test
+
 from binarytree import BinarySearchTree, BinaryTreeNode
 import unittest
 

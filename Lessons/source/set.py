@@ -12,20 +12,17 @@ class Set(object):
                 self.size+=1
 
     def contains(self, element):
-        """Time complexity: O(1)
-            Space complexity: O(2)"""
+        """Time complexity: amortized cost: O(1), otherwise: O(n)"""
         return self.container.contains(element)
 
     def add(self, element):
-        """Time complexity: O(1)
-            Space complexity: O(2)"""
+        """Time complexity: amortized cost: O(1), otherwise: O(n)"""
         if not self.contains(element):
             self.container.set(element,1)
             self.size += 1
 
     def remove(self, element):
-        """Time complexity: O(1)
-            Space complexity: O(2)"""
+        """Time complexity: amortized cost: O(1), otherwise: O(n)"""
         if self.contains(element):
             self.container.delete(element)
             self.size -= 1
@@ -69,16 +66,17 @@ class Set(object):
             whichever is smaller.
         Space complexity: O(l), l: size of new set."""
 
-        new_set = Set()
+        new_set = Set()# O(b)
 
         if self.size > other_set.size:
-            for element in other_set.container.keys():
-                if self.contains(element):
-                    new_set.add(element)
-        else:
-            for element in self.container.keys():
-                if other_set.contains(element):
-                    new_set.add(element)
+            # check to see which set is smaller and then iterate through that one.
+            for element in other_set.container.keys():# O(m)
+                if self.contains(element):# O(1)
+                    new_set.add(element)# O(1)
+        else:# drier code if condition, 1 for-loop
+            for element in self.container.keys(): # O(n)
+                if other_set.contains(element):# O(1)
+                    new_set.add(element)# O(1)
 
         return new_set
 
@@ -93,17 +91,18 @@ class Set(object):
 
         new_set = Set()
 
-        other_set_copy = other_set
+        other_set_copy = other_set.copy.deepcopy()
 
-        for element in self.container.keys():
-            if not other_set_copy.contains(element):
-                new_set.add(element)
-            else:
-                other_set_copy.remove(element)
+        for element in self.container.keys(): #O(n)
+            # iterate throuh the elements in .keys()
+            if not other_set_copy.contains(element):# O(1)
+                new_set.add(element)# O(1)
+            # else:
+            #     other_set_copy.remove(element)
 
-        for element in other_set_copy.container.keys():
-            if not self.contains(element):
-                new_set.add(element)
+        # for element in other_set_copy.container.keys():
+        #     if not self.contains(element):
+        #         new_set.add(element)
 
         return new_set
 
