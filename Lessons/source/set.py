@@ -35,10 +35,6 @@ class Set(object):
         over an element once. The space complexity is high as the other_set is duplicated
         in order to pop elements from it.
 
-        TO-DO: Perhaps write an if-statement that begins the function that causes the program
-        to follow a different set of instructions if the size of the other_set exceeds a given
-        amount.
-
         Time complexity: O(n+(m-m&n), n: size of set, m: size of other set
         Space complexity: O(l+m), l: size of new set, m: size of other set"""
 
@@ -84,25 +80,18 @@ class Set(object):
     def difference(self, other_set):
         """Iterate over the two sets and find the elements
         that are not shared and add them to a new set.
+        (Only include unique items from the class set, not the other_set, in the new_set.)
         Again trying to decrease overall time complexity by copying the set,
         but the trade off might not be worth it.
-        Time complexity: O(n+(m-m&n), n: size of set, m: size of other set
-        Space complexity: O(l+m), l: size of new set, m: size of other set"""
+        Time complexity: O(n), n: size of set, m: size of other set
+        Space complexity: O(n-n&m), n: size of set, m: size of other set"""
 
         new_set = Set()
 
-        other_set_copy = other_set.copy.deepcopy()
-
         for element in self.container.keys(): #O(n)
             # iterate throuh the elements in .keys()
-            if not other_set_copy.contains(element):# O(1)
+            if not other_set.contains(element):# O(1)
                 new_set.add(element)# O(1)
-            # else:
-            #     other_set_copy.remove(element)
-
-        # for element in other_set_copy.container.keys():
-        #     if not self.contains(element):
-        #         new_set.add(element)
 
         return new_set
 

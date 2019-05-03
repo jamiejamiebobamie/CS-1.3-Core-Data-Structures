@@ -57,11 +57,6 @@ class HashTable(object):
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         Running time: O(n)"""
-        # item_count = 0
-        # for bucket in self.buckets:
-        #     item_count += bucket.length()
-        # return item_count
-        # Equivalent to this list comprehension:
         return sum(bucket.length() for bucket in self.buckets)
 
     def contains(self, key):
@@ -72,8 +67,8 @@ class HashTable(object):
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
-        # Check if an entry with the given key exists in that bucket
 
+        # Check if an entry with the given key exists in that bucket
         #ASK IN CLASS!!
         entry = bucket.find(lambda key_value: key_value[0] == key)
         #ASK IN CLASS!!
@@ -140,8 +135,7 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: Best/Worst: O(n)
-        Best and worst case space usage: Best/Worst: O(n)"""
+        Best and worst case running time: O(n) ito iterate over all the elements."""
         # If unspecified, choose new size dynamically based on current size
         if new_size is None:
             new_size = len(self.buckets) * 2  # Double size
@@ -149,13 +143,10 @@ class HashTable(object):
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
 
-
         temp_items = self.items()
 
         self.buckets = [LinkedList() for i in range(new_size)]
         for key, value in temp_items:
-            # print(key, value)
-            # self.set(key,value) #use the method.
             self.buckets[self._bucket_index(key)].append((key,value))
 
 

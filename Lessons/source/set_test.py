@@ -70,11 +70,11 @@ class SetTest(unittest.TestCase):
 
         difference_set = new_set.difference(other_set)
 
-        assert difference_set.contains(4) == True
+        assert difference_set.contains(1) == True
         assert difference_set.contains('l') == True
         assert difference_set.contains('p') == False
         assert difference_set.contains("{") == False
-        assert difference_set.size == 3
+        assert difference_set.size == 2
 
     def test_is_subset(self):
         new_set = Set(['l',1,2,3,'p',4])
@@ -146,7 +146,6 @@ class CircularBufferTest(unittest.TestCase):
         cb.size == 1
 
     def test_circular(self):
-        # circular aspect is broken:
         cb = CircularBuffer(4)
         cb.enqueue("1")
         cb.enqueue("2")
