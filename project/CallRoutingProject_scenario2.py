@@ -21,7 +21,11 @@ def createRouteCostDictionary(filePath):
     dictionary = {}
     for line in lines:
         route, cost=line.split(",")
-        dictionary[route] = cost
+        if dictionary.get(route, None): # check to see if the entry exists in the dictionary
+            if dictionary[route] > cost:
+                dictionary[route] = cost
+        else:
+            dictionary[route] = cost
 
     return dictionary
 
@@ -56,8 +60,6 @@ def findLowestCost(routes, phoneNumbers):
             test += digit
             if test in routes:
                 minimum = min(minimum,float(routes[test]))
-            else:
-                continue
         if minimum != float('inf'):
             file += str(phoneNumber)+','+ str(minimum)+'\n'
         else:
