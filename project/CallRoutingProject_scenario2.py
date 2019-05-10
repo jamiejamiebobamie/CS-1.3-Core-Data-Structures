@@ -11,7 +11,7 @@ phone numbers in the file.
 
 """
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-10000000.txt'
 numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(filePath):
