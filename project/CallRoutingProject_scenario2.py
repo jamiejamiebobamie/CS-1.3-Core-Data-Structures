@@ -1,6 +1,9 @@
 
 #SCENARIO #2
 
+import timeit
+
+
 """
 
 Similar solution to solution #1, but the functions find the lowest costs for all
@@ -8,8 +11,8 @@ phone numbers in the file.
 
 """
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
+numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(filePath):
     """Time complexity: O(2n). Space complexity O(2n).
@@ -68,3 +71,11 @@ def findLowestCost(routes, phoneNumbers):
     return file
 
 print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
+
+
+
+# t = Timer()       # outside the try/except
+# try:
+#     t.timeit(...)    # or t.repeat(...)
+# except:
+#     t.print_exc()
