@@ -36,7 +36,8 @@ def readPhoneNumbersAndFindLowestCosts(filePath):
     Read the file and split the lines into an array. Return the array."""
     for phoneNumber in open('/usr/share/dict/words'):
         for digit in phoneNumber:
-            # pass each digit into the Trie and find the lowest cost
+            # pass each digit into the Trie.
+            # if the digit is no longer in the Trie find the cost associated with the TrieNode furthest away fro mthe route.
             pass
 
 
