@@ -338,14 +338,10 @@ class BinarySearchTree(object):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
         Best and worst case run time: O(n) at most you're traversing a node once."""
-        queue = collections.deque()
+
+        queue = collections.deque() # don't need a double-ended queue.
         queue.append(start_node)
 
-        # TODO: Create queue to store nodes not yet traversed in level-order
-        # queue = ...
-        # TODO: Enqueue given starting node
-        # ...
-        # TODO: Loop until queue is empty
         while len(queue):
             node = queue.popleft()
             if node:
