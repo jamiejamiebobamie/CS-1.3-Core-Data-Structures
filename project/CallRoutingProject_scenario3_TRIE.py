@@ -13,8 +13,8 @@ import os
 import glob
 
 
-routes = glob.glob('/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/*.txt')
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
+numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-10000.txt'
 
 
 
@@ -36,8 +36,8 @@ import sys
 class Trie:
     """A Trie specificially made to hold a dictionary of words."""
 
-    def __init__(self):
-        self.root = self.buildTrie(self.dict())
+    def __init__(self, fileOfRoutes):
+        self.root = self.buildTrieOfRoutes(fileOfRoutes)
 
     class TrieNode:
         def __init__(self, value=None, i=None):
@@ -90,18 +90,23 @@ class Trie:
         costs = []
 
         for phoneNumber in open(file):
+            # print(phoneNumber)
             current = previous = self.root
             for digit in phoneNumber:
                 if digit in current.dict:
                     previous = current
                     current = current.dict[digit]
                 else:
-                    costs.append((phoneNumber,previous.cost))
+                    costs.append((phoneNumber,current.cost))
 
         # __findWordsHelper(current, prefix)
         return costs
 
-if __name__ == "__main__":
-    prefix = str(sys.argv[1]).lower() #note: uppercase letters would otherwise affect output
-    new = Trie()
-    print(new.findWords(prefix))
+new = Trie(routes)
+print(new.findLowestCosts(numbers))
+
+
+# if __name__ == "__main__":
+#     prefix = str(sys.argv[1]).lower() #note: uppercase letters would otherwise affect output
+#     new = Trie()
+#     print(new.findWords(prefix))
