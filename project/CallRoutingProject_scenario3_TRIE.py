@@ -16,30 +16,6 @@ import glob
 routes = glob.glob('/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/*.txt')
 numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
 
-def buildTheTrieOfRoutes(files):
-    """Time complexity: O(n**2). Space complexity O(2n).
-    Read each file in the list of files and split the lines of each file
-    into an array. Read the array and return a dictionary of routes to costs."""
-    for file in files:
-        f = open(str(file))
-        lines = f.read().split()
-        f.close()
-        for line in lines:
-            route, cost=line.split(",")
-            for digit in route:
-                # if it is the last digit, add the TrieNode for the digit and the cost for the route.
-                # if it is not the last digit in the route add just the TrieNode for the digit.
-                pass
-
-def readPhoneNumbersAndFindLowestCosts(filePath):
-    """Time complexity: O(n). Space complexity O(n).
-    Read the file and split the lines into an array. Return the array."""
-    for phoneNumber in open('/usr/share/dict/words'):
-        for digit in phoneNumber:
-            # pass each digit into the Trie.
-            # if the digit is no longer in the Trie find the cost associated with the TrieNode furthest away fro mthe route.
-            pass
-
 
 
 '''An autocomplete function. Call the function in the terminal and
@@ -67,42 +43,36 @@ class Trie:
         def __init__(self, value=None, i=None):
             self.value = value
             self.dict = {}
-            self.end = False
+            self.cost = None
 
-#How many words contain this prefix:
+#How many routes contain this prefix:
             self.count = 0
 
-#How many letters into the word, 0 = first letter:
+#How many digits into the route, 0 = first letter:
             self.depth = i
 
-    def buildTrie(self, array):
-        """Takes in an array of strings and builds a Trie of the strings' characters."""
-
-        root = self.TrieNode()
-        current = root
-        for word in array:
-            for i, char in enumerate(word):
-                c = char.lower()
-                if c not in current.dict:
-                    current.dict[c] = self.TrieNode(c,i)
+    def buildTrieOfRoutes(self, file):
+        """Takes in a file with lines of 'route,costs' and builds a Trie of the routes' digits."""
+        root = current = self.TrieNode()
+        for line in open(file):
+            route, cost=line.split(",")
+            for i, digit in enumerate(route):
+                if digit not in current.dict:
+                    current.dict[digit] = self.TrieNode(digit,i)
                 current.count += 1
-                current = current.dict[c]
-            current.end = True
+                current = current.dict[digit]
+            if current.cost: #rewrite... there is a definitely more succinct way of writing this logic.
+                if current.cost > cost:
+                    current.cost = cost
+            else:
+                current.cost = cost
             current = root
         return root
 
-    def dict(self):
-        """Opens the dictionary-words file at the path. Assigns the file to 'f'.
-        Reads 'f' and splits each word into a 'words' array element.
-        Closes 'f'. Returns the array of dictionary words."""
+    def findLowestCosts(self, file):
+        """Finds the lowest costs for each phone number in the input file where
+        each line is a phone number. Returns an array of
 
-        f = open("/usr/share/dict/words", "r")
-        words = f.read().split()
-        f.close()
-        return words
-
-    def findWords(self, prefix):
-        """Finds words that can be made with the prefix.
         Uses a recursive helper function to traverse the Trie."""
 
         def __findWordsHelper(node, w):
@@ -117,19 +87,19 @@ class Trie:
                     words.append(word)
                 __findWordsHelper(node.dict[key], word)
 
-        words = []
-        current = self.root
+        costs = []
 
-#Move up to the correct point in the dictionary:
-        for char in prefix:
-            if char in current.dict:
-                current = current.dict[char]
-            else:
-                return []
+        for phoneNumber in open(file):
+            current = previous = self.root
+            for digit in phoneNumber:
+                if digit in current.dict:
+                    previous = current
+                    current = current.dict[digit]
+                else:
+                    costs.append((phoneNumber,previous.cost))
 
-#Recursive function. Iterate through all nodes:
-        __findWordsHelper(current, prefix)
-        return words
+        # __findWordsHelper(current, prefix)
+        return costs
 
 if __name__ == "__main__":
     prefix = str(sys.argv[1]).lower() #note: uppercase letters would otherwise affect output
