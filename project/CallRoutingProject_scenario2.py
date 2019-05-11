@@ -2,7 +2,17 @@
 #SCENARIO #2
 
 """
+There is no order to the routes in the route file, so the entirety of the file
+has to be read. Because each route has a cost associated with it, it makes sense
+to create a dictionary of routes to costs, key-value pairs.
 
+Iterate over the route-costs in the routeFile and create a a dictionary of routes to costs, key-value pairs.
+Iterate over the phoneNumbers file and split each line into an array.
+
+Feed that array of phoneNumbers into a function that concatenates a test string composed of digits of a phoneNumber
+and test if that test-strign is a key in the dictionary. If it is, return the cost associated with that number.
+
+Return an array of tuples that consist of phoneNumbers and their associated costs.
 
 
 """

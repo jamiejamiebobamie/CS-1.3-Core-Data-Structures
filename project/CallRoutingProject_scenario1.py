@@ -32,7 +32,7 @@ def iterateThroughRoutesFile(routesFile, phoneNumber):
         while route[i] == phoneNumber[i] and i < len(route) - 1:
             i += 1
         else:
-            if i == len(route) - 1:# O(1)
+            if i == len(route) - 1:
                 cost = float(cost.strip("\n")) #O(n)
                 if lowestRouteCost > cost:
                     lowestRouteCost = cost
