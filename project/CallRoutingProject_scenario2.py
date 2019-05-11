@@ -1,8 +1,4 @@
-
-
-
 """
-
 SCENARIO #2
 
 There is no order to the routes in the route file, so the entirety of the file
@@ -22,8 +18,11 @@ as the first and second arguments, respectively.
 
 """
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-10000000.txt'
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
+import sys
+
+# TESTING PURPOSES:
+# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-10000000.txt'
+# numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(routesFile):
     """Time complexity: O(2n*m), Space complexity O(2n+m).

@@ -1,7 +1,5 @@
-
-#SCENARIO #3
-
 """
+SCENARIO #3
 
 Similar solution to solution #1 and #2, but the functions find the lowest costs for all
 phone numbers in the routeLists foldr by using the python package glob.
@@ -11,7 +9,6 @@ phone numbers in the routeLists foldr by using the python package glob.
 import sys
 import os
 import glob
-
 
 routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
 numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-10000.txt'

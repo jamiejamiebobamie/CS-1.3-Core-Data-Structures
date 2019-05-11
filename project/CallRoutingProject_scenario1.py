@@ -1,4 +1,3 @@
-
 """
 SCENARIO #1
 
@@ -18,18 +17,19 @@ This function assumes their is a fixed route file list that is hardcoded into th
 
 import sys
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
+# TESTING PURPOSES:
+# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
+# numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
 
 def iterateThroughRoutesFile(routesFile, phoneNumber):
     """Time complexity: O(n**2), n being the number of routes and the length of their digits.
         Space complexity: O(1), the lowestRouteCost variable."""
     lowestRouteCost = float('inf')
 
-    for line in open(routesFile):
+    for line in open(routesFile):# O(n)
         i = 0 # index
         route, cost=line.split(",")# O(n)
-        while route[i] == phoneNumber[i] and i < len(route) - 1:
+        while route[i] == phoneNumber[i] and i < len(route) - 1:# O(n)
             i += 1
         else:
             if i == len(route) - 1:
@@ -37,7 +37,6 @@ def iterateThroughRoutesFile(routesFile, phoneNumber):
                 if lowestRouteCost > cost:
                     lowestRouteCost = cost
     return lowestRouteCost if lowestRouteCost != float('inf') else "Your route does not exist."
-
 
 if __name__ == "__main__":
     phoneNumber = str(sys.argv[1])
