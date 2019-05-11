@@ -1,7 +1,10 @@
 
-#SCENARIO #2
+
 
 """
+
+SCENARIO #2
+
 There is no order to the routes in the route file, so the entirety of the file
 has to be read. Because each route has a cost associated with it, it makes sense
 to create a dictionary of routes to costs, key-value pairs.
@@ -14,6 +17,8 @@ and test if that test-strign is a key in the dictionary. If it is, return the co
 
 Return an array of tuples that consist of phoneNumbers and their associated costs.
 
+This program allows you to call both the phoneNumbersFile and the routeListFile from the terminal,
+as the first and second arguments, respectively.
 
 """
 
@@ -77,4 +82,8 @@ def findLowestCost(routes, phoneNumbers):
                     results.append((phoneNumber, "Your route does not exist."))
     return results
 
-print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
+if __name__ == "__main__":
+    numbersFile = str(sys.argv[1])
+    routesFile = str(sys.argv[2])
+    # print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
+    print(findLowestCost(createRouteCostDictionary(routesFile), readPhoneNumbers(numbersFile)))
