@@ -1,10 +1,36 @@
-
-#SCENARIO #3
-
 """
+SCENARIO #3
 
-Similar solution to solution #1 and #2, but the functions find the lowest costs for all
-phone numbers in the routeLists foldr by using the python package glob.
+This program builds a Trie from the routes in the routeList files at
+./project/data/routeLists.
+
+For each digit of a route, a node is added to the the tree.
+
+The ancestors of a give node are the digits that come before it in the route.
+
+For example, the route "+1234" appears in the tree as:
+
+                root
+                 +
+                1
+            2
+        3
+    4
+
+If the route "+1233" was then added, the tree would add a single new node of "3" after the "3".
+The new tree would look like this:
+
+                root
+                 +
+                1
+            2
+        3
+      4   3
+
+
+While it takes a very long time to build the Trie, the lookup time is O(1).
+
+This solution assumes you have already built the Trie and it exists somewhere in memory.
 
 """
 
@@ -12,63 +38,76 @@ import sys
 import os
 import glob
 
-
 routes = glob.glob('/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/*.txt')
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
+numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-10000.txt'
 
-def createRouteCostDictionary(files):
-    """Time complexity: O(n**2). Space complexity O(2n).
-    Read each file in the list of files and split the lines of each file
-    into an array. Read the array and return a dictionary of routes to costs."""
-    dictionary = {}
-    for file in files:
-        f = open(str(file))
-        lines = f.read().split()
-        f.close()
-        for line in lines:
+class Trie:
+    """A Trie to hold the digits of a route and its associated cost."""
+
+    def __init__(self, routeFiles):
+        self.root = self.TrieNode()
+        for routeFile in routeFiles:
+            self.buildTrieOfRoutes(routeFile)
+
+    class TrieNode:
+        def __init__(self, value=None):
+            self.value = value
+            self.dictionary = {}
+            self.cost = None
+            self.previous = None
+
+    def buildTrieOfRoutes(self, file):
+        """Takes in a file with lines of 'route,costs' and builds a Trie of the routes' digits."""
+
+        for line in open(file):
+            current = previous = self.root
             route, cost=line.split(",")
-            dictionary[route] = cost
-
-    return dictionary
-
-def readPhoneNumbers(filePath):
-    """Time complexity: O(n). Space complexity O(n).
-    Read the file and split the lines into an array. Return the array."""
-    f = open(str(filePath))
-    numbersArray = f.read().split()
-    f.close()
-
-    return numbersArray
-
-def findLowestCost(routes, phoneNumbers):
-    """Time complexity: O(n**3). Space complexity O(2n).
-
-    Iterate through each phone number in the array of phone numbers,
-    for each number grow a 'test' string by adding each digit.
-    Test if that 'test' string is a key in the dictionary.
-    If it is, check to see if it is the lowest cost for that number.
-    If the 'test' string is not in the dictionary then, move onto
-    the next phone number after adding that phone number and it's lowest cost to
-    the output file.
-
-    A string concatenation inside a nested for loop makes this function have
-    an 'n-cubed' time complexity."""
-
-    file = ""
-    for phoneNumber in phoneNumbers:
-        test = ""
-        minimum = float('inf')
-        for digit in phoneNumber:
-            test += digit
-            if test in routes:
-                minimum = min(minimum,float(routes[test]))
+            cost = float(cost.strip("\n"))
+            for digit in route:
+                if digit not in current.dictionary:
+                    current.dictionary[digit] = self.TrieNode(digit)
+                previous = current
+                current = current.dictionary[digit]
+                current.previous = previous
+            if current.cost:
+                if current.cost > cost:
+                    current.cost = cost
             else:
-                continue
-        if minimum != float('inf'):
-            file += str(phoneNumber)+','+ str(minimum)+'\n'
-        else:
-            file += str(phoneNumber)+','+ str(0)+'\n'
+                current.cost = cost
 
-    return file
+    def findLowestCosts(self, file):
+        """Finds the lowest costs for each phone number in the input file.
+        Uses a recursive helper function to traverse the Trie."""
 
-print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
+        costs = []
+
+        for phoneNumber in open(file):
+            current = self.root
+            for digit in phoneNumber:
+                if digit in current.dictionary:
+                    current = current.dictionary[digit]
+                else:
+                    # we have to go back toward the root until we find an
+                    # ancestor of the current node that has a cost
+                    # associated with it.
+                    while current and not current.cost:
+                        current = current.previous
+                    else:
+                        phoneNumber = phoneNumber.strip("\n")
+                        if current and current.cost:
+                            costs.append((phoneNumber,current.cost))
+                        else:
+                            costs.append((phoneNumber, 0))
+                    break
+
+        return costs
+
+new = Trie(routes)
+print("Done building Trie.")
+print(new.findLowestCosts(numbers))
+
+
+if __name__ == "__main__":
+    new = Trie(routes)
+    print("Done building Trie.")
+    print(new.findLowestCosts(numbers))

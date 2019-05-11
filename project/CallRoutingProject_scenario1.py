@@ -34,7 +34,7 @@ def iterateThroughRoutesFile(routesFile, phoneNumber):
                 cost = float(cost.strip("\n")) #O(n)
                 if lowestRouteCost > cost:
                     lowestRouteCost = cost
-    return lowestRouteCost if lowestRouteCost != float('inf') else "Your route does not exist."
+    return lowestRouteCost if lowestRouteCost != float('inf') else 0
 
 if __name__ == "__main__":
     phoneNumber = str(sys.argv[1])

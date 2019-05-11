@@ -9,7 +9,7 @@ Iterate over the route-costs in the routeFile and create a a dictionary of route
 Iterate over the phoneNumbers file and split each line into an array.
 
 Feed that array of phoneNumbers into a function that concatenates a test string composed of digits of a phoneNumber
-and test if that test-strign is a key in the dictionary. If it is, return the cost associated with that number.
+and tests if that test-string is a key in the dictionary. If it is, return the cost associated with that number.
 
 Return an array of tuples that consist of phoneNumbers and their associated costs.
 
@@ -21,7 +21,7 @@ as the first and second arguments, respectively.
 import sys
 
 # TESTING PURPOSES:
-# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-10000000.txt'
+# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-10000000.txt'
 # numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(routesFile):
@@ -35,6 +35,7 @@ def createRouteCostDictionary(routesFile):
     dictionary = {}
     for line in open(routesFile):
         route, cost=line.split(",")
+        cost = float(cost.strip("\n")) #O(n)
         if route in dictionary:
             if dictionary[route] > cost:
                 dictionary[route] = cost
@@ -68,17 +69,17 @@ def findLowestCost(routes, phoneNumbers):
     test = ""
     minimum = float('inf')
     results = []
-    print(len(phoneNumbers))
+
     for phoneNumber in phoneNumbers: # O(n)
         for digit in phoneNumber:
             test += digit # O(n) <-- nested
             if test in routes:
-                minimum = min(minimum,float(routes[test]))
+                minimum = min(minimum,routes[test])
             else:
                 if minimum != float('inf'):
                     results.append((phoneNumber, str(minimum)))
                 else:
-                    results.append((phoneNumber, "Your route does not exist."))
+                    results.append((phoneNumber, 0))
     return results
 
 if __name__ == "__main__":
