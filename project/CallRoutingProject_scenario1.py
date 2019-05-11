@@ -17,9 +17,7 @@ This function assumes their is a fixed route file list that is hardcoded into th
 
 import sys
 
-# TESTING PURPOSES:
-# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-4.txt'
-# numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-3.txt'
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
 
 def iterateThroughRoutesFile(routesFile, phoneNumber):
     """Time complexity: O(n**2), n being the number of routes and the length of their digits.
