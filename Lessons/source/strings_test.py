@@ -37,6 +37,13 @@ class StringsTest(unittest.TestCase):
         assert contains('abZ', 'az') is False  # first letter, but not last
         assert contains('bbc', 'abz') is False  # first 2 letters, but not last
 
+        assert contains('fer', 'ref') is False  # reversed order
+        assert contains('f e r', 'fer') is False  # spaces between characters
+        assert contains('Z', 'z') is False  # upper vs lowercase
+        assert contains('bbq', 'bqb') is False  # jumbled word order
+
+
+
 
     def test_contains_with_complex_patterns(self):
         # Difficult test cases (examples) with complex patterns
