@@ -6,7 +6,7 @@ This program builds a Trie from the routes in the routeList files at
 
 For each digit of a route, a node is added to the the tree.
 
-The ancestors of a give node are the digits that come before it in the route.
+The ancestors of a node are the digits that come before it in the route.
 
 For example, the route "+1234" appears in the tree as:
 
@@ -28,7 +28,7 @@ The new tree would look like this:
       4   3
 
 
-While it takes a very long time to build the Trie, the lookup time is O(1).
+While it takes a very long time to build the Trie, the lookup time is the length of the phone number.
 
 This solution assumes you have already built the Trie and it exists somewhere in memory.
 
@@ -54,60 +54,47 @@ class Trie:
             self.value = value
             self.dictionary = {}
             self.cost = None
-            self.previous = None
 
     def buildTrieOfRoutes(self, file):
         """Takes in a file with lines of 'route,costs' and builds a Trie of the routes' digits."""
 
         for line in open(file):
-            current = previous = self.root
+            current = self.root
             route, cost=line.split(",")
             cost = float(cost.strip("\n"))
             for digit in route:
                 if digit not in current.dictionary:
                     current.dictionary[digit] = self.TrieNode(digit)
-                previous = current
                 current = current.dictionary[digit]
-                current.previous = previous
             if current.cost:
                 if current.cost > cost:
                     current.cost = cost
             else:
                 current.cost = cost
 
-    def findLowestCosts(self, file):
-        """Finds the lowest costs for each phone number in the input file.
-        Uses a recursive helper function to traverse the Trie."""
-
-        costs = []
+    def findLowestCostsAndPrintThemToFile(self, file):
+        """Finds the lowest costs for each phone number in the input file."""
 
         for phoneNumber in open(file):
             current = self.root
+            minimum = float('inf')
             for digit in phoneNumber:
                 if digit in current.dictionary:
+                    if current.cost:
+                        minimum = min(minimum, current.cost)
                     current = current.dictionary[digit]
                 else:
-                    # we have to go back toward the root until we find an
-                    # ancestor of the current node that has a cost
-                    # associated with it.
-                    while current and not current.cost:
-                        current = current.previous
+                    phoneNumber = phoneNumber.strip("\n")
+                    if minimum != float('inf'):
+                        with open("output_logs/route-costs-3.txt", "a+") as f:
+                                f.write(phoneNumber + ", " + str(minimum) + '\n')
                     else:
-                        phoneNumber = phoneNumber.strip("\n")
-                        if current and current.cost:
-                            costs.append((phoneNumber,current.cost))
-                        else:
-                            costs.append((phoneNumber, 0))
-                    break
-
-        return costs
-
-new = Trie(routes)
-print("Done building Trie.")
-print(new.findLowestCosts(numbers))
-
+                        with open("output_logs/route-costs-3.txt", "a+") as f:
+                                f.write(phoneNumber + ", 0 \n")
+                    break # break out of the 'for digit in phoneNumber' loop
+                          # and start on the next phoneNumber.
 
 if __name__ == "__main__":
     new = Trie(routes)
     print("Done building Trie.")
-    print(new.findLowestCosts(numbers))
+    new.findLowestCostsAndPrintThemToFile(numbers)

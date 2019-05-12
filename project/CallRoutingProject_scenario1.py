@@ -11,13 +11,14 @@ lowest price and change the lowest to that route's cost if it is.
 Finally returning the lowestRouteCost when all routes in the route file have been read.
 
 Call the function in the terminal with the desired phone number to lookup.
-This function assumes their is a fixed route file list that is hardcoded into the function.
+This function assumes their is a fixed route file list of 100,000 routes
+that is hardcoded into the function.
 
 """
-
+import os
 import sys
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/route-costs-1000000.txt'
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-1000000.txt'
 
 def iterateThroughRoutesFile(routesFile, phoneNumber):
     """Time complexity: O(n**2), n being the number of routes and the length of their digits.
@@ -34,8 +35,9 @@ def iterateThroughRoutesFile(routesFile, phoneNumber):
                 cost = float(cost.strip("\n")) #O(n)
                 if lowestRouteCost > cost:
                     lowestRouteCost = cost
-    return lowestRouteCost if lowestRouteCost != float('inf') else 0
+    return phoneNumber + ", " + str(lowestRouteCost) if lowestRouteCost != float('inf') else phoneNumber + ", " +"0"
 
 if __name__ == "__main__":
     phoneNumber = str(sys.argv[1])
-    print(iterateThroughRoutesFile(routes, phoneNumber))
+    with open("output_logs/route-costs-1.txt", "w+") as f:
+            f.write(str(iterateThroughRoutesFile(routes, phoneNumber)))

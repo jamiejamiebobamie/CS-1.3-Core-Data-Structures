@@ -13,16 +13,13 @@ and tests if that test-string is a key in the dictionary. If it is, return the c
 
 Return an array of tuples that consist of phoneNumbers and their associated costs.
 
-This program allows you to call both the phoneNumbersFile and the routeListFile from the terminal,
-as the first and second arguments, respectively.
-
 """
 
 import sys
 
-# TESTING PURPOSES:
-# routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-10000000.txt'
-# numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
+
+routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-10000000.txt'
+numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(routesFile):
     """Time complexity: O(2n*m), Space complexity O(2n+m).
@@ -53,7 +50,7 @@ def readPhoneNumbers(filePath):
     f.close()
     return numbersArray
 
-def findLowestCost(routes, phoneNumbers):
+def findLowestCostsAndPrintThemToFile(routes, phoneNumbers):
     """Time complexity: O(n**2). Space complexity O(2n).
 
     Iterate through the digits of the phone number, growing a 'test' string
@@ -77,13 +74,11 @@ def findLowestCost(routes, phoneNumbers):
                 minimum = min(minimum,routes[test])
             else:
                 if minimum != float('inf'):
-                    results.append((phoneNumber, str(minimum)))
+                    with open("output_logs/route-costs-2.txt", "a+") as f:
+                            f.write(phoneNumber + ", " + str(minimum) + '\n')
                 else:
-                    results.append((phoneNumber, 0))
-    return results
+                    with open("output_logs/route-costs-2.txt", "a+") as f:
+                            f.write(phoneNumber + ", 0 \n")
 
 if __name__ == "__main__":
-    numbersFile = str(sys.argv[1])
-    routesFile = str(sys.argv[2])
-    # print(findLowestCost(createRouteCostDictionary(routes), readPhoneNumbers(numbers)))
-    print(findLowestCost(createRouteCostDictionary(routesFile), readPhoneNumbers(numbersFile)))
+    findLowestCostsAndPrintThemToFile(createRouteCostDictionary(routes), readPhoneNumbers(numbers))
