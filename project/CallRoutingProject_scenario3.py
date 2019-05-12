@@ -84,15 +84,15 @@ class Trie:
                         minimum = min(minimum, current.cost)
                     current = current.dictionary[digit]
                 else:
-                    phoneNumber = phoneNumber.strip("\n")
-                    if minimum != float('inf'):
-                        with open("output_logs/route-costs-3.txt", "a+") as f:
-                                f.write(phoneNumber + ", " + str(minimum) + '\n')
-                    else:
-                        with open("output_logs/route-costs-3.txt", "a+") as f:
-                                f.write(phoneNumber + ", 0 \n")
                     break # break out of the 'for digit in phoneNumber' loop
-                          # and start on the next phoneNumber.
+            phoneNumber = phoneNumber.strip("\n")
+            if minimum != float('inf'):
+                with open("output_logs/route-costs-3.txt", "a+") as f:
+                        f.write(phoneNumber + ", " + str(minimum) + '\n')
+            else:
+                with open("output_logs/route-costs-3.txt", "a+") as f:
+                        f.write(phoneNumber + ", 0 \n")
+
 
 if __name__ == "__main__":
     new = Trie(routes)
