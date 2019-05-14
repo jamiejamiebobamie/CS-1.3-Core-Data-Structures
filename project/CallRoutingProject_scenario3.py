@@ -79,12 +79,12 @@ class Trie:
             current = self.root
             minimum = float('inf')
             for digit in phoneNumber:
-                if digit in current.dictionary:
-                    if current.cost:
-                        minimum = min(minimum, current.cost)
-                    current = current.dictionary[digit]
+                if current.cost: # immediately check to see if the current node has a cost associated with it.
+                    minimum = min(minimum, current.cost) # if there is, check to see if it's lower than the running minimum
+                if digit in current.dictionary: # check to see if the current digit is in the current node's dictionary
+                    current = current.dictionary[digit] # if it is, move down the tree
                 else:
-                    break # break out of the 'for digit in phoneNumber' loop
+                    break # if not, break out of the 'for digit in phoneNumber' loop
             phoneNumber = phoneNumber.strip("\n")
             if minimum != float('inf'):
                 with open("output_logs/route-costs-3.txt", "a+") as f:
