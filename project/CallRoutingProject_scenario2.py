@@ -63,11 +63,9 @@ def findLowestCostsAndPrintThemToFile(routes, phoneNumbers):
     As there is only one string to iterate through while concatenating a 'test'
     string-key, this function has an O(n**2) time complexity."""
 
-    test = ""
-    minimum = float('inf')
-    results = []
-
     for phoneNumber in phoneNumbers: # O(n)
+        minimum = float('inf')
+        test = ""
         for digit in phoneNumber:
             test += digit # O(n) <-- nested
             if test in routes:
