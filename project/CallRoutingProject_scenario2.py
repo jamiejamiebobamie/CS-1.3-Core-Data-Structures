@@ -18,8 +18,8 @@ Return an array of tuples that consist of phoneNumbers and their associated cost
 import sys
 
 
-routes = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-10000000.txt'
-numbers = '/Users/jamesmccrory/documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
+routes = '/Users/jamesmccrory/Documents/dev/CS-1.3-Core-Data-Structures/project/data/routeLists/route-costs-1000000.txt'
+numbers = '/Users/jamesmccrory/Documents/dev/CS-1.3-Core-Data-Structures/project/data/phone-numbers-1000.txt'
 
 def createRouteCostDictionary(routesFile):
     """Time complexity: O(2n*m), Space complexity O(2n+m).
