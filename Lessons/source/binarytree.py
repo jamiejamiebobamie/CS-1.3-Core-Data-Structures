@@ -92,8 +92,7 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # TODO: Return the node's data if found, or None
-        if node:
-            return node.data
+        return node.data if node else None
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
@@ -123,17 +122,17 @@ class BinarySearchTree(object):
         node = self.root
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
+            # Check if the given item matches the node's data
             if node.data == item:
                 # Return the found node
                 return node
-            # TODO: Check if the given item is less than the node's data
+            # Check if the given item is less than the node's data
             elif item < node.data:
                 # TODO: Descend to the node's left child
                 node = node.left
-            # TODO: Check if the given item is greater than the node's data
+            # Check if the given item is greater than the node's data
             elif item > node.data:
-                # TODO: Descend to the node's right child
+                # Descend to the node's right child
                 node = node.right
         # Not found
         return None
@@ -165,18 +164,18 @@ class BinarySearchTree(object):
         parent = None
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
+            # Check if the given item matches the node's data
             if node.data == item:
                 # Return the parent of the found node
                 return parent
-            # TODO: Check if the given item is less than the node's data
+            # Check if the given item is less than the node's data
             elif item < node.data:
-                # TODO: Update the parent and descend to the node's left child
+                # Update the parent and descend to the node's left child
                 parent = node
                 node = node.left
-            # TODO: Check if the given item is greater than the node's data
+            # Check if the given item is greater than the node's data
             elif item > node.data:
-                # TODO: Update the parent and descend to the node's right child
+                # Update the parent and descend to the node's right child
                 parent = node
                 node = node.right
         return parent
