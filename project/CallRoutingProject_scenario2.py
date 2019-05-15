@@ -70,13 +70,12 @@ def findLowestCostsAndPrintThemToFile(routes, phoneNumbers):
             test += digit # O(n) <-- nested
             if test in routes:
                 minimum = min(minimum,routes[test])
-            else:
-                if minimum != float('inf'):
-                    with open("output_logs/route-costs-2.txt", "a+") as f:
-                            f.write(phoneNumber + ", " + str(minimum) + '\n')
-                else:
-                    with open("output_logs/route-costs-2.txt", "a+") as f:
-                            f.write(phoneNumber + ", 0 \n")
+        if minimum != float('inf'):
+            with open("output_logs/route-costs-2.txt", "a+") as f:
+                    f.write(phoneNumber + ", " + str(minimum) + '\n')
+        else:
+            with open("output_logs/route-costs-2.txt", "a+") as f:
+                    f.write(phoneNumber + ", 0 \n")
 
 if __name__ == "__main__":
     findLowestCostsAndPrintThemToFile(createRouteCostDictionary(routes), readPhoneNumbers(numbers))

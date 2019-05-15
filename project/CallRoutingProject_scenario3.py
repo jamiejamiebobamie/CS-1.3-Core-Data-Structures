@@ -60,7 +60,7 @@ class Trie:
 
         for line in open(file):
             current = self.root
-            route, cost=line.split(",")
+            route, cost = line.split(",")
             cost = float(cost.strip("\n"))
             for digit in route:
                 if digit not in current.dictionary:
