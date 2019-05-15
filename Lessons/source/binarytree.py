@@ -194,18 +194,18 @@ class BinarySearchTree(object):
 # Not found (base case) #SUPPOSE TO RETURN NONE...
             return parent
 
-        # TODO: Check if the given item matches the node's data
+        # Check if the given item matches the node's data
         if item == node.data:
             # print("the true true")
             # Return the parent of the found node
             return parent
-        # TODO: Check if the given item is less than the node's data
+        # Check if the given item is less than the node's data
         elif item < node.data:
-            # TODO: Recursively descend to the node's left child, if it exists
+            # Recursively descend to the node's left child, if it exists
             return self._find_parent_node_recursive(item, node.left, node) # Hint: Remember to update the parent parameter
-        # TODO: Check if the given item is greater than the node's data
+        # Check if the given item is greater than the node's data
         elif item > node.data:
-            # TODO: Recursively descend to the node's right child, if it exists
+            # Recursively descend to the node's right child, if it exists
             return self._find_parent_node_recursive(item, node.right, node)  # Hint: Remember to update the parent parameter
 
     def delete(self, item):
@@ -297,7 +297,7 @@ class BinarySearchTree(object):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
         Best and worst case run time: O(n) at most you're traversing a node once."""
-        # TODO: Traverse pre-order without using recursion (stretch challenge)
+        # Traverse pre-order without using recursion (stretch challenge)
 
     def items_post_order(self):
         """Return a post-order list of all items in this binary search tree."""
